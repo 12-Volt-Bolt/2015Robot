@@ -2,13 +2,15 @@
 package org.usfirst.frc.team1557.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team1557.robot.commands.DriveCommand;
-import org.usfirst.frc.team1557.robot.subsystems.Mecanum;
+import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
+import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,18 +23,22 @@ public class Robot extends IterativeRobot {
 
 	
 	public static OI oi;
-	RobotDrive drive;
-    Command autonomousCommand;
+	
+    Command tankDriveCommand;
+    public static DriveSubsystem driveSystem;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+    
     public void robotInit() {
 		oi = new OI();
 		
         // instantiate the command used for the autonomous period
-        autonomousCommand = new DriveCommand();
+		
+        tankDriveCommand = new TankDriveCommand();
+        driveSystem = new DriveSubsystem();
     }
 	
 	public void disabledPeriodic() {
@@ -41,9 +47,16 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        //if (autonomousCommand != null) autonomousCommand.start();
     }
-
+	/*
+	| | | |	  | | | 	| | | |		| | | |    | | | |
+	|     |		|		|     |		|    	   |
+	| | | |		|		| | | |		| | |	   | | | |
+	|			|		|      		|		   		 |
+	|			|		|	   		|		   	     |
+	|		  | | |		|		    | | | |	   | | | | 
+	*/
     /**
      * This function is called periodically during autonomous
      */
@@ -58,7 +71,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
     	
-        if (autonomousCommand != null) autonomousCommand.cancel();
+    	tankDriveCommand.start();
+        //if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     /**

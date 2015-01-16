@@ -1,32 +1,27 @@
-
 package org.usfirst.frc.team1557.robot.commands;
 
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.command.Command;
-
-import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
-import org.usfirst.frc.team1557.robot.subsystems.Mecanum;
+import org.usfirst.frc.team1557.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveCommand extends Command {
-	
-    public DriveCommand() {
+public class MecanumDriveCommand extends Command {
+
+    public MecanumDriveCommand() {
         // Use requires() here to declare subsystem dependencies
-        //requires();
+        requires(Robot.driveSystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	
+    	Robot.driveSystem.MecanumDrive(RobotMap.xAxis, RobotMap.yAxis);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,10 +1,8 @@
 package org.usfirst.frc.team1557.robot;
 
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-
-import org.usfirst.frc.team1557.robot.commands.DriveCommand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -13,16 +11,17 @@ import org.usfirst.frc.team1557.robot.commands.DriveCommand;
 public class OI {
 	
 	public static Joystick mainJoy = new Joystick(1);
-	Joystick altJoy;
+	//Joystick altJoy;
+	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
 	
-	CANTalon frontLeft = new CANTalon(1);
-	CANTalon backLeft = new CANTalon(2);
-	CANTalon frontRight = new CANTalon(3);
-	CANTalon backRight = new CANTalon(4);
-	
+	//Joystick = Drive
+	//Triggers = Elevator
+	//Bumpers = Arms
 
 	
-	
+	public OI(){
+		
+	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
