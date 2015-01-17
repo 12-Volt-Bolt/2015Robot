@@ -3,18 +3,18 @@ package org.usfirst.frc.team1557.robot.commands;
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap;
-import static org.usfirst.frc.team1557.robot.RobotMap.*;
+import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class MecanumDriveCommand extends Command {
+public class LifterCommand extends Command {
 
-    public MecanumDriveCommand() {
+    public LifterCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.driveSystem);
+        requires(Robot.lifterSystem);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +23,7 @@ public class MecanumDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveSystem.MecanumDrive(OI.mainJoy.getMagnitude(), OI.mainJoy.getDirectionDegrees(), OI.mainJoy.getRawAxis(rightXAxis));
+    	Robot.lifterSystem.lift(-OI.mainJoy.getRawAxis(RobotMap.leftTrigger) + OI.mainJoy.getRawAxis(RobotMap.rightTrigger));
     }
 
     // Make this return true when this Command no longer needs to run execute()

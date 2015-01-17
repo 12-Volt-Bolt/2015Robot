@@ -10,17 +10,19 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
-	public static Joystick mainJoy = new Joystick(1);
+	public static Joystick mainJoy = new Joystick(0);
 	//Joystick altJoy;
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
+	//^ Will be used to switch Drives
 	
+	 
 	//Joystick = Drive
 	//Triggers = Elevator
 	//Bumpers = Arms
 
 	
 	public OI(){
-		
+		//yButton.whenActive(command);
 	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
