@@ -21,8 +21,8 @@ public class DriveSubsystem extends Subsystem {
 		rearLeft = new CANTalon(rearLeftTalonID);
 		frontRight = new CANTalon(frontRightTalonID);
 		rearRight = new CANTalon(rearRightTalonID);
-			//frontLeft.reverseOutput(true);
-			//rearLeft.reverseOutput(true);
+		//frontLeft.reverseOutput(true);
+		//rearLeft.reverseOutput(true);
 		/*
 		 * frontLeft = new CANTalon(1); backLeft = new CANTalon(2); frontRight =
 		 * new CANTalon(3); backRight = new CANTalon(4);
@@ -43,7 +43,7 @@ public class DriveSubsystem extends Subsystem {
 	// Theoretical Mecanum Drive code?
 	public void MecanumDrive(double x, double y, double rotation) {
 
-		drive.mecanumDrive_Polar(x, y, rotation);
+		drive.mecanumDrive_Polar(x / 10, y, rotation / 10);
 
 	} // hi levoo
 		// Mikel Pls

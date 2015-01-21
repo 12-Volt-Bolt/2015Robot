@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ClampSubsystem extends Subsystem {
-	Solenoid piston = new Solenoid(0, 0);
+	//Solenoid piston = new Solenoid(0, 0);
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
@@ -15,6 +15,6 @@ public class ClampSubsystem extends Subsystem {
 	}
 
 	public void togglePiston() {
-		piston.set(!piston.get());
+	//	piston.set(!piston.get());
 	}
 }

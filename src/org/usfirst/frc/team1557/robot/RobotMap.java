@@ -27,9 +27,11 @@ public class RobotMap {
     	public static int leftBumper = 5;
     	public static int rightBumper = 6;
 
+    	
+    	//Talon IDs
     	public static int frontLeftTalonID = 1;
-    	public static int rearLeftTalonID = 2;
-    	public static int frontRightTalonID = 3;
+    	public static int rearLeftTalonID = 3;//2
+    	public static int frontRightTalonID = 2;//3
     	public static int rearRightTalonID = 4;
     	
     	

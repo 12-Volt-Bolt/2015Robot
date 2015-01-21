@@ -4,6 +4,7 @@ import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.autonomous.Vision;
 import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
+import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-
+	Command tankDriveCommand;
 	Command mecanumDriveCommand;
 	Command lifterCommand;
 	CommandGroup autonomousCommand;
@@ -32,8 +33,8 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem armSystem;
-	//Compressor compresser;
-	
+
+	// Compressor compresser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -41,26 +42,23 @@ public class Robot extends IterativeRobot {
 	 */
 
 	public void robotInit() {
-		//compresser.start();
+		// compresser.start();
 		oi = new OI();
 		driveSystem = new DriveSubsystem();
 		lifterSystem = new LifterSubsystem();
 		armSystem = new ClampSubsystem();
 
 		// instantiate the command used for the autonomous period
-
+		tankDriveCommand = new TankDriveCommand();
 		mecanumDriveCommand = new MecanumDriveCommand();
 		lifterCommand = new LifterCommand();
 		autonomousCommand = new AutonomousGroup();
-		
 
 		// new ImageInfo;
-		
 
 		// open the camera at the IP address assigned. This is the IP address
 		// that the camera
 		// can be accessed through the web interface.
-
 
 		/*
 		 * try { CaptureRunnable runnable = new CaptureRunnable("cam0"); Thread
@@ -104,18 +102,18 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		autonomousCommand.start();
+		// if (autonomousCommand != null) {
+		//
+		// autonomousCommand.start();
+		// }
 
-//		if (autonomousCommand != null) {
-//
-//			autonomousCommand.start();
-//		}
-			
 	}
 
 	// This function is called periodically during autonomous
 	//
 	public void autonomousPeriodic() {
-	
+
 		Scheduler.getInstance().run();
 	}
 
@@ -124,13 +122,13 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null){
+		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-			
-	//	lifterCommand.start();
-		mecanumDriveCommand.start();
-		
+
+		// lifterCommand.start();
+		tankDriveCommand.start();
+		// mecanumDriveCommand.start();
 
 	}
 
@@ -150,19 +148,17 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-/*		debounce++;
-
-		if (debounce > 3) {
-			debounce = 0;
-			NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
-
-			camera.getImage(frame);
-			NIVision.imaqDrawShapeOnImage(frame, frame, rect,
-					DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
-
-			CameraServer.getInstance().setImage(frame);
-			}
-		*/
+		/*
+		 * debounce++;
+		 * 
+		 * if (debounce > 3) { debounce = 0; NIVision.Rect rect = new
+		 * NIVision.Rect(10, 10, 100, 100);
+		 * 
+		 * camera.getImage(frame); NIVision.imaqDrawShapeOnImage(frame, frame,
+		 * rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
+		 * 
+		 * CameraServer.getInstance().setImage(frame); }
+		 */
 	}
 
 	/**
@@ -170,5 +166,9 @@ public class Robot extends IterativeRobot {
 	 */
 	public void testPeriodic() {
 		LiveWindow.run();
+		mecanumDriveCommand.start();
+
+		// LiveWindow.addActuator("DriveSubSystem", "frontRight",
+		// DriveSubsystem.frontRight);
 	}
 }

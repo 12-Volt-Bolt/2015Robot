@@ -1,6 +1,9 @@
 package org.usfirst.frc.team1557.robot.autonomous;
 
 import static org.usfirst.frc.team1557.robot.Robot.*;
+
+import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -23,8 +26,22 @@ public class AutoDriveFoward extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		driveSystem.TankDrive(x, x);
-		Timer.delay(x);
+		
+		DriveSubsystem.frontLeft.set(0.3);
+		Timer.delay(2);
+		DriveSubsystem.frontLeft.set(0);
+		
+		DriveSubsystem.rearLeft.set(0.3);
+		Timer.delay(2);
+		DriveSubsystem.rearLeft.set(0);
+		
+		DriveSubsystem.frontRight.set(0.3);
+		Timer.delay(2);
+		DriveSubsystem.frontRight.set(0);
+		
+		DriveSubsystem.rearRight.set(0.3);
+		Timer.delay(2);
+		DriveSubsystem.rearRight.set(0);
 		
 	}
 

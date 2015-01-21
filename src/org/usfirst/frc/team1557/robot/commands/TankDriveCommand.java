@@ -1,10 +1,9 @@
 
 package org.usfirst.frc.team1557.robot.commands;
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
-
-
 import edu.wpi.first.wpilibj.command.Command;
 
+import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap;
 
@@ -29,7 +28,7 @@ public class TankDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveSystem.TankDrive(leftXAxis, rightYAxis);
+		Robot.driveSystem.TankDrive(OI.mainJoy.getRawAxis(leftYAxis), OI.mainJoy.getRawAxis(rightYAxis));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
