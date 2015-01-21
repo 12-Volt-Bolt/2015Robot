@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MecanumDriveCommand extends Command {
 
     public MecanumDriveCommand() {
-        // Use requires() here to declare subsystem dependencies
+        // se requires() here to declare subsystem dependencies
         requires(Robot.driveSystem);
     }
 
@@ -23,7 +23,10 @@ public class MecanumDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveSystem.MecanumDrive(OI.mainJoy.getMagnitude(), OI.mainJoy.getDirectionDegrees(), OI.mainJoy.getRawAxis(rightXAxis));
+    	
+        	Robot.driveSystem.MecanumDrive(OI.mainJoy.getMagnitude(), OI.mainJoy.getDirectionDegrees(), OI.mainJoy.getRawAxis(rightXAxis));
+
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,20 +1,19 @@
 package org.usfirst.frc.team1557.robot.commands;
 
-import org.usfirst.frc.team1557.robot.OI;
-import org.usfirst.frc.team1557.robot.Robot;
-import org.usfirst.frc.team1557.robot.RobotMap;
 
+
+import org.usfirst.frc.team1557.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LifterCommand extends Command {
+public class ToggleClampCommand extends Command {
 
-    public LifterCommand() {
+    public ToggleClampCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.lifterSystem);
+        requires(Robot.armSystem);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +22,9 @@ public class LifterCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.lifterSystem.lift(-OI.mainJoy.getRawAxis(RobotMap.leftTrigger) + OI.mainJoy.getRawAxis(RobotMap.rightTrigger));
+    	Robot.armSystem.togglePiston();
+    	
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

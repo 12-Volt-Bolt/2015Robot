@@ -1,8 +1,13 @@
 package org.usfirst.frc.team1557.robot;
 
+import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
+import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
+import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -13,6 +18,8 @@ public class OI {
 	public static Joystick mainJoy = new Joystick(0);
 	//Joystick altJoy;
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
+	Button leftBumper = new JoystickButton(mainJoy,RobotMap.leftBumper);
+	Button rightBumper = new JoystickButton(mainJoy,RobotMap.rightBumper);
 	//^ Will be used to switch Drives
 	
 	 
@@ -22,7 +29,9 @@ public class OI {
 
 	
 	public OI(){
-		//yButton.whenActive(command);
+		//rightBumper.whenPressed(new ToggleClampCommand());
+		//utton.toggleWhenPressed(new MecanumDriveCommand());
+		//yButton.toggleWhenPressed(new TankDriveCommand());
 	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.

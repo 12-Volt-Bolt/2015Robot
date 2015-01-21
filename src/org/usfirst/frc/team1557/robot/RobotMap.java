@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1557.robot;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -23,7 +24,8 @@ public class RobotMap {
     	public static int rightYAxis = 5;
     	
     	public static int yButton = 4;
-
+    	public static int leftBumper = 5;
+    	public static int rightBumper = 6;
 
     	public static int frontLeftTalonID = 1;
     	public static int rearLeftTalonID = 2;
@@ -32,6 +34,11 @@ public class RobotMap {
     	
     	
     	public static int lifterTalonID = 5;
+    	
+    	public static boolean controller = true;
+    	public RobotMap(){
+    		SmartDashboard.putBoolean("Using Controller?", controller);
+    	}
     	/*
     	frontLeft = new CANTalon(1);
 		backLeft = new CANTalon(2);
