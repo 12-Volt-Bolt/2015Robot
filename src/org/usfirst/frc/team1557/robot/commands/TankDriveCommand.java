@@ -1,11 +1,14 @@
 
 package org.usfirst.frc.team1557.robot.commands;
-import static org.usfirst.frc.team1557.robot.RobotMap.*;
-import edu.wpi.first.wpilibj.command.Command;
+import static org.usfirst.frc.team1557.robot.RobotMap.leftXAxis;
+import static org.usfirst.frc.team1557.robot.RobotMap.leftYAxis;
+import static org.usfirst.frc.team1557.robot.RobotMap.rightXAxis;
+import static org.usfirst.frc.team1557.robot.RobotMap.rightYAxis;
 
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
-import org.usfirst.frc.team1557.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 
 

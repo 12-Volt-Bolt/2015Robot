@@ -1,9 +1,5 @@
 package org.usfirst.frc.team1557.robot;
 
-import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
-import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
-import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

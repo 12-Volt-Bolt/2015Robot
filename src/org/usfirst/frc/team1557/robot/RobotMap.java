@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1557.robot;
 
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 

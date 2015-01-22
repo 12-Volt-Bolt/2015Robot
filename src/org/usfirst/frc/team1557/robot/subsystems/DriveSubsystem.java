@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1557.robot.subsystems;
-import org.usfirst.frc.team1557.robot.RobotMap;
-import static org.usfirst.frc.team1557.robot.RobotMap.*;
+import static org.usfirst.frc.team1557.robot.RobotMap.frontLeftTalonID;
+import static org.usfirst.frc.team1557.robot.RobotMap.frontRightTalonID;
+import static org.usfirst.frc.team1557.robot.RobotMap.rearLeftTalonID;
+import static org.usfirst.frc.team1557.robot.RobotMap.rearRightTalonID;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
