@@ -24,7 +24,7 @@ public class MecanumDriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-        	Robot.driveSystem.MecanumDrive(OI.mainJoy.getMagnitude(), OI.mainJoy.getDirectionDegrees(), OI.mainJoy.getRawAxis(rightXAxis));
+        	Robot.driveSystem.mecanumDrive(OI.mainJoy.getMagnitude(), OI.mainJoy.getDirectionDegrees(), OI.mainJoy.getRawAxis(rightXAxis));
 
     	
     }
