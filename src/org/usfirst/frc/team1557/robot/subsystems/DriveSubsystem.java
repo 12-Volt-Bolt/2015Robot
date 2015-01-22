@@ -15,7 +15,7 @@ public class DriveSubsystem extends Subsystem {
 	public static CANTalon frontRight;
 	public static CANTalon rearRight;
 	RobotDrive drive;
-
+	public static double motorScale = 0.35;
 	public DriveSubsystem() {
 		frontLeft = new CANTalon(frontLeftTalonID);
 		rearLeft = new CANTalon(rearLeftTalonID);
@@ -35,17 +35,27 @@ public class DriveSubsystem extends Subsystem {
 		// setDefaultCommand(new TankDriveCommand());
 			
 	}
-
-	public void TankDrive(double x, double y) {
+	//TankDrive
+	public void tankDrive(double x, double y) {
 		drive.tankDrive(x, y);
 	}
 
-	// Theoretical Mecanum Drive code?
-	public void MecanumDrive(double x, double y, double rotation) {
+	// IT DON'T WORK 
+	public void mecanumDrive(double x, double y, double rotation) {
 
 		drive.mecanumDrive_Polar(x / 10, y, rotation / 10);
 
-	} // hi levoo
+	}
+	public void mixDrive(double leftX, double leftY, double rightX, double rightY){
+		double averageX = (leftX + rightX) / 2;
+		frontLeft.set((-leftY - averageX) * motorScale); 
+		rearLeft.set((-leftY + averageX) * motorScale); 
+		frontRight.set((rightY - averageX) * motorScale);
+		rearRight.set((rightY + averageX) * motorScale);
+		
+		
+	}
+	// hi levoo
 		// Mikel Pls
 		// Taylo halp
 		// Kevin Pl0x
