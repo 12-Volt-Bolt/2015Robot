@@ -1,14 +1,6 @@
 package org.usfirst.frc.team1557.robot.subsystems;
-<<<<<<< HEAD
 
-import org.usfirst.frc.team1557.robot.RobotMap;
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
-=======
-import static org.usfirst.frc.team1557.robot.RobotMap.frontLeftTalonID;
-import static org.usfirst.frc.team1557.robot.RobotMap.frontRightTalonID;
-import static org.usfirst.frc.team1557.robot.RobotMap.rearLeftTalonID;
-import static org.usfirst.frc.team1557.robot.RobotMap.rearRightTalonID;
->>>>>>> origin/master
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,13 +15,9 @@ public class DriveSubsystem extends Subsystem {
 	public static CANTalon frontRight;
 	public static CANTalon rearRight;
 	RobotDrive drive;
-<<<<<<< HEAD
 	//This should NEVER exceed 1
 	public static double motorScale = 1;
-
-=======
-	public static double motorScale = 0.35;
->>>>>>> origin/master
+	
 	public DriveSubsystem() {
 		frontLeft = new CANTalon(frontLeftTalonID);
 		rearLeft = new CANTalon(rearLeftTalonID);
@@ -49,7 +37,6 @@ public class DriveSubsystem extends Subsystem {
 		// setDefaultCommand(new TankDriveCommand());
 
 	}
-<<<<<<< HEAD
 
 	// TankDrive
 	public void tankDrive(double x, double y) {
@@ -60,20 +47,17 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 	// IT DON'T WORK
-=======
-	//TankDrive
-	public void tankDrive(double x, double y) {
-		drive.tankDrive(x, y);
-	}
+//	//TankDrive
+//	public void tankDrive(double x, double y) {
+//		drive.tankDrive(x, y);
+//	}
 
 	// IT DON'T WORK 
->>>>>>> origin/master
 	public void mecanumDrive(double x, double y, double rotation) {
 
 		drive.mecanumDrive_Polar(x / 10, y, rotation / 10);
 
 	}
-<<<<<<< HEAD
 
 	public void mixDrive(double leftX, double leftY, double rightX,
 			double rightY) {
@@ -88,19 +72,17 @@ public class DriveSubsystem extends Subsystem {
 	// Mikel Pls
 	// Taylo halp
 	// Kevin Pl0x
-=======
-	public void mixDrive(double leftX, double leftY, double rightX, double rightY){
-		double averageX = (leftX + rightX) / 2;
-		frontLeft.set((-leftY - averageX) * motorScale); 
-		rearLeft.set((-leftY + averageX) * motorScale); 
-		frontRight.set((rightY - averageX) * motorScale);
-		rearRight.set((rightY + averageX) * motorScale);
-		
-		
-	}
-	// hi levoo
-		// Mikel Pls
-		// Taylo halp
-		// Kevin Pl0x
->>>>>>> origin/master
+//	public void mixDrive(double leftX, double leftY, double rightX, double rightY){
+//		double averageX = (leftX + rightX) / 2;
+//		frontLeft.set((-leftY - averageX) * motorScale); 
+//		rearLeft.set((-leftY + averageX) * motorScale); 
+//		frontRight.set((rightY - averageX) * motorScale);
+//		rearRight.set((rightY + averageX) * motorScale);
+//		
+//		
+//	}
+//	// hi levoo
+//		// Mikel Pls
+//		// Taylo halp
+//		// Kevin Pl0x
 }

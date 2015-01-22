@@ -31,10 +31,7 @@ public class TankDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-<<<<<<< HEAD
 		//Robot.driveSystem.tankDrive(OI.mainJoy.getRawAxis(leftYAxis), OI.mainJoy.getRawAxis(rightYAxis));
-=======
->>>>>>> origin/master
 		Robot.driveSystem.mixDrive(OI.mainJoy.getRawAxis(leftXAxis), OI.mainJoy.getRawAxis(leftYAxis),OI.mainJoy.getRawAxis(rightXAxis),OI.mainJoy.getRawAxis(rightYAxis));
 	}
 
