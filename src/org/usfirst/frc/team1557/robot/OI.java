@@ -14,6 +14,7 @@ public class OI {
 	public static Joystick mainJoy = new Joystick(0);
 	//Joystick altJoy;
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
+	
 	Button leftBumper = new JoystickButton(mainJoy,RobotMap.leftBumper);
 	Button rightBumper = new JoystickButton(mainJoy,RobotMap.rightBumper);
 	//^ Will be used to switch Drives
@@ -25,6 +26,7 @@ public class OI {
 
 	
 	public OI(){
+		
 		//rightBumper.whenPressed(new ToggleClampCommand());
 		//utton.toggleWhenPressed(new MecanumDriveCommand());
 		//yButton.toggleWhenPressed(new TankDriveCommand());

@@ -3,16 +3,19 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
+import org.usfirst.frc.team1557.robot.commands.MixDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,7 +29,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	Command tankDriveCommand;
 	Command mecanumDriveCommand;
-	Command lifterCommand;
+	Command mixDriveCommand;
+	//Command lifterCommand;
 	CommandGroup autonomousCommand;
 
 	public static DriveSubsystem driveSystem;
@@ -35,22 +39,31 @@ public class Robot extends IterativeRobot {
 
 	// Compressor compresser;
 
+	public static Mecanum mech = new Mecanum();
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 
 	public void robotInit() {
+		// compresser = new Compressor();
 		// compresser.start();
 		oi = new OI();
+		
+		
+		
 		driveSystem = new DriveSubsystem();
 		lifterSystem = new LifterSubsystem();
 		armSystem = new ClampSubsystem();
 
+		mech.init(driveSystem, OI.mainJoy);
+		
 		// instantiate the command used for the autonomous period
 		tankDriveCommand = new TankDriveCommand();
 		mecanumDriveCommand = new MecanumDriveCommand();
-		lifterCommand = new LifterCommand();
+//		lifterCommand = new LifterCommand();
+		mixDriveCommand = new MixDriveCommand();
 		autonomousCommand = new AutonomousGroup();
 
 		// new ImageInfo;
@@ -124,9 +137,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-
+		
 		// lifterCommand.start();
-		tankDriveCommand.start();
+		// mixDriveCommand.start();
 		// mecanumDriveCommand.start();
 
 	}
@@ -146,6 +159,18 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+
+		// if (SmartDashboard.getBoolean("drive", true)) {
+		// if (!mecanumDriveCommand.isRunning()) {
+		// tankDriveCommand.cancel();
+		// mecanumDriveCommand.start();
+		// }
+		// } else {
+		// if (!tankDriveCommand.isRunning()) {
+		// mecanumDriveCommand.cancel();
+		// tankDriveCommand.start();
+		// }
+		// }
 
 		/*
 		 * debounce++;

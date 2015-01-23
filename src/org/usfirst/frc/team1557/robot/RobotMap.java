@@ -26,6 +26,9 @@ public class RobotMap {
     	public static int leftBumper = 5;
     	public static int rightBumper = 6;
 
+    	public static boolean driveBoo = true;
+    	
+    	
     	
     	//Talon IDs
     	public static int frontLeftTalonID = 1;
@@ -35,10 +38,8 @@ public class RobotMap {
     	
     	
     	public static int lifterTalonID = 5;
-    	
-    	public static boolean controller = true;
-    	public RobotMap(){
-    		SmartDashboard.putBoolean("Using Controller?", controller);
+    	    	public RobotMap(){
+    		SmartDashboard.putBoolean("drive", driveBoo);
     	}
     	/*
     	frontLeft = new CANTalon(1);
