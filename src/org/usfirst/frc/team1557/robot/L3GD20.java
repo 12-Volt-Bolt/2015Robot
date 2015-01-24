@@ -14,24 +14,24 @@ public class L3GD20 implements RoboGyro {
 	private final int regCtrl4 = 0x23;
 	private final int regOutZL = 0x2c;
 	private final int regOutZH = 0x2d;
-	private I2C i2c;
+	private I2C gyro;
 	private Scale currScale = Scale.scale250;
 	
 	public L3GD20() {
 		try {
-			i2c = new I2C(I2C.Port.kOnboard, devAddress);
+			gyro = new I2C(I2C.Port.kOnboard, devAddress);
 			
-			if(i2c.addressOnly()) {
-				throw new Exception("Could not connect to L3GD20!");
+			if(gyro.addressOnly()) {
+				throw new Exception("Could not connect to L3GD20 Gyroscope!");
 			}
 			
 			byte[] buf = new byte[1];
-			i2c.read(regWhoAmI, 1, buf);
+			gyro.read(regWhoAmI, 1, buf);
 			if(buf[0] != 0b1101_0100) {
-				throw new Exception("Wrong device at L3GD20 address!");
+				throw new Exception("Wrong device at L3GD20 Gyroscope address!");
 			}
 			
-			i2c.write(regCtrl1, 0b0000_1111);
+			gyro.write(regCtrl1, 0b0000_1111);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -40,13 +40,13 @@ public class L3GD20 implements RoboGyro {
 	public void setScale(Scale scale) {
 		switch(scale) {
 		case scale250:
-			i2c.write(regCtrl4, 0b0000_0000);
+			gyro.write(regCtrl4, 0b0000_0000);
 			break;
 		case scale500:
-			i2c.write(regCtrl4, 0b0001_0000);
+			gyro.write(regCtrl4, 0b0001_0000);
 			break;
 		case scale2000:
-			i2c.write(regCtrl4, 0b0010_0000);
+			gyro.write(regCtrl4, 0b0010_0000);
 			break;
 		}
 		currScale = scale;
@@ -56,10 +56,10 @@ public class L3GD20 implements RoboGyro {
 		int val;
 		byte[] buf = new byte[1];
 		
-		i2c.read(regOutZL, 1, buf);
+		gyro.read(regOutZL, 1, buf);
 		val = buf[0];
 		
-		i2c.read(regOutZH, 1, buf);
+		gyro.read(regOutZH, 1, buf);
 		val |= ((int) buf[0]) << 8;
 		
 		double scaledVal = 0;
