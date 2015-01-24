@@ -25,7 +25,7 @@ public class LifterCommand extends Command {
     protected void execute() {
     	Robot.lifterSystem.lift(-OI.mainJoy.getRawAxis(RobotMap.leftTrigger) + OI.mainJoy.getRawAxis(RobotMap.rightTrigger));
     }
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;

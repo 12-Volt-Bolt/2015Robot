@@ -13,7 +13,7 @@ public class ToggleClampCommand extends Command {
 
     public ToggleClampCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.armSystem);
+        requires(Robot.clampSystem);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +22,7 @@ public class ToggleClampCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.armSystem.togglePiston();
+    	Robot.clampSystem.togglePiston();
     	
     	
     }

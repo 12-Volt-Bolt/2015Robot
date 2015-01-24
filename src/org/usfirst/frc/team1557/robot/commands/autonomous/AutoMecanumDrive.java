@@ -1,8 +1,5 @@
-package org.usfirst.frc.team1557.robot.commands;
+package org.usfirst.frc.team1557.robot.commands.autonomous;
 
-import static org.usfirst.frc.team1557.robot.RobotMap.*;
-
-import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,11 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MecanumDriveCommand extends Command {
+public class AutoMecanumDrive extends Command {
+	double x, y, r, time;
 
-	public MecanumDriveCommand() {
-		// use requires() here to declare subsystem dependencies
+	public AutoMecanumDrive(double x, double y, double r, double time) {
+		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveSystem);
+		this.x = x;
+		this.y = y;
+		this.r = r;
+
 	}
 
 	// Called just before this Command runs the first time
@@ -23,9 +25,11 @@ public class MecanumDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveSystem.mecanumCartesian(OI.mainJoy.getRawAxis(leftXAxis),
-				OI.mainJoy.getRawAxis(leftYAxis),
-				OI.mainJoy.getRawAxis(rightXAxis));
+
+		Robot.driveSystem.mecanumCartesian(x, y, r);
+		
+		//timeSinceInitialized()
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

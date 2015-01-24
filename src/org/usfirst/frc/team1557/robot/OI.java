@@ -15,21 +15,20 @@ public class OI {
 	//Joystick altJoy;
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
 	
-	Button leftBumper = new JoystickButton(mainJoy,RobotMap.leftBumper);
-	Button rightBumper = new JoystickButton(mainJoy,RobotMap.rightBumper);
-	//^ Will be used to switch Drives
+	Button liftDownButton = new JoystickButton(mainJoy,RobotMap.leftBumper);
+	Button liftUpButton = new JoystickButton(mainJoy,RobotMap.rightBumper);
+
 	
 	 
 	//Joystick = Drive
 	//Triggers = Elevator
 	//Bumpers = Arms
 
+	public static double axis(int axis) {
+		return mainJoy.getRawAxis(axis);
+	}
 	
 	public OI(){
-		
-		//rightBumper.whenPressed(new ToggleClampCommand());
-		//utton.toggleWhenPressed(new MecanumDriveCommand());
-		//yButton.toggleWhenPressed(new TankDriveCommand());
 	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.

@@ -12,20 +12,20 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class LifterSubsystem extends Subsystem {
 
-	//CANTalon lifter;
+	CANTalon lifter;
 
 	public LifterSubsystem() {
-		//lifter = new CANTalon(lifterTalonID);
+		lifter = new CANTalon(lifterTalonID);
 	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		//setDefaultCommand(new LifterCommand());
+		setDefaultCommand(new LifterCommand());
 
 	}
 
 	public void lift(double x) {	
-		//lifter.set(x);
+		lifter.set(x);
 		
 	}
 	

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1557.robot;
 
+import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -39,7 +40,7 @@ public class RobotMap {
     	
     	public static int lifterTalonID = 5;
     	    	public RobotMap(){
-    		SmartDashboard.putBoolean("drive", driveBoo);
+
     	}
     	/*
     	frontLeft = new CANTalon(1);
