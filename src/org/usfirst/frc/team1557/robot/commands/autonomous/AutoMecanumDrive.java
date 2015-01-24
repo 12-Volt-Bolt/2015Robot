@@ -17,6 +17,7 @@ public class AutoMecanumDrive extends Command {
 		this.y = y;
 		this.r = r;
 
+		setTimeout(time);
 	}
 
 	// Called just before this Command runs the first time
@@ -28,13 +29,11 @@ public class AutoMecanumDrive extends Command {
 
 		Robot.driveSystem.mecanumCartesian(x, y, r);
 		
-		//timeSinceInitialized()
-
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true

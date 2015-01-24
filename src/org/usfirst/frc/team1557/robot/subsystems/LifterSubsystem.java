@@ -1,4 +1,5 @@
 package org.usfirst.frc.team1557.robot.subsystems;
+
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
 import org.usfirst.frc.team1557.robot.commands.LifterCommand;
@@ -6,6 +7,7 @@ import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 //import edu.wpi.first.wpilibj.hal.CanTalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,9 +26,10 @@ public class LifterSubsystem extends Subsystem {
 
 	}
 
-	public void lift(double x) {	
-		lifter.set(x);
-		
+	public void lift(double x) {
+
+		lifter.set(x * SmartDashboard.getNumber("lifterSpeed", 1));
+
 	}
-	
+
 }

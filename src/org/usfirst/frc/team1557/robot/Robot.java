@@ -61,7 +61,8 @@ public class Robot extends IterativeRobot {
 		driveChooser.addDefault("Mecanum Magic", new MecanumDriveCommand());
 		driveChooser.addObject("Tedious Tank", new TankDriveCommand());
 		SmartDashboard.putData(driveSystem);
-
+		//SmartDashboard.putData);
+		SmartDashboard.putNumber("lifterSpeed", 1);
 		SmartDashboard.putData(Scheduler.getInstance());
 
 		// new ImageInfo;
@@ -131,7 +132,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 
-		((Command) driveChooser.getSelected()).start();
+		//((Command) driveChooser.getSelected()).start();
 	}
 
 	/**
