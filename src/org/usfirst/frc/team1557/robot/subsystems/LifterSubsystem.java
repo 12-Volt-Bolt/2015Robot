@@ -18,6 +18,7 @@ public class LifterSubsystem extends Subsystem {
 
 	public LifterSubsystem() {
 		lifter = new CANTalon(lifterTalonID);
+		lifter.enableBrakeMode(true);
 	}
 
 	public void initDefaultCommand() {
@@ -28,7 +29,7 @@ public class LifterSubsystem extends Subsystem {
 
 	public void lift(double x) {
 
-		lifter.set(x * SmartDashboard.getNumber("lifterSpeed", 1));
+		lifter.set(x * SmartDashboard.getNumber(lifterKey, 1));
 
 	}
 

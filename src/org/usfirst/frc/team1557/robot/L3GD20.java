@@ -2,7 +2,7 @@ package org.usfirst.frc.team1557.robot;
 
 import edu.wpi.first.wpilibj.I2C;
 
-public class L3GD20 {
+public class L3GD20 implements RoboGyro {
 
 	public enum Scale {
 		scale250, scale500, scale2000;
@@ -76,5 +76,11 @@ public class L3GD20 {
 		}
 		
 		return scaledVal;
+	}
+
+	@Override
+	public double getAngleZ() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

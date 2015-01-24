@@ -34,6 +34,8 @@ public class RobotMap {
 	public static int rearRightTalonID = 4;
 
 	public static int lifterTalonID = 7;// 7
+	
+	public static String lifterKey = "lifterSpeed";
 
 	public RobotMap() {
 

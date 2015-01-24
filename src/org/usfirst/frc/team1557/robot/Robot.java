@@ -7,10 +7,12 @@ import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +25,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+
+	/**
+	 * If true, subsystems should not access motors.
+	 */
+	public static boolean HEADLESS = true;
 
 	public static OI oi;
 	Command tankDriveCommand;
@@ -48,22 +55,28 @@ public class Robot extends IterativeRobot {
 		// compresser = new Compressor();
 		// compresser.start();
 		oi = new OI();
+		
+		
+		if (!HEADLESS) {
+			driveSystem = new DriveSubsystem();
+			lifterSystem = new LifterSubsystem();
 
-		driveSystem = new DriveSubsystem();
-		lifterSystem = new LifterSubsystem();
-		// clampSystem = new ClampSubsystem();
+			// clampSystem = new ClampSubsystem();
 
-		// instantiate the command used for the autonomous period
-		// // lifterCommand = new LifterCommand();
-		autonomousCommand = new AutonomousGroup();
+			// instantiate the command used for the autonomous period
+			// // lifterCommand = new LifterCommand();
+			autonomousCommand = new AutonomousGroup();
 
-		driveChooser = new SendableChooser();
-		driveChooser.addDefault("Mecanum Magic", new MecanumDriveCommand());
-		driveChooser.addObject("Tedious Tank", new TankDriveCommand());
-		SmartDashboard.putData(driveSystem);
-		//SmartDashboard.putData);
-		SmartDashboard.putNumber("lifterSpeed", 1);
-		SmartDashboard.putData(Scheduler.getInstance());
+			driveChooser = new SendableChooser();
+			driveChooser.addDefault("Mecanum Magic", new MecanumDriveCommand());
+			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
+			SmartDashboard.putData("Drive Chooser", driveChooser);
+			SmartDashboard.putData(driveSystem);
+			// SmartDashboard.putData);
+			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
+			SmartDashboard.putData(Scheduler.getInstance());
+
+		}
 
 		// new ImageInfo;
 
@@ -113,7 +126,9 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
-		autonomousCommand.start();
+		if (!HEADLESS) {
+			autonomousCommand.start();
+		}
 	}
 
 	// This function is called periodically during autonomous
@@ -131,8 +146,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-
-		//((Command) driveChooser.getSelected()).start();
+		if (!HEADLESS) {
+			((Command) driveChooser.getSelected()).start();
+		}
 	}
 
 	/**
@@ -181,7 +197,9 @@ public class Robot extends IterativeRobot {
 	 */
 	public void testPeriodic() {
 		LiveWindow.run();
-		((Command) driveChooser.getSelected()).start();
 
+		if (!HEADLESS) {
+			((Command) driveChooser.getSelected()).start();
+		}
 	}
 }
