@@ -2,8 +2,8 @@ package org.usfirst.frc.team1557.robot;
 
 import edu.wpi.first.wpilibj.I2C;
 
-public class L3GD20 implements RoboGyro {
-
+public class L3GD20 {
+	
 	public enum Scale {
 		scale250, scale500, scale2000;
 	}
@@ -12,10 +12,14 @@ public class L3GD20 implements RoboGyro {
 	private final int regWhoAmI = 0x0f;
 	private final int regCtrl1 = 0x20;
 	private final int regCtrl4 = 0x23;
+	private final int regOutXL = 0x28;
+	private final int regOutXH = 0x29;
+	private final int regOutYL = 0x2a;
+	private final int regOutYH = 0x2b;
 	private final int regOutZL = 0x2c;
 	private final int regOutZH = 0x2d;
-	private I2C gyro;
 	private Scale currScale = Scale.scale250;
+	private I2C gyro;
 	
 	public L3GD20() {
 		try {
@@ -34,53 +38,72 @@ public class L3GD20 implements RoboGyro {
 			gyro.write(regCtrl1, 0b0000_1111);
 		} catch(Exception ex) {
 			ex.printStackTrace();
+			if(gyro != null) {
+				gyro.free();
+				gyro = null;
+			}
 		}
-	}
-
-	public void setScale(Scale scale) {
-		switch(scale) {
-		case scale250:
-			gyro.write(regCtrl4, 0b0000_0000);
-			break;
-		case scale500:
-			gyro.write(regCtrl4, 0b0001_0000);
-			break;
-		case scale2000:
-			gyro.write(regCtrl4, 0b0010_0000);
-			break;
-		}
-		currScale = scale;
 	}
 	
-	public double readAngleZ() {
-		int val;
-		byte[] buf = new byte[1];
-		
-		gyro.read(regOutZL, 1, buf);
-		val = buf[0];
-		
-		gyro.read(regOutZH, 1, buf);
-		val |= ((int) buf[0]) << 8;
-		
+	public void setScale(Scale scale) {
+		if(gyro != null) {
+			switch(scale) {
+			case scale250:
+				gyro.write(regCtrl4, 0b0000_0000);
+				break;
+			case scale500:
+				gyro.write(regCtrl4, 0b0001_0000);
+				break;
+			case scale2000:
+				gyro.write(regCtrl4, 0b0010_0000);
+				break;
+			}
+			currScale = scale;
+		}
+	}
+	
+	public double readRateX() {
+		return readRate(regOutXL, regOutXH);
+	}
+	
+	public double readRateY() {
+		return readRate(regOutYL, regOutYH);
+	}
+	
+	public double readRateZ() {
+		return readRate(regOutZL, regOutZH);
+	}
+	
+	public double readRate(int lowAddr, int highAddr) {
 		double scaledVal = 0;
-		switch(currScale) {
-		case scale250:
-			scaledVal = val / 250;
-			break;
-		case scale500:
-			scaledVal = val / 500;
-			break;
-		case scale2000:
-			scaledVal = val / 2000;
-			break;
+		if(gyro != null) {
+			int val;
+			byte[] buf = new byte[1];
+			
+			gyro.read(lowAddr, 1, buf);
+			val = ((int) buf[0]) & 0b0000_0000_1111_1111;
+			
+			gyro.read(highAddr, 1, buf);
+			val |= ((int) buf[0]) << 8;
+			
+			switch(currScale) {
+			case scale250:
+				scaledVal = val * 250 / 0b0111_1111_1111_1111;
+				break;
+			case scale500:
+				scaledVal = val * 500 / 0b0111_1111_1111_1111;
+				break;
+			case scale2000:
+				scaledVal = val * 2000 / 0b0111_1111_1111_1111;
+				break;
+			}
 		}
 		
 		return scaledVal;
 	}
-
-	@Override
-	public double getAngleZ() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	//TODO may return incorrect values
+	public boolean isConnected() {
+		return gyro != null;
 	}
 }
