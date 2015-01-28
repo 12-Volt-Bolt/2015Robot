@@ -1,5 +1,6 @@
-package org.usfirst.frc.team1557.robot.commands;
+package org.usfirst.frc.team1557.robot.autonomous;
 
+import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -7,11 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveForwardCommand extends Command {
-
-    public DriveForwardCommand() {
+public class AutoToggleClamp extends Command {
+boolean finish = false;
+    public AutoToggleClamp() {
         // Use requires() here to declare subsystem dependencies
-          requires(Robot.driveSystem);
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -20,11 +21,14 @@ public class DriveForwardCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	finish = false;
+    	Robot.clampSystem.togglePiston(OI.altJoy.getRawButton(1));
+    	finish = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return finish;
     }
 
     // Called once after isFinished returns true

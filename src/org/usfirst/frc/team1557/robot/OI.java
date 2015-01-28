@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	
 	public static Joystick mainJoy = new Joystick(0);
-	//Joystick altJoy;
+	public static Joystick altJoy = new Joystick(1);
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
 	
-	Button liftDownButton = new JoystickButton(mainJoy,RobotMap.leftBumper);
-	Button liftUpButton = new JoystickButton(mainJoy,RobotMap.rightBumper);
+	//Button liftDownButton = new JoystickButton(mainJoy,RobotMap.leftBumper);
+	//Button liftUpButton = new JoystickButton(mainJoy,RobotMap.rightBumper);
 
 	
 	 
@@ -29,6 +29,7 @@ public class OI {
 	}
 	
 	public OI(){
+		
 	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.

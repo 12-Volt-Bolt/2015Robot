@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1557.robot.autonomous;
 
-import org.usfirst.frc.team1557.robot.LSM303DLHC;
 import org.usfirst.frc.team1557.robot.Robot;
+import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.command.Command;

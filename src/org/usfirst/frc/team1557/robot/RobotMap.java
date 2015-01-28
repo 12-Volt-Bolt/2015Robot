@@ -22,10 +22,12 @@ public class RobotMap {
 	public static int rightYAxis = 5;
 
 	public static int yButton = 4;
+	public static int aButton = 1;
 	public static int leftBumper = 5;
 	public static int rightBumper = 6;
 
 	public static boolean driveBoo = true;
+	
 
 	// Talon IDs
 	public static int frontLeftTalonID = 1;
@@ -36,6 +38,7 @@ public class RobotMap {
 	public static int lifterTalonID = 7;// 7
 	
 	public static String lifterKey = "lifterSpeed";
+	public static String speedKey = "driveSpeed";
 
 	public RobotMap() {
 

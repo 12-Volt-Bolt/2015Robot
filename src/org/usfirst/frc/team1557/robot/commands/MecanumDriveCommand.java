@@ -4,13 +4,16 @@ import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
+import org.usfirst.frc.team1557.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class MecanumDriveCommand extends Command {
+	boolean speed = false;
 
 	public MecanumDriveCommand() {
 		// use requires() here to declare subsystem dependencies
@@ -23,8 +26,22 @@ public class MecanumDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveSystem.mecanumCartesian(OI.mainJoy.getRawAxis(leftXAxis),
-				OI.mainJoy.getRawAxis(leftYAxis),
+
+		// Shifting; Should probably put this somewhere else.
+		if (OI.mainJoy.getRawButton(aButton)) {
+			speed = !speed;
+			if (!speed) {
+				SmartDashboard.putNumber(RobotMap.speedKey, 1);
+			} else {
+				SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
+			}
+
+		}
+		Robot.driveSystem.mecanumCartesian(
+				OI.mainJoy.getRawAxis(leftXAxis)
+						* SmartDashboard.getNumber(RobotMap.lifterKey, 1),
+				OI.mainJoy.getRawAxis(leftYAxis)
+						* SmartDashboard.getNumber(RobotMap.lifterKey, 1),
 				OI.mainJoy.getRawAxis(rightXAxis));
 	}
 
