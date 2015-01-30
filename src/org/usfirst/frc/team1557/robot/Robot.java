@@ -3,6 +3,7 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
+import org.usfirst.frc.team1557.robot.subsystems.AccelSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.GyroSubsystem;
@@ -40,7 +41,7 @@ public class Robot extends IterativeRobot {
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem clampSystem;
 	public static GyroSubsystem gyroSystem;
-
+	public static AccelSubsystem accelSystem;
 	// Compressor compresser;
 
 	// Select the mode of Driving used by DriveSubsystem
@@ -59,6 +60,7 @@ public class Robot extends IterativeRobot {
 		if (!HEADLESS) {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
+			accelSystem = new AccelSubsystem();
 
 			// clampSystem = new ClampSubsystem();
 

@@ -27,7 +27,7 @@ public class RobotMap {
 	public static int rightBumper = 6;
 
 	public static boolean driveBoo = true;
-	//Look at your own code, you filthy pig!
+	
 
 	// Talon IDs
 	public static int frontLeftTalonID = 1;

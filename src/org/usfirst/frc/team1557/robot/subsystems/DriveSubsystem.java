@@ -27,7 +27,7 @@ public class DriveSubsystem extends Subsystem {
 		rearLeft = new CANTalon(rearLeftTalonID);
 		frontRight = new CANTalon(frontRightTalonID);
 		rearRight = new CANTalon(rearRightTalonID);
-		
+
 	}
 
 	public void initDefaultCommand() {
@@ -43,10 +43,37 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 	public void mecanumCartesian(double x, double y, double r) {
-		double v_FrontLeft = r - y + x, 
-				v_FrontRight = r + y + x, 
-				v_BackLeft = r - y - x, 
-				v_BackRight = r + y - x;
+		double v_FrontLeft = r - y + x, v_FrontRight = r + y + x, v_BackLeft = r
+				- y - x, v_BackRight = r + y - x;
+
+		// This segment below gets the largest value or 1 so we can divide by
+		// it,
+		// making sure that the values going to the motor never exceed the -1.0
+		// to 1.0
+		// range the motor controllers expect
+		double f = 1;
+		if (Math.abs(v_FrontLeft) > f)
+			f = Math.abs(v_FrontLeft);
+		if (Math.abs(v_FrontRight) > f)
+			f = Math.abs(v_FrontRight);
+		if (Math.abs(v_BackLeft) > f)
+			f = Math.abs(v_BackLeft);
+		if (Math.abs(v_BackRight) > f)
+			f = Math.abs(v_BackRight);
+
+		// Scale
+		f = f / SmartDashboard.getNumber("speedMultiplier", 0.75);
+
+		frontLeft.set(v_FrontLeft / f);
+		frontRight.set(v_FrontRight / f);
+		rearLeft.set(v_BackLeft / f);
+		rearRight.set(v_BackRight / f);
+
+	}
+
+	public void mecanumCartesianVolts(double x, double y, double r) {
+		double v_FrontLeft = r - y + x, v_FrontRight = r + y + x, v_BackLeft = r
+				- y - x, v_BackRight = r + y - x;
 
 		// This segment below gets the largest value or 1 so we can divide by
 		// it,
