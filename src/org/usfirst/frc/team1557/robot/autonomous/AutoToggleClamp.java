@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AutoToggleClamp extends Command {
-boolean finish = false;
+
     public AutoToggleClamp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -21,14 +21,13 @@ boolean finish = false;
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	finish = false;
-    	Robot.clampSystem.togglePiston(OI.altJoy.getRawButton(1));
-    	finish = true;
+    	
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return finish;
+        return true;
     }
 
     // Called once after isFinished returns true

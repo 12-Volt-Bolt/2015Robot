@@ -27,6 +27,7 @@ public class DriveSubsystem extends Subsystem {
 		rearLeft = new CANTalon(rearLeftTalonID);
 		frontRight = new CANTalon(frontRightTalonID);
 		rearRight = new CANTalon(rearRightTalonID);
+		
 	}
 
 	public void initDefaultCommand() {

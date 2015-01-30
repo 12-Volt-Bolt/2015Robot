@@ -16,18 +16,18 @@ public class ClampSubsystem extends Subsystem {
 	
 	//Don't push to Robot if the Solenoid is not hooked up. If they aren't comment anything onvolving them out.
 	DoubleSolenoid piston = new DoubleSolenoid(0, 0, 0);
-
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
-	public void togglePiston(boolean button) {
-
-		if (piston.get() == DoubleSolenoid.Value.kForward && button) {
+	public void togglePiston() {
+		
+		if (piston.get() == DoubleSolenoid.Value.kForward){
 			piston.set(DoubleSolenoid.Value.kReverse);
-		} else if ((piston.get() == DoubleSolenoid.Value.kReverse && button)) {
-			piston.set(DoubleSolenoid.Value.kReverse);
+		} else if ((piston.get() == DoubleSolenoid.Value.kReverse)) {
+			piston.set(DoubleSolenoid.Value.kForward);
 		}
 
 		// piston.set(!piston.get());

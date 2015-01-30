@@ -1,9 +1,5 @@
 package org.usfirst.frc.team1557.robot.autonomous;
 
-import org.usfirst.frc.team1557.robot.RoboGyro;
-import org.usfirst.frc.team1557.robot.commands.LifterCommand;
-import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
-import org.usfirst.frc.team1557.robot.sensor.L3GD20;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -43,4 +39,5 @@ public class AutonomousGroup extends CommandGroup {
     	addSequential(new AutoToggleClamp());
     	
     }
+    
 }

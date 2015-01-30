@@ -1,18 +1,50 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
-import org.usfirst.frc.team1557.robot.sensor.L3GD20;
+import org.usfirst.frc.team1557.robot.sensor.L3GD20_Gyro;
+import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC_Accel;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * If any commands require GyroSubsystem, they must call GyroSubsystem.update in their execute method
  */
 public class GyroSubsystem extends Subsystem {
-	L3GD20 gyro = new L3GD20();
+	L3GD20_Gyro gyro = new L3GD20_Gyro();
+	LSM303DLHC_Accel accel = new LSM303DLHC_Accel();
 	double gyroAngle = 0;
 	public boolean isFinished() {
 		return true;
+	}
+	
+	double lastTime = -1;
+	
+	/**
+	 * Compound update
+	 */
+	public void update() {
+		
+		double dt;
+		long now = System.currentTimeMillis();
+		
+		if(lastTime == -1){
+			lastTime = now;
+		}
+		dt = (now - lastTime) / 1000;
+		gyroAngle += gyro.readRateZ() * dt;
+		
+		lastTime = now;
+	}
+	
+	public void reset() {
+		gyroAngle = 0;
+	}
+	public double getAngleZ(){
+		return gyroAngle;
+	}
+	public void complementUpdate() {
+		
+		
 	}
 	
     public void initDefaultCommand() {
@@ -20,11 +52,8 @@ public class GyroSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     	
     	setDefaultCommand(new Command() {
-			double lastTime = -1;
-			double time;
 			@Override
 			protected boolean isFinished() {
-				// TODO Auto-generated method stub
 				return false;
 			}
 			
@@ -43,13 +72,7 @@ public class GyroSubsystem extends Subsystem {
 			
 			@Override
 			protected void execute() {
-				if(lastTime == -1){
-				lastTime = System.currentTimeMillis();
-				}
-				time = (System.currentTimeMillis() - lastTime) / 1000;
-				gyroAngle += gyro.readRateZ() * time;
-				
-				
+				update();
 			}
 			
 			@Override

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1557.robot.autonomous;
 
 import org.usfirst.frc.team1557.robot.Robot;
-import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC;
+import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC_Accel;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,7 +16,7 @@ public class AutoMecanumPos extends Command {
 	double vel;
 	double currentPos = 0;
 	double pos;
-	LSM303DLHC accel;
+	LSM303DLHC_Accel accel;
 	BuiltInAccelerometer bla;
 	
 	
@@ -33,7 +33,7 @@ public class AutoMecanumPos extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {		
-		accel = new LSM303DLHC();
+		accel = new LSM303DLHC_Accel();
 		bla = new BuiltInAccelerometer(Range.k4G);	
 		
 	}

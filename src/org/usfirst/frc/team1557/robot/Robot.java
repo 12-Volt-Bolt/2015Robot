@@ -5,6 +5,7 @@ import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.GyroSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 
 import edu.wpi.first.wpilibj.Gyro;
@@ -32,20 +33,19 @@ public class Robot extends IterativeRobot {
 	public static boolean HEADLESS = true;
 
 	public static OI oi;
-	Command tankDriveCommand;
-	Command mecanumDriveCommand;
-	Command mixDriveCommand;
+
 	// Command lifterCommand;
-	CommandGroup autonomousCommand;
 
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem clampSystem;
+	public static GyroSubsystem gyroSystem;
 
 	// Compressor compresser;
 
 	// Select the mode of Driving used by DriveSubsystem
 	SendableChooser driveChooser;
+	SendableChooser autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -55,8 +55,7 @@ public class Robot extends IterativeRobot {
 		// compresser = new Compressor();
 		// compresser.start();
 		oi = new OI();
-		
-		
+
 		if (!HEADLESS) {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
@@ -65,13 +64,18 @@ public class Robot extends IterativeRobot {
 
 			// instantiate the command used for the autonomous period
 			// // lifterCommand = new LifterCommand();
-			autonomousCommand = new AutonomousGroup();
+
+			autoChooser = new SendableChooser();
 
 			driveChooser = new SendableChooser();
-			driveChooser.addDefault("Mecanum Magic", new MecanumDriveCommand());
+
+			driveChooser.addDefault("Magical Mecanum",
+					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
 			SmartDashboard.putData("Drive Chooser", driveChooser);
 			SmartDashboard.putData(driveSystem);
+
+			autoChooser.addDefault("Atrocious Autonomous", new AutonomousGroup());
 			// SmartDashboard.putData);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
@@ -127,7 +131,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		if (!HEADLESS) {
-			autonomousCommand.start();
+			((Command) (autoChooser.getSelected())).start();
 		}
 	}
 
@@ -143,8 +147,8 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
+		if (((Command) (autoChooser.getSelected())) != null) {
+			((Command) (autoChooser.getSelected())).cancel();
 		}
 		if (!HEADLESS) {
 			((Command) driveChooser.getSelected()).start();
