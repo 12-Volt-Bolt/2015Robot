@@ -21,7 +21,7 @@ package org.usfirst.frc.team1557.robot.autonomous;
  */
 public class Vision  {
 	public Vision(){
-		System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
+		//System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
 	//	AxisCamera cam = new AxisCamera("10.15.57.11");
 
 		}

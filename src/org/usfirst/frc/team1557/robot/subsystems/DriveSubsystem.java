@@ -71,11 +71,20 @@ public class DriveSubsystem extends Subsystem {
 		rearLeft.set(v_BackLeft / f);
 		rearRight.set(v_BackRight / f);
 		
-		frontLeft.get();
+		
 		SmartDashboard.putNumber("fr", frontRight.getOutputCurrent());
 		SmartDashboard.putNumber("fl", frontLeft.getOutputCurrent());
 		SmartDashboard.putNumber("rl", rearLeft.getOutputCurrent());
 		SmartDashboard.putNumber("rr", rearRight.getOutputCurrent());
+		
+		SmartDashboard.putNumber("fr", frontRight.get());
+		SmartDashboard.putNumber("fl", frontLeft.get());
+		SmartDashboard.putNumber("rl", rearLeft.get());
+		SmartDashboard.putNumber("rr",rearRight.get());
+		
+		SmartDashboard.putNumber("LeftX Joystick", OI.mainJoy.getRawAxis(leftXAxis));
+		SmartDashboard.putNumber("LeftY Joystick", OI.mainJoy.getRawAxis(leftYAxis));
+		
 		
 
 	}
