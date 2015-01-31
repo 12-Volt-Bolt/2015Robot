@@ -48,14 +48,14 @@ public class AutoMecanumStrafe extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.gyroSystem.reset();
+		Robot.gyroSystem.resetGyro();
 		startingAngle = Robot.gyroSystem.getAngleZ();
 
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.gyroSystem.update();
+		Robot.gyroSystem.updateSensor();
 		Robot.driveSystem.mecanumCartesian(x, y,
 				direction(Robot.gyroSystem.getAngleZ(), startingAngle));
 	}

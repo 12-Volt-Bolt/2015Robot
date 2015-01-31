@@ -21,7 +21,7 @@ public class DriveSubsystem extends Subsystem {
 	public static CANTalon rearLeft;
 	public static CANTalon frontRight;
 	public static CANTalon rearRight;
-	
+
 	RobotDrive drive;
 
 	public DriveSubsystem() {
@@ -29,7 +29,7 @@ public class DriveSubsystem extends Subsystem {
 		rearLeft = new CANTalon(rearLeftTalonID);
 		frontRight = new CANTalon(frontRightTalonID);
 		rearRight = new CANTalon(rearRightTalonID);
-
+		// changeMode(1);
 	}
 
 	public void initDefaultCommand() {
@@ -65,30 +65,69 @@ public class DriveSubsystem extends Subsystem {
 
 		// Scale
 		f = f / SmartDashboard.getNumber("speedMultiplier", 0.75);
-		
+
 		frontLeft.set(v_FrontLeft / f);
 		frontRight.set(v_FrontRight / f);
 		rearLeft.set(v_BackLeft / f);
 		rearRight.set(v_BackRight / f);
-		
-		
-		SmartDashboard.putNumber("fr", frontRight.getOutputCurrent());
-		SmartDashboard.putNumber("fl", frontLeft.getOutputCurrent());
-		SmartDashboard.putNumber("rl", rearLeft.getOutputCurrent());
-		SmartDashboard.putNumber("rr", rearRight.getOutputCurrent());
-		
-		SmartDashboard.putNumber("fr", frontRight.get());
-		SmartDashboard.putNumber("fl", frontLeft.get());
-		SmartDashboard.putNumber("rl", rearLeft.get());
-		SmartDashboard.putNumber("rr",rearRight.get());
-		
-		SmartDashboard.putNumber("LeftX Joystick", OI.mainJoy.getRawAxis(leftXAxis));
-		SmartDashboard.putNumber("LeftY Joystick", OI.mainJoy.getRawAxis(leftYAxis));
-		
-		
+
+		output();
 
 	}
 
-	
+	private void output() {
+		// SmartDashboard Stuff
+		SmartDashboard.putNumber("frontRightCurrent",
+				frontRight.getOutputCurrent());
+		SmartDashboard.putNumber("frontLeftCurrent",
+				frontLeft.getOutputCurrent());
+		SmartDashboard
+				.putNumber("rearLeftCurrent", rearLeft.getOutputCurrent());
+		SmartDashboard.putNumber("rearRightCurrent",
+				rearRight.getOutputCurrent());
 
+		SmartDashboard.putNumber("frontRightThrottle", frontRight.get());
+		SmartDashboard.putNumber("frontLettThrottle", frontLeft.get());
+		SmartDashboard.putNumber("rearRightThrottle", rearLeft.get());
+		SmartDashboard.putNumber("rearRightThrottle", rearRight.get());
+
+		SmartDashboard.putNumber("Left Joystick X",
+				OI.mainJoy.getRawAxis(leftXAxis));
+		SmartDashboard.putNumber("Left Joystick Y",
+				OI.mainJoy.getRawAxis(leftYAxis));
+
+		SmartDashboard.putNumber("Right Joystick X",
+				OI.mainJoy.getRawAxis(rightXAxis));
+		SmartDashboard.putNumber("Right Joystick Y",
+				OI.mainJoy.getRawAxis(rightYAxis));
+
+	}
+
+	/**
+	 * 1=Speed, 2=Voltage, 3=Current, 4=PercentVBus(Default)
+	 */
+	@SuppressWarnings("unused")
+	private void changeMode(int mode) {
+		if (mode == 4) {
+			frontLeft.changeControlMode(CANTalon.ControlMode.PercentVbus);
+			frontRight.changeControlMode(CANTalon.ControlMode.PercentVbus);
+			rearLeft.changeControlMode(CANTalon.ControlMode.PercentVbus);
+			rearRight.changeControlMode(CANTalon.ControlMode.PercentVbus);
+		} else if (mode == 1) {
+			frontLeft.changeControlMode(CANTalon.ControlMode.Speed);
+			frontRight.changeControlMode(CANTalon.ControlMode.Speed);
+			rearLeft.changeControlMode(CANTalon.ControlMode.Speed);
+			rearRight.changeControlMode(CANTalon.ControlMode.Speed);
+		} else if (mode == 2) {
+			frontLeft.changeControlMode(CANTalon.ControlMode.Voltage);
+			frontRight.changeControlMode(CANTalon.ControlMode.Voltage);
+			rearLeft.changeControlMode(CANTalon.ControlMode.Voltage);
+			rearRight.changeControlMode(CANTalon.ControlMode.Voltage);
+		} else if (mode == 3) {
+			frontLeft.changeControlMode(CANTalon.ControlMode.Current);
+			frontRight.changeControlMode(CANTalon.ControlMode.Current);
+			rearLeft.changeControlMode(CANTalon.ControlMode.Current);
+			rearRight.changeControlMode(CANTalon.ControlMode.Current);
+		}
+	}
 }

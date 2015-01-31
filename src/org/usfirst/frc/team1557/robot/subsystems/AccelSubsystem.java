@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * 
  */
 public class AccelSubsystem extends Subsystem {
+
 	LSM303DLHC_Accel accel = new LSM303DLHC_Accel();
 	double vel = 0;
 	double currentPos = 0;
 
 	double lastTime = -1;
-
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 

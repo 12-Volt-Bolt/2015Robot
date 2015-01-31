@@ -13,49 +13,67 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class GyroSubsystem extends Subsystem {
 	L3GD20_Gyro gyro = new L3GD20_Gyro();
-	LSM303DLHC_Accel accel = new LSM303DLHC_Accel();
 	double gyroAngle = 0;
 
-	double lastTime = -1;
+	
+	LSM303DLHC_Accel accel = new LSM303DLHC_Accel();
+	double vel = 0;
+	double currentPos = 0;
 
+	
+
+	double lastTime = -1;
 	/**
-	 * Brant pls
+	 * Updates Gyro and Accel. Must be called in an execute or 
 	 */
-	public void update() {
+	public void updateSensor() {
 
 		double dt;
 		long now = System.currentTimeMillis();
-
 		if (lastTime == -1) {
 			lastTime = now;
 		}
+		
+		//Calculates the change in time since last time
 		dt = (now - lastTime) / 1000;
+		
+		//Writes the Gyro Angle
 		gyroAngle += gyro.readRateZ() * dt;
-
+		
+		//Writes the Accelerometer acceleration
+		vel += accel.readRateY() * dt * 32.1740485564304;
+		
+		//Writes the position that was calculated in the Y Axis
+		currentPos += vel * dt;
+		
+		//Resets the time value for next time
 		lastTime = now;
 	}
-
-	public void reset() {
+	
+	public void resetAccel(){
+		currentPos = 0;
+		vel = 0;
+	}
+	public void resetGyro() {
 		gyroAngle = 0;
 	}
 
 	public double getAngleZ() {
 		return gyroAngle;
 	}
-
-	public void complementUpdate() {
-
+	public double getCurrenPos(){
+		return currentPos;
 	}
-
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 
 		setDefaultCommand(new Command() {
-			
+
 			{
 				requires(Robot.gyroSystem);
 			}
+
 			@Override
 			protected boolean isFinished() {
 				return false;
@@ -75,7 +93,7 @@ public class GyroSubsystem extends Subsystem {
 
 			@Override
 			protected void execute() {
-				update();
+				updateSensor();
 			}
 
 			@Override
