@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SensorSubsystem extends Subsystem {
 	L3GD20_Gyro gyro = null;
 	LSM303DLHC_Accel accel = null;
+	
 	double gyroAngle = 0;
 
 	double vel = 0;
@@ -74,7 +75,6 @@ public class SensorSubsystem extends Subsystem {
 	private void output() {
 		SmartDashboard.putNumber("Gyro Angle", gyroAngle);
 		SmartDashboard.putNumber("Accelerometer Y Position", currentPos);
-
 	}
 
 	private boolean isinit = false;
@@ -88,11 +88,7 @@ public class SensorSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
-
 		setDefaultCommand(new Command() {
-
 			{
 				requires(Robot.sensorSystem);
 			}
@@ -103,27 +99,18 @@ public class SensorSubsystem extends Subsystem {
 			}
 
 			@Override
-			protected void interrupted() {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			protected void initialize() {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
 			protected void execute() {
 				updateSensor();
 			}
 
 			@Override
-			protected void end() {
-				// TODO Auto-generated method stub
+			protected void interrupted() {}
 
-			}
+			@Override
+			protected void initialize() {}
+
+			@Override
+			protected void end() {}
 		});
 	}
 }

@@ -19,10 +19,6 @@ public class OI {
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
 	Button aButton = new JoystickButton(mainJoy, RobotMap.aButton);
 
-	// Button liftDownButton = new JoystickButton(mainJoy,
-	// RobotMap.leftTrigger);
-	// Button liftUpButton = new JoystickButton(mainJoy, RobotMap.rightTrigger);
-
 	// Joystick = Drive
 	// Triggers = Elevator
 	// Bumpers = Arms
@@ -45,9 +41,8 @@ public class OI {
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	public void initialize() {
-		// TODO Auto-generated method stub
 		// yButton.whenPressed(new StackCommand());
-		//aButton.whenPressed(new ToggleClampCommand());
+		// aButton.whenPressed(new ToggleClampCommand());
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

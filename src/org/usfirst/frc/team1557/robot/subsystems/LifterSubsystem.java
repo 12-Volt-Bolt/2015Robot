@@ -9,7 +9,6 @@ import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-//import edu.wpi.first.wpilibj.hal.CanTalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -51,7 +50,6 @@ public class LifterSubsystem extends Subsystem {
 		// && Robot.clampSystem.isClamp()
 
 		if (speed >= -0.1 && speed <= 0.1) {
-
 			lifter.set(-0.1);
 		} else {
 			lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));

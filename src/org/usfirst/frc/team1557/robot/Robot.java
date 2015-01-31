@@ -64,8 +64,6 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 
-	// Command lifterCommand;
-
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem clampSystem;
@@ -90,41 +88,32 @@ public class Robot extends IterativeRobot {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
 			sensorSystem = new SensorSubsystem();
-			
-			//clampSystem = new ClampSubsystem();
-
-			// instantiate the command used for the autonomous period
+			// clampSystem = new ClampSubsystem();
 			// lifterCommand = new LifterCommand();
 
-			autoChooser = new SendableChooser();
 
+			// Create choosers
 			driveChooser = new SendableChooser();
-
-			driveChooser.addDefault("Magical Mecanum",
-					new MecanumDriveCommand());
+			driveChooser.addDefault("Magical Mecanum", new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
-
 			SmartDashboard.putData("Drive Chooser", driveChooser);
 
-			autoChooser.addDefault("Atrocious Autonomous",
-					new AutonomousGroup());
+			autoChooser = new SendableChooser();
+			autoChooser.addDefault("Atrocious Autonomous", new AutonomousGroup());
 			SmartDashboard.putData("Autonmous Chooser", autoChooser);
-			// SmartDashboard.putData);
-
+			
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
-			
 		}
 		
 		oi.initialize();
-
 	}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
-	boolean sensor = false;
+
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		
@@ -137,7 +126,6 @@ public class Robot extends IterativeRobot {
 	// This function is called periodically during autonomous
 	//
 	public void autonomousPeriodic() {
-
 		Scheduler.getInstance().run();
 	}
 
@@ -146,15 +134,15 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (((Command) (autoChooser.getSelected())) != null) {
-			((Command) (autoChooser.getSelected())).cancel();
+		Command autoCommand = (Command) autoChooser.getSelected();
+		if (autoCommand != null) {
+			autoCommand.cancel();
 		}
+
 		if (!HEADLESS) {
 			((Command) driveChooser.getSelected()).start();
 			sensorSystem.init();
 		}
-		
-		
 	}
 
 	/**
@@ -162,7 +150,6 @@ public class Robot extends IterativeRobot {
 	 * to reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
-
 	}
 
 	/**
@@ -170,7 +157,6 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-
 	}
 
 	/**
@@ -180,7 +166,8 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 
 		if (!HEADLESS) {
-			((Command) driveChooser.getSelected()).start();
+			Command driveCommand = (Command) driveChooser.getSelected();
+			driveCommand.start();
 		}
 	}
 }
