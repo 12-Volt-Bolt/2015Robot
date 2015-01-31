@@ -14,7 +14,7 @@ public class LifterCommand extends Command {
 
     public LifterCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.lifterSystem);
+       requires(Robot.lifterSystem);
     }
 
     // Called just before this Command runs the first time

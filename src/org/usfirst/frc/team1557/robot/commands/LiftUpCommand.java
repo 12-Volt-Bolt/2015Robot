@@ -1,37 +1,33 @@
-package org.usfirst.frc.team1557.robot.autonomous;
+package org.usfirst.frc.team1557.robot.commands;
 
+import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.Robot;
+import org.usfirst.frc.team1557.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoLifterCommand extends Command {
-	double lift, time;
+public class LiftUpCommand extends Command {
 
-	//
-	//Will change this to work with position instead of time when we get the encoders installed
-	//
-    public AutoLifterCommand(double lift, double time) {
+    public LiftUpCommand() {
         // Use requires() here to declare subsystem dependencies
        // requires(Robot.lifterSystem);
-        this.lift = lift;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.lifterSystem.lift(lift);
+    	//Robot.lifterSystem.lift(OI.mainJoy.getRawAxis(RobotMap.rightTrigger));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timeSinceInitialized() >= time;
+        return false;
     }
 
     // Called once after isFinished returns true

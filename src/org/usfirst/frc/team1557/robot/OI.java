@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1557.robot;
 
+import org.usfirst.frc.team1557.robot.commands.LiftUpCommand;
 import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -18,8 +19,8 @@ public class OI {
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
 	Button aButton = new JoystickButton(mainJoy,RobotMap.aButton);
 	
-	//Button liftDownButton = new JoystickButton(mainJoy,RobotMap.leftBumper);
-	//Button liftUpButton = new JoystickButton(mainJoy,RobotMap.rightBumper);
+	Button liftDownButton = new JoystickButton(mainJoy,RobotMap.leftTrigger);
+	Button liftUpButton = new JoystickButton(mainJoy,RobotMap.rightTrigger);
 
 	
 	 
@@ -32,7 +33,10 @@ public class OI {
 	}
 	
 	public OI(){
-		aButton.whenPressed(new ToggleClampCommand());
+		
+		//liftUpButton.whileHeld(new LiftUpCommand());
+		//liftDownButton.whileHeld(new LiftUpCommand());
+		//aButton.whenPressed(new ToggleClampCommand());
 	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.

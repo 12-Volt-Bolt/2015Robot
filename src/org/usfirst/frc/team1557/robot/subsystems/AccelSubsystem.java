@@ -53,7 +53,10 @@ public class AccelSubsystem extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new Command() {
-
+			{
+				requires(Robot.accelSystem);
+				
+			}
 			@Override
 			protected void initialize() {
 				// TODO Auto-generated method stub

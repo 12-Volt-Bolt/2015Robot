@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
+import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.sensor.L3GD20_Gyro;
 import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC_Accel;
 
@@ -18,7 +19,7 @@ public class GyroSubsystem extends Subsystem {
 	double lastTime = -1;
 
 	/**
-	 * Compound update
+	 * Brant pls
 	 */
 	public void update() {
 
@@ -51,6 +52,10 @@ public class GyroSubsystem extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 
 		setDefaultCommand(new Command() {
+			
+			{
+				requires(Robot.gyroSystem);
+			}
 			@Override
 			protected boolean isFinished() {
 				return false;

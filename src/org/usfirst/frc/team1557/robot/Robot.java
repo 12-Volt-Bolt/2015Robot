@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * If true, subsystems should not access motors.
 	 */
-	public static boolean HEADLESS = true;
+	public static boolean HEADLESS = false;
 
 	public static OI oi;
 
@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
 
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
-	public static ClampSubsystem clampSystem;
+	// public static ClampSubsystem clampSystem;
 	public static GyroSubsystem gyroSystem;
 	public static AccelSubsystem accelSystem;
 	// Compressor compresser;
@@ -61,11 +61,11 @@ public class Robot extends IterativeRobot {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
 			accelSystem = new AccelSubsystem();
-
+			gyroSystem = new GyroSubsystem();
 			// clampSystem = new ClampSubsystem();
 
 			// instantiate the command used for the autonomous period
-			// // lifterCommand = new LifterCommand();
+			//lifterCommand = new LifterCommand();
 
 			autoChooser = new SendableChooser();
 
@@ -74,57 +74,22 @@ public class Robot extends IterativeRobot {
 			driveChooser.addDefault("Magical Mecanum",
 					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
+			
 			SmartDashboard.putData("Drive Chooser", driveChooser);
-			SmartDashboard.putData(driveSystem);
-
-			autoChooser.addDefault("Atrocious Autonomous", new AutonomousGroup());
+			
+			autoChooser.addDefault("Atrocious Autonomous",
+					new AutonomousGroup());
+			SmartDashboard.putData("Autonmous Chooser", autoChooser);
 			// SmartDashboard.putData);
+			
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
+			SmartDashboard.putData(driveSystem);
+
 
 		}
 
-		// new ImageInfo;
-
-		// open the camera at the IP address assigned. This is the IP address
-		// that the camera
-		// can be accessed through the web interface.
-
-		/*
-		 * try { CaptureRunnable runnable = new CaptureRunnable("cam0"); Thread
-		 * captureThread = new Thread(runnable); captureThread.start(); } catch
-		 * (Exception e) { e.printStackTrace(); }
-		 */
-
 	}
-
-	/*
-	 * private class CaptureRunnable implements Runnable { String name;
-	 * 
-	 * public CaptureRunnable(String name) { this.name = name; }
-	 * 
-	 * @Override public void run() { Image frame = NIVision.imaqCreateImage(
-	 * NIVision.ImageType.IMAGE_RGB, 0);
-	 * 
-	 * 
-	 * int id = NIVision.IMAQdxOpenCamera(name,
-	 * NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-	 * NIVision.IMAQdxConfigureGrab(id); NIVision.IMAQdxStartAcquisition(id);
-	 * 
-	 * while (true) { //NIVision.IMAQdxGrab(id, frame, 1);
-	 * camera.getImage(frame);
-	 * 
-	 * //ImageInfo info = NIVision.imaqGetImageInfo(frame);
-	 * //System.out.printf("I has an image: %s %s", info.xRes, info.yRes);
-	 * 
-	 * //Thread.sleep(100);
-	 * 
-	 * break; }
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
@@ -133,7 +98,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		if (!HEADLESS) {
-			((Command) (autoChooser.getSelected())).start();
+			// ((Command) (autoChooser.getSelected())).start();
 		}
 	}
 
@@ -150,7 +115,7 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (((Command) (autoChooser.getSelected())) != null) {
-			((Command) (autoChooser.getSelected())).cancel();
+			// ((Command) (autoChooser.getSelected())).cancel();
 		}
 		if (!HEADLESS) {
 			((Command) driveChooser.getSelected()).start();
@@ -165,37 +130,12 @@ public class Robot extends IterativeRobot {
 
 	}
 
-	// int debounce = 0;
-
 	/**
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		// if (SmartDashboard.getBoolean("drive", true)) {
-		// if (!mecanumDriveCommand.isRunning()) {
-		// tankDriveCommand.cancel();
-		// mecanumDriveCommand.start();
-		// }
-		// } else {
-		// if (!tankDriveCommand.isRunning()) {
-		// mecanumDriveCommand.cancel();
-		// tankDriveCommand.start();
-		// }
-		// }
-
-		/*
-		 * debounce++;
-		 * 
-		 * if (debounce > 3) { debounce = 0; NIVision.Rect rect = new
-		 * NIVision.Rect(10, 10, 100, 100);
-		 * 
-		 * camera.getImage(frame); NIVision.imaqDrawShapeOnImage(frame, frame,
-		 * rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
-		 * 
-		 * CameraServer.getInstance().setImage(frame); }
-		 */
 	}
 
 	/**

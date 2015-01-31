@@ -30,12 +30,12 @@ public class RobotMap {
 	
 
 	// Talon IDs
-	public static int frontLeftTalonID = 1;
-	public static int rearLeftTalonID = 3;// 2
-	public static int frontRightTalonID = 2;// 3
-	public static int rearRightTalonID = 4;
+	public static int frontLeftTalonID = 0;//1//1
+	public static int rearLeftTalonID = 2;// 2//3
+	public static int frontRightTalonID = 1;// 3//2
+	public static int rearRightTalonID = 3;//4//4
 
-	public static int lifterTalonID = 7;// 7
+	public static int lifterTalonID = 4;// 7
 	
 	public static String lifterKey = "lifterSpeed";
 	public static String speedKey = "driveSpeed";
