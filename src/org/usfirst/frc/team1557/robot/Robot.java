@@ -3,12 +3,13 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
-
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +28,35 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	/*
+	 * Doesn't completely crash
+	 *  Y
+	 * 
+	 * Gyro/Accel input test
+	 *  N
+	 * 
+	 * Correct values
+	 * 
+	 * Accel Y should be ~= 0
+	 * 
+	 * Gyro should stay ~= 0
+	 * 
+	 * Gyro Drift Amount
+	 * 
+	 * Mecanum drives correctly
+	 *  Y
+	 * 
+	 * Lifter lifts 
+	 * 	Y
+	 * 
+	 * Limit switch status
+	 * 
+	 * Lifter doesn't fall down?
+	 *  Y
+	 * 
+	 * See if we can change DriveSystems with SmrtDshbrd
+	 */
+	
 	/**
 	 * If true, subsystems should not access motors.
 	 */
@@ -38,10 +68,10 @@ public class Robot extends IterativeRobot {
 
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
-	// public static ClampSubsystem clampSystem;
+	public static ClampSubsystem clampSystem;
 	public static SensorSubsystem sensorSystem;
 
-	// Compressor compresser;
+	//Compressor compresser;
 
 	// Select the mode of Driving used by DriveSubsystem
 	SendableChooser driveChooser;
@@ -52,16 +82,16 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		// compresser = new Compressor();
-		// compresser.start();
+		//compresser = new Compressor();
+		//compresser.start();
 		oi = new OI();
 
 		if (!HEADLESS) {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
-
 			sensorSystem = new SensorSubsystem();
-			// clampSystem = new ClampSubsystem();
+			
+			//clampSystem = new ClampSubsystem();
 
 			// instantiate the command used for the autonomous period
 			// lifterCommand = new LifterCommand();
@@ -84,19 +114,23 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
-
+			
 		}
+		
+		oi.initialize();
 
 	}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
+	boolean sensor = false;
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
+			sensorSystem.init();
 		}
 	}
 
@@ -113,11 +147,14 @@ public class Robot extends IterativeRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (((Command) (autoChooser.getSelected())) != null) {
-			// ((Command) (autoChooser.getSelected())).cancel();
+			((Command) (autoChooser.getSelected())).cancel();
 		}
 		if (!HEADLESS) {
 			((Command) driveChooser.getSelected()).start();
+			sensorSystem.init();
 		}
+		
+		
 	}
 
 	/**

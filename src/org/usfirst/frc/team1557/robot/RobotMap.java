@@ -38,9 +38,10 @@ public class RobotMap {
 
 	public static int lifterTalonID = 4;// 7
 	
-	public static String lifterKey = "lifterSpeed";
-	public static String speedKey = "driveSpeed";
-
+	public static String lifterKey = "Lifter Scale Speed";
+	public static String speedKey = "Drive Scale Speed";
+	
+	public static boolean isClamp = false;
 	public RobotMap() {
 
 	}

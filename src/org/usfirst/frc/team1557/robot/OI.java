@@ -33,10 +33,9 @@ public class OI {
 
 	public OI() {
 
-		yButton.whenPressed(new StackCommand());
-
 		// aButton.whenPressed(new ToggleClampCommand());
 	}
+
 	// // CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	// joystick.
@@ -44,6 +43,12 @@ public class OI {
 	// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
+
+	public void initialize() {
+		// TODO Auto-generated method stub
+		// yButton.whenPressed(new StackCommand());
+		//aButton.whenPressed(new ToggleClampCommand());
+	}
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to

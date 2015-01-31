@@ -87,8 +87,8 @@ public class DriveSubsystem extends Subsystem {
 				rearRight.getOutputCurrent());
 
 		SmartDashboard.putNumber("frontRightThrottle", frontRight.get());
-		SmartDashboard.putNumber("frontLettThrottle", frontLeft.get());
-		SmartDashboard.putNumber("rearRightThrottle", rearLeft.get());
+		SmartDashboard.putNumber("frontLeftThrottle", frontLeft.get());
+		SmartDashboard.putNumber("rearLeftThrottle", rearLeft.get());
 		SmartDashboard.putNumber("rearRightThrottle", rearRight.get());
 
 		SmartDashboard.putNumber("Left Joystick X",

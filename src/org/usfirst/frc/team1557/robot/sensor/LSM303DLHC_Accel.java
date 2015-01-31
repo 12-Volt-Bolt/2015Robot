@@ -7,7 +7,7 @@ public class LSM303DLHC_Accel {
 	public enum Scale {
 		g2, g4, g8, g16;
 	}
-	
+	//							   0b1101_011
 	private final int devAddress = 0b0011_001;
 	private final int regCtrl1 = 0x20;
 	private final int regCtrl4 = 0x23;
@@ -20,12 +20,45 @@ public class LSM303DLHC_Accel {
 	private Scale currScale = Scale.g2;
 	private I2C accel;
 	
+	public void testAllOfType(I2C.Port type) {
+		System.out.println("Starting test of type " + type.toString());
+		for(int i = 0; i < 512; i++) {
+			try {
+				accel = new I2C(type, i);
+			
+			System.out.println("Tested " + i + " or " + Integer.toBinaryString(i));
+			
+			//if(!accel.read(regCtrl1, 1, new byte[1])) {
+			if(!accel.transaction(new byte[0], (byte) 0, new byte[0], (byte) 0) || !accel.addressOnly()) {
+				System.out.println("Found I2C device at address " + i + " or " + Integer.toBinaryString(i));
+			}
+			} catch (Exception e) {
+				//e.printStackTrace();
+				//break;
+			} finally {
+				accel.free();
+			}
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	//TODO allow setting of data rate
 	public LSM303DLHC_Accel() {
+		
+		testAllOfType(I2C.Port.kMXP);
+		testAllOfType(I2C.Port.kOnboard);
+		
+		
 		try {
 			accel = new I2C(I2C.Port.kOnboard, devAddress);
 			
-			if(accel.addressOnly()) {
+			if(accel.transaction(new byte[0], (byte) 0, new byte[0], (byte) 0)) {
 				throw new Exception("Could not connect to LSM303DLHC Accelerometer!");
 			}
 			
