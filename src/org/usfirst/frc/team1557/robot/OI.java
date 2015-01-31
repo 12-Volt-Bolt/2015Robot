@@ -23,12 +23,16 @@ public class OI {
 	// Triggers = Elevator
 	// Bumpers = Arms
 
+	/**
+	 * Gets the value of the given axis for the main joystick.
+	 * @param  axis The axis to retrieve, i.e. RobotMap.leftXAxis
+	 * @return      The value, from -1 to 1 of the given axis.
+	 */
 	public static double axis(int axis) {
 		return mainJoy.getRawAxis(axis);
 	}
 
 	public OI() {
-
 		// aButton.whenPressed(new ToggleClampCommand());
 	}
 

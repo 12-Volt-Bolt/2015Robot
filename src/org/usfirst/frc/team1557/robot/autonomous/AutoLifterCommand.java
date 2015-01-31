@@ -10,12 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoLifterCommand extends Command {
 	double lift, time;
 
-	//
-	//Will change this to work with position instead of time when we get the encoders installed
-	//
-    public AutoLifterCommand(double lift, double time) {
-        // Use requires() here to declare subsystem dependencies
-       // requires(Robot.lifterSystem);
+	// Will change this to work with position instead of time when we get the encoders installed
+	public AutoLifterCommand(double lift, double time) {
         this.lift = lift;
     }
 

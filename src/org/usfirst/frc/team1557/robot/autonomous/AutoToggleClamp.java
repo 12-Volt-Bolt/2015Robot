@@ -6,13 +6,13 @@ import org.usfirst.frc.team1557.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Automatically toggles the clamp
  */
 public class AutoToggleClamp extends Command {
 
     public AutoToggleClamp() {
         // Use requires() here to declare subsystem dependencies
-       // requires(Robot.clampSystem);
+        // requires(Robot.clampSystem);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +21,6 @@ public class AutoToggleClamp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
     	//Robot.clampSystem.togglePiston();
     }
 

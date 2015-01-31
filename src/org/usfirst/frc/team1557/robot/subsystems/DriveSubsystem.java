@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Subsystem for drive train
  */
 public class DriveSubsystem extends Subsystem {
 
@@ -36,17 +36,29 @@ public class DriveSubsystem extends Subsystem {
 		setDefaultCommand(new MecanumDriveCommand());
 	}
 
-	// TankDrive
-	public void tankDrive(double x, double y) {
+	/**
+	 * Tank drive
+	 * @param left Speed for the left side, from -1 to 1.
+	 * @param right Speed for the right side, from -1 to 1.
+	 */
+	public void tankDrive(double left, double right) {
 		if (drive == null) {
 			drive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 		}
-		drive.tankDrive(x, y);
+		drive.tankDrive(left, right);
 	}
 
+	/**
+	 * Mecanum drive
+	 * @param x Lateral translation, strafing left to right.
+	 * @param y Forward translation, moving forward and backward.
+	 * @param r Speed of rotation
+	 */
 	public void mecanumCartesian(double x, double y, double r) {
-		double v_FrontLeft = r - y + x, v_FrontRight = r + y + x, v_BackLeft = r
-				- y - x, v_BackRight = r + y - x;
+		double v_FrontLeft = r - y + x,
+			v_FrontRight = r + y + x,
+			v_BackLeft = r - y - x,
+			v_BackRight = r + y - x;
 
 		// This segment below gets the largest value or 1 so we can divide by
 		// it,
@@ -75,6 +87,9 @@ public class DriveSubsystem extends Subsystem {
 
 	}
 
+	/**
+	 * Sets SmartDashboard values based on the state of the subsystem
+	 */
 	private void output() {
 		// SmartDashboard Stuff
 		SmartDashboard.putNumber("frontRightCurrent", frontRight.getOutputCurrent());
@@ -94,6 +109,10 @@ public class DriveSubsystem extends Subsystem {
 		SmartDashboard.putNumber("Right Joystick Y", OI.mainJoy.getRawAxis(rightYAxis));
 	}
 
+	/**
+	 * Changes the control mode for all motors.
+	 * @param mode The CANTalon ControlMode to set all motors to.
+	 */
 	private void changeMode(CANTalon.ControlMode mode) {
 		frontLeft.changeControlMode(mode);
 		frontRight.changeControlMode(mode);

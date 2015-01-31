@@ -9,22 +9,37 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
+ * Subsystem for accelerometer and gyroscope
+ * 
  * If any commands require SensorSubsystem, they must call
- * SensorSubsystem.update in their execute method
+ * SensorSubsystem.updateSensor in their execute method
  */
 public class SensorSubsystem extends Subsystem {
 	L3GD20_Gyro gyro = null;
 	LSM303DLHC_Accel accel = null;
 	
+	/**
+	 * Accumulated z angle
+	 */
 	double gyroAngle = 0;
 
+	/**
+	 * Accumulated velocity
+	 */
 	double vel = 0;
-	double currentPos = 0;
-
-	double lastTime = -1;
 
 	/**
-	 * Updates Gyro and Accel. Must be called in an execute or
+	 * Accumulated position
+	 */
+	double currentPos = 0;
+
+	/**
+	 * Timestamp of the last tick
+	 */
+	long lastTime = -1;
+
+	/**
+	 * Updates Gyro and Accelerometer. Must be called continuously, i.e. in execute.
 	 */
 	public void updateSensor() {
 		if (gyro == null || accel == null)
@@ -55,30 +70,53 @@ public class SensorSubsystem extends Subsystem {
 		lastTime = now;
 	}
 
+	/**
+	 * Resets the accumulated position of the accelerometer
+	 */
 	public void resetAccel() {
 		currentPos = 0;
 		vel = 0;
 	}
 
+	/**
+	 * Resets the accumulated angle of the gyro
+	 */
 	public void resetGyro() {
 		gyroAngle = 0;
 	}
 
+	/**
+	 * Gets the accumulated angle of the gyro.
+	 * @return The accumulated angle of the gyro.
+	 */
 	public double getAngleZ() {
 		return gyroAngle;
 	}
 
+	/**
+	 * Gets the accumulated y position of the accelerometer
+	 * @return The accumulated forward position of the acceleromter
+	 */
 	public double getCurrentYPos() {
 		return currentPos;
 	}
 
+	/**
+	 * Sets SmartDashboard values based on the state of the subsystem
+	 */
 	private void output() {
 		SmartDashboard.putNumber("Gyro Angle", gyroAngle);
 		SmartDashboard.putNumber("Accelerometer Y Position", currentPos);
 	}
 
+	/**
+	 * Whether this subsystem has been initialzed yet.
+	 */
 	private boolean isinit = false;
 
+	/**
+	 * Creates the gyroscope and accelerometer.
+	 */
 	public void init() {
 		if (!isinit) {
 			isinit = true;

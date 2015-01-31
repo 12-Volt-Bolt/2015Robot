@@ -24,16 +24,20 @@ public class LifterSubsystem extends Subsystem {
 	public LifterSubsystem() {
 		// limitUp = new DigitalInput(1);
 		// limitDown = new DigitalInput(0);
+		
 		lifter = new CANTalon(lifterTalonID);
 		lifter.enableBrakeMode(true);
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
 		setDefaultCommand(new LifterCommand());
-
 	}
 
+	/**
+	 * Moves the lifter at the given speed.
+	 * Negative speed values lift up, while positive values lift down.
+	 * @param speed The speed to move the lifter at, from -1 to 1. 
+	 */
 	public void lift(double speed) {
 
 		// if (limitDown.get()) {
@@ -54,6 +58,7 @@ public class LifterSubsystem extends Subsystem {
 		} else {
 			lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));
 		}
+		
 		SmartDashboard.putNumber("Lifter Motor Speed", lifter.get());
 	}
 
@@ -66,8 +71,6 @@ public class LifterSubsystem extends Subsystem {
 	 * 
 	 */
 	public void stack(double speed) {
-
 		lifter.set(-speed);
 	}
-
 }

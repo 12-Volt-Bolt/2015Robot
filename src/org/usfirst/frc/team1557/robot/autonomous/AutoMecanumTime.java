@@ -6,14 +6,21 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 /**
- *
+ * Automatically drives the robot for the given time.
  */
 public class AutoMecanumTime extends Command {
 	double x, y, r, time;
 
+	/**
+	 * Creates this command
+	 * @param  x    Sideways movement speed
+	 * @param  y    Forwards movement speed
+	 * @param  r    Rotation speed
+	 * @param  time Time to move
+	 */
 	public AutoMecanumTime(double x, double y, double r, double time) {
-		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveSystem);
+		
 		this.x = x;
 		this.y = y;
 		this.r = r;
