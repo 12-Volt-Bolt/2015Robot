@@ -23,6 +23,7 @@ public class RobotMap {
 
 	public static int yButton = 4;
 	public static int aButton = 1;
+	public static int bButton = 2;
 	public static int leftBumper = 5;
 	public static int rightBumper = 6;
 
@@ -39,10 +40,7 @@ public class RobotMap {
 	
 	public static String lifterKey = "lifterSpeed";
 	public static String speedKey = "driveSpeed";
-	
-	
-	public static boolean up = false;
-	public static boolean down = false;
+
 	public RobotMap() {
 
 	}

@@ -28,7 +28,7 @@ public class MecanumDriveCommand extends Command {
 	protected void execute() {
 
 		// Shifting; Should probably put this somewhere else.
-		if (OI.mainJoy.getRawButton(aButton)) {
+		if (OI.mainJoy.getRawButton(bButton)) {
 			speed = !speed;
 			if (!speed) {
 				SmartDashboard.putNumber(RobotMap.speedKey, 1);

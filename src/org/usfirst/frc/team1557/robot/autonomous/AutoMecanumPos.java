@@ -59,7 +59,7 @@ public class AutoMecanumPos extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.sensorSystem.getCurrenPos() >= pos || isTimedOut();
+		return Robot.sensorSystem.getCurrentYPos() >= pos || isTimedOut();
 	}
 
 	// Called once after isFinished returns true

@@ -54,9 +54,10 @@ public class LifterSubsystem extends Subsystem {
 		}
 	}
 	/**
-	 * 
+	 *
 	 * Will negate whatever speed you input. Therefore, the speed should be positive to go down.
 	 * @param speed
+	 * 
 	 */
 	public void stack(double speed){
 		

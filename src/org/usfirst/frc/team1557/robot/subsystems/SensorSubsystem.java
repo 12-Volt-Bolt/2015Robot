@@ -65,7 +65,7 @@ public class SensorSubsystem extends Subsystem {
 	public double getAngleZ() {
 		return gyroAngle;
 	}
-	public double getCurrenPos(){
+	public double getCurrentYPos(){
 		return currentPos;
 	}
 	

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1557.robot;
 
-import org.usfirst.frc.team1557.robot.commands.LiftDownCommand;
-import org.usfirst.frc.team1557.robot.commands.LiftUpCommand;
 import org.usfirst.frc.team1557.robot.commands.StackCommand;
 import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
@@ -21,8 +19,9 @@ public class OI {
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
 	Button aButton = new JoystickButton(mainJoy, RobotMap.aButton);
 
-	Button liftDownButton = new JoystickButton(mainJoy, RobotMap.leftTrigger);
-	Button liftUpButton = new JoystickButton(mainJoy, RobotMap.rightTrigger);
+	// Button liftDownButton = new JoystickButton(mainJoy,
+	// RobotMap.leftTrigger);
+	// Button liftUpButton = new JoystickButton(mainJoy, RobotMap.rightTrigger);
 
 	// Joystick = Drive
 	// Triggers = Elevator
@@ -34,16 +33,8 @@ public class OI {
 
 	public OI() {
 
-		if (!Robot.lifterSystem.getCurrentCommand().getName()
-				.equals("LiftDownCommand")) {
+		yButton.whenPressed(new StackCommand());
 
-			liftUpButton.whileHeld(new LiftUpCommand());
-		} else if (!Robot.lifterSystem.getCurrentCommand().getName()
-				.equals("LiftUpCommand")) {
-			liftDownButton.whileHeld(new LiftDownCommand());
-		} else {
-			aButton.whenPressed(new StackCommand());
-		}
 		// aButton.whenPressed(new ToggleClampCommand());
 	}
 	// // CREATING BUTTONS
