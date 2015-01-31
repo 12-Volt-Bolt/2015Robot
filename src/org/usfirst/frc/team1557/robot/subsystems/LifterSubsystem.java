@@ -33,7 +33,7 @@ public class LifterSubsystem extends Subsystem {
 		
 	}
 
-	public void lift(double x) {
+	public void lift(double speed) {
 
 //		if (limitDown.get()) {
 //			if (x < 0) {
@@ -45,12 +45,22 @@ public class LifterSubsystem extends Subsystem {
 //			}
 //		}
 
-		lifter.set(x * SmartDashboard.getNumber(lifterKey, 1));
-
-//		if (x > -0.05 && x < 0.05 && !limitUp.get() && !limitDown.get()) {
-//			
-//			lifter.set(0.1);
-//		}
+		lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));
+		
+		//&& !limitUp.get() && !limitDown.get()
+		if (speed > -0.05 && speed < 0.05 ) {
+			
+			lifter.set(0.1);
+		}
+	}
+	/**
+	 * 
+	 * Will negate whatever speed you input. Therefore, the speed should be positive to go down.
+	 * @param speed
+	 */
+	public void stack(double speed){
+		
+		lifter.set(-speed);
 	}
 
 }

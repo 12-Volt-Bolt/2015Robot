@@ -39,7 +39,10 @@ public class RobotMap {
 	
 	public static String lifterKey = "lifterSpeed";
 	public static String speedKey = "driveSpeed";
-
+	
+	
+	public static boolean up = false;
+	public static boolean down = false;
 	public RobotMap() {
 
 	}

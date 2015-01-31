@@ -1,5 +1,9 @@
 package org.usfirst.frc.team1557.robot.commands;
 
+import org.usfirst.frc.team1557.robot.OI;
+import org.usfirst.frc.team1557.robot.Robot;
+import org.usfirst.frc.team1557.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,7 +13,7 @@ public class LiftDownCommand extends Command {
 
     public LiftDownCommand() {
         // Use requires() here to declare subsystem dependencies
-       //requires(Robot.lifterSystem);
+       requires(Robot.lifterSystem);
     }
 
     // Called just before this Command runs the first time
@@ -18,7 +22,7 @@ public class LiftDownCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.lifterSystem.lift(-OI.mainJoy.getRawAxis(RobotMap.leftTrigger)
+    	Robot.lifterSystem.lift(-OI.mainJoy.getRawAxis(RobotMap.leftTrigger));
     }
 
     // Make this return true when this Command no longer needs to run execute()

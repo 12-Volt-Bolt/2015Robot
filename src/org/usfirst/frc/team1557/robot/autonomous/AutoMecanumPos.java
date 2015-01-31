@@ -23,7 +23,7 @@ public class AutoMecanumPos extends Command {
 	public AutoMecanumPos(double x, double y, double r, double pos, double time) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveSystem);
-		requires(Robot.accelSystem);
+		requires(Robot.sensorSystem);
 		this.x = x;
 		this.y = y;
 		this.r = r;
@@ -51,7 +51,7 @@ public class AutoMecanumPos extends Command {
 		// vel += accel.readRateY() * time * 32.1740485564304;
 		//
 		// currentPos += vel * time;
-		Robot.accelSystem.updateAccel();
+		Robot.sensorSystem.updateSensor();
 		Robot.driveSystem.mecanumCartesian(x, y, r);
 		// lastTime = System.currentTimeMillis();
 
@@ -59,7 +59,7 @@ public class AutoMecanumPos extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.accelSystem.getPos() >= pos || isTimedOut();
+		return Robot.sensorSystem.getCurrenPos() >= pos || isTimedOut();
 	}
 
 	// Called once after isFinished returns true

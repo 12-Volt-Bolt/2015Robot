@@ -3,10 +3,10 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
-import org.usfirst.frc.team1557.robot.subsystems.AccelSubsystem;
+
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team1557.robot.subsystems.GyroSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 
 import edu.wpi.first.wpilibj.Gyro;
@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,8 +39,8 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
 	// public static ClampSubsystem clampSystem;
-	public static GyroSubsystem gyroSystem;
-	public static AccelSubsystem accelSystem;
+	public static SensorSubsystem sensorSystem;
+
 	// Compressor compresser;
 
 	// Select the mode of Driving used by DriveSubsystem
@@ -60,12 +59,12 @@ public class Robot extends IterativeRobot {
 		if (!HEADLESS) {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
-			accelSystem = new AccelSubsystem();
-			gyroSystem = new GyroSubsystem();
+
+			sensorSystem = new SensorSubsystem();
 			// clampSystem = new ClampSubsystem();
 
 			// instantiate the command used for the autonomous period
-			//lifterCommand = new LifterCommand();
+			// lifterCommand = new LifterCommand();
 
 			autoChooser = new SendableChooser();
 
@@ -74,18 +73,17 @@ public class Robot extends IterativeRobot {
 			driveChooser.addDefault("Magical Mecanum",
 					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
-			
+
 			SmartDashboard.putData("Drive Chooser", driveChooser);
-			
+
 			autoChooser.addDefault("Atrocious Autonomous",
 					new AutonomousGroup());
 			SmartDashboard.putData("Autonmous Chooser", autoChooser);
 			// SmartDashboard.putData);
-			
+
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
-
 
 		}
 

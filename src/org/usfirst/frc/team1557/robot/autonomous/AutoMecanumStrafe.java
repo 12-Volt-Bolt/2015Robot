@@ -18,7 +18,7 @@ public class AutoMecanumStrafe extends Command {
 	public AutoMecanumStrafe(double x, double y, double time) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveSystem);
-		requires(Robot.gyroSystem);
+		requires(Robot.sensorSystem);
 		this.x = x;
 		this.y = y;
 
@@ -48,16 +48,16 @@ public class AutoMecanumStrafe extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.gyroSystem.resetGyro();
-		startingAngle = Robot.gyroSystem.getAngleZ();
+		Robot.sensorSystem.resetGyro();
+		startingAngle = Robot.sensorSystem.getAngleZ();
 
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.gyroSystem.updateSensor();
+		Robot.sensorSystem.updateSensor();
 		Robot.driveSystem.mecanumCartesian(x, y,
-				direction(Robot.gyroSystem.getAngleZ(), startingAngle));
+				direction(Robot.sensorSystem.getAngleZ(), startingAngle));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1557.robot.commands;
 
+import org.usfirst.frc.team1557.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,7 +11,7 @@ public class StackCommand extends Command {
 
     public StackCommand() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(Robot.lifterSystem);
     }
 
     // Called just before this Command runs the first time
@@ -18,6 +20,7 @@ public class StackCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.lifterSystem.stack(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
