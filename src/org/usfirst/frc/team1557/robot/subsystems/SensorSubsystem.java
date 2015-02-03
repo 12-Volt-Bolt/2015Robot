@@ -32,16 +32,11 @@ public class SensorSubsystem extends Subsystem {
 	 * Accumulated position
 	 */
 	double currentPos = 0;
-<<<<<<< HEAD
-	int i = 0;
-	double lastTime = -1;
-=======
 
 	/**
 	 * Timestamp of the last tick
 	 */
 	long lastTime = -1;
->>>>>>> origin/master
 
 	/**
 	 * Updates Gyro and Accelerometer. Must be called continuously, i.e. in execute.
@@ -106,16 +101,10 @@ public class SensorSubsystem extends Subsystem {
 		return currentPos;
 	}
 
-<<<<<<< HEAD
-	private void output(){ 
-		
-		SmartDashboard.putNumber("Count", i++);
-=======
 	/**
 	 * Sets SmartDashboard values based on the state of the subsystem
 	 */
 	private void output() {
->>>>>>> origin/master
 		SmartDashboard.putNumber("Gyro Angle", gyroAngle);
 		SmartDashboard.putNumber("Accelerometer Y Position", currentPos);
 	}

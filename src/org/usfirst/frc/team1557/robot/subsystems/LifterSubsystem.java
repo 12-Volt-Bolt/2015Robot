@@ -9,6 +9,7 @@ import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+//import edu.wpi.first.wpilibj.hal.CanTalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -24,22 +25,20 @@ public class LifterSubsystem extends Subsystem {
 	public LifterSubsystem() {
 		// limitUp = new DigitalInput(1);
 		// limitDown = new DigitalInput(0);
-		
 		lifter = new CANTalon(lifterTalonID);
 		lifter.enableBrakeMode(true);
 	}
 
 	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
 		setDefaultCommand(new LifterCommand());
+
 	}
 
-	/**
-	 * Moves the lifter at the given speed.
-	 * Negative speed values lift up, while positive values lift down.
-	 * @param speed The speed to move the lifter at, from -1 to 1. 
-	 */
 	public void lift(double speed) {
-
+		//Inverse Speed
+		speed *= -1;
+		
 		// if (limitDown.get()) {
 		// if (x < 0) {
 		// x = 0;
@@ -54,23 +53,26 @@ public class LifterSubsystem extends Subsystem {
 		// && Robot.clampSystem.isClamp()
 
 		if (speed >= -0.1 && speed <= 0.1) {
+
 			lifter.set(-0.1);
 		} else {
 			lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));
 		}
-		
-		SmartDashboard.putNumber("Lifter Motor Speed", lifter.get());
+		SmartDashboard.putNumber("Lifter Motor Throttle", lifter.get());
+		SmartDashboard.putNumber("Lifter Motor Current", lifter.getOutputCurrent());
+		SmartDashboard.putNumber("Lifter Motor Voltage", lifter.getOutputVoltage());
 	}
 
 	/**
 	 *
-	 * Will negate whatever speed you input. Therefore, the speed should be
-	 * positive to go down.
+	 * Will negate whatever speed you input. Positive is upwards and negative is downwards
 	 * 
 	 * @param speed
 	 * 
 	 */
 	public void stack(double speed) {
+		
 		lifter.set(-speed);
 	}
+
 }
