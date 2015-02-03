@@ -19,7 +19,7 @@ public class SensorSubsystem extends Subsystem {
 
 	double vel = 0;
 	double currentPos = 0;
-
+	int i = 0;
 	double lastTime = -1;
 
 	/**
@@ -71,7 +71,9 @@ public class SensorSubsystem extends Subsystem {
 		return currentPos;
 	}
 
-	private void output() {
+	private void output(){ 
+		
+		SmartDashboard.putNumber("Count", i++);
 		SmartDashboard.putNumber("Gyro Angle", gyroAngle);
 		SmartDashboard.putNumber("Accelerometer Y Position", currentPos);
 

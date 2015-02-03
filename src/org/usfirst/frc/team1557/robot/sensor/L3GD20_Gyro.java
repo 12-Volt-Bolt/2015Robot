@@ -25,13 +25,9 @@ public class L3GD20_Gyro {
 		try {
 			gyro = new I2C(I2C.Port.kOnboard, devAddress);
 			
-			if(gyro.transaction(new byte[0], (byte) 0, new byte[0], (byte) 0)) {
-				throw new Exception("Could not connect to L3GD20 Gyroscope!");
-			}
-			
 			byte[] buf = new byte[1];
 			gyro.read(regWhoAmI, 1, buf);
-			if(buf[0] != 0b1101_0100) {
+			if((buf[0] & 0b1111_1111) != 0b1101_0100) {
 				throw new Exception("Wrong device at L3GD20 Gyroscope address!");
 			}
 			

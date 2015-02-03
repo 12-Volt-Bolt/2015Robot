@@ -3,6 +3,8 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
+import org.usfirst.frc.team1557.robot.sensor.L3GD20_Gyro;
+import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC_Accel;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
@@ -12,6 +14,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -28,8 +31,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	/*
-	 * Doesn't completely crash
+	/**
+	 * Doesn't completely crash 
 	 *  Y
 	 * 
 	 * Gyro/Accel input test
@@ -56,14 +59,15 @@ public class Robot extends IterativeRobot {
 	 * 
 	 * See if we can change DriveSystems with SmrtDshbrd
 	 */
-	
+		
 	/**
 	 * If true, subsystems should not access motors.
 	 */
 	public static boolean HEADLESS = false;
 
 	public static OI oi;
-
+	
+	
 	// Command lifterCommand;
 
 	public static DriveSubsystem driveSystem;
@@ -85,11 +89,12 @@ public class Robot extends IterativeRobot {
 		//compresser = new Compressor();
 		//compresser.start();
 		oi = new OI();
-
+		
 		if (!HEADLESS) {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
 			sensorSystem = new SensorSubsystem();
+			//sensorSystem.init();
 			
 			//clampSystem = new ClampSubsystem();
 
@@ -99,7 +104,7 @@ public class Robot extends IterativeRobot {
 			autoChooser = new SendableChooser();
 
 			driveChooser = new SendableChooser();
-
+			
 			driveChooser.addDefault("Magical Mecanum",
 					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
@@ -124,12 +129,14 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
-	boolean sensor = false;
+	
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
+			
+			//TODO remove
 			sensorSystem.init();
 		}
 	}
@@ -151,10 +158,10 @@ public class Robot extends IterativeRobot {
 		}
 		if (!HEADLESS) {
 			((Command) driveChooser.getSelected()).start();
+			
+			//TODO remove
 			sensorSystem.init();
 		}
-		
-		
 	}
 
 	/**
@@ -164,13 +171,15 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 
 	}
-
+	
 	/**
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-
+		
+		//TODO remove
+		sensorSystem.updateSensor();
 	}
 
 	/**
