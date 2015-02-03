@@ -8,13 +8,12 @@ import org.usfirst.frc.team1557.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Moves the lifter using input from the triggers
  */
 public class LifterCommand extends Command {
 
     public LifterCommand() {
-        // Use requires() here to declare subsystem dependencies
-       requires(Robot.lifterSystem);
+        requires(Robot.lifterSystem);
     }
 
     // Called just before this Command runs the first time

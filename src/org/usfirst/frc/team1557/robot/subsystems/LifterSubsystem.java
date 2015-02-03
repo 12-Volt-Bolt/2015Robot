@@ -9,7 +9,6 @@ import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-//import edu.wpi.first.wpilibj.hal.CanTalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -25,16 +24,20 @@ public class LifterSubsystem extends Subsystem {
 	public LifterSubsystem() {
 		// limitUp = new DigitalInput(1);
 		// limitDown = new DigitalInput(0);
+		
 		lifter = new CANTalon(lifterTalonID);
 		lifter.enableBrakeMode(true);
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
 		setDefaultCommand(new LifterCommand());
-
 	}
 
+	/**
+	 * Moves the lifter at the given speed.
+	 * Negative speed values lift up, while positive values lift down.
+	 * @param speed The speed to move the lifter at, from -1 to 1. 
+	 */
 	public void lift(double speed) {
 
 		// if (limitDown.get()) {
@@ -51,11 +54,11 @@ public class LifterSubsystem extends Subsystem {
 		// && Robot.clampSystem.isClamp()
 
 		if (speed >= -0.1 && speed <= 0.1) {
-
 			lifter.set(-0.1);
 		} else {
 			lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));
 		}
+		
 		SmartDashboard.putNumber("Lifter Motor Speed", lifter.get());
 	}
 
@@ -68,8 +71,6 @@ public class LifterSubsystem extends Subsystem {
 	 * 
 	 */
 	public void stack(double speed) {
-
 		lifter.set(-speed);
 	}
-
 }

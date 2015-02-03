@@ -10,10 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * floating around.
  */
 public class RobotMap {
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
+	// Joystick Axis IDs
 	public static int leftXAxis = 0;
 	public static int leftYAxis = 1;
 	public static int leftTrigger = 2;
@@ -21,37 +18,23 @@ public class RobotMap {
 	public static int rightXAxis = 4;
 	public static int rightYAxis = 5;
 
+	// Joystick Buttons
 	public static int yButton = 4;
 	public static int aButton = 1;
 	public static int bButton = 2;
 	public static int leftBumper = 5;
 	public static int rightBumper = 6;
 
-	public static boolean driveBoo = true;
-	
+	// Mecanum Talon IDs
+	public static int frontLeftTalonID = 0;
+	public static int rearLeftTalonID = 2;
+	public static int frontRightTalonID = 1;
+	public static int rearRightTalonID = 3;
 
-	// Talon IDs
-	public static int frontLeftTalonID = 0;//1//1
-	public static int rearLeftTalonID = 2;// 2//3
-	public static int frontRightTalonID = 1;// 3//2
-	public static int rearRightTalonID = 3;//4//4
-
-	public static int lifterTalonID = 4;// 7
+	// Lifter Talon ID
+	public static int lifterTalonID = 4;
 	
+	// SmartDashboard Keys
 	public static String lifterKey = "Lifter Scale Speed";
 	public static String speedKey = "Drive Scale Speed";
-	
-	public static boolean isClamp = false;
-	public RobotMap() {
-
-	}
-	/*
-	 * frontLeft = new CANTalon(1); backLeft = new CANTalon(2); frontRight = new
-	 * CANTalon(3); backRight = new CANTalon(4);
-	 */
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
-
 }
