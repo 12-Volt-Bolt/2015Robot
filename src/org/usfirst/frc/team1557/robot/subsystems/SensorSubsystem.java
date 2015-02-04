@@ -65,7 +65,7 @@ public class SensorSubsystem extends Subsystem {
 
 		// Output the values onto the SmrtDshbrd
 		output();
-
+		
 		// Resets the time value for next time
 		lastTime = now;
 	}

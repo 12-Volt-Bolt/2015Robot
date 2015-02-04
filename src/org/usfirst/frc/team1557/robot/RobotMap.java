@@ -37,4 +37,5 @@ public class RobotMap {
 	// SmartDashboard Keys
 	public static String lifterKey = "Lifter Scale Speed";
 	public static String speedKey = "Drive Scale Speed";
+	
 }

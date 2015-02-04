@@ -37,7 +37,7 @@ public class LifterSubsystem extends Subsystem {
 
 	public void lift(double speed) {
 		//Inverse Speed
-		speed *= -1;
+		
 		
 		// if (limitDown.get()) {
 		// if (x < 0) {
@@ -58,9 +58,9 @@ public class LifterSubsystem extends Subsystem {
 		} else {
 			lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));
 		}
-		SmartDashboard.putNumber("Lifter Motor Throttle", lifter.get());
-		SmartDashboard.putNumber("Lifter Motor Current", lifter.getOutputCurrent());
-		SmartDashboard.putNumber("Lifter Motor Voltage", lifter.getOutputVoltage());
+		SmartDashboard.putNumber("Lifter Motor Throttle", getThrottle());
+		SmartDashboard.putNumber("Lifter Motor Current", getCurrent());
+		SmartDashboard.putNumber("Lifter Motor Voltage", getVoltage());
 	}
 
 	/**
@@ -73,6 +73,24 @@ public class LifterSubsystem extends Subsystem {
 	public void stack(double speed) {
 		
 		lifter.set(-speed);
+		
 	}
-
+	/**
+	*Gets the Current of the Lifter Talon
+	*/
+	public double getCurrent(){
+		return lifter.getOutputCurrent();
+	}
+	/**
+	*Gets the Voltage of the Lifter Talon
+	*/
+	public double getVoltage(){
+		return lifter.getOutputVoltage();
+	}
+	/**
+	*Gets the Throttle of the Lifter Talon
+	*/
+	public double getThrottle(){
+		return lifter.get();
+	}
 }

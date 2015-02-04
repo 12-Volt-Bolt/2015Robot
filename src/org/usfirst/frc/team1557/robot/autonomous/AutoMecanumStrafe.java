@@ -76,6 +76,8 @@ public class AutoMecanumStrafe extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
+		
 		Robot.sensorSystem.updateSensor();
 		Robot.driveSystem.mecanumCartesian(x, y,
 				direction(Robot.sensorSystem.getAngleZ(), startingAngle));

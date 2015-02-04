@@ -1,6 +1,5 @@
 package org.usfirst.frc.team1557.robot;
 
-import org.usfirst.frc.team1557.robot.commands.StackCommand;
 import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 
@@ -45,7 +44,7 @@ public class OI {
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	public void initialize() {
-		// yButton.whenPressed(new StackCommand());
+		// yButton.whenPressed(new StackCommandGroup());
 		// aButton.whenPressed(new ToggleClampCommand());
 	}
 
