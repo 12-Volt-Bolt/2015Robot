@@ -10,7 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoLifterCommand extends Command {
 	double lift, time;
 
-	// Will change this to work with position instead of time when we get the encoders installed
+	/**
+	 * 
+	 * @param lift Speed of the lifter motor
+	 * @param time How long the motor will run for at the speed given
+	 */
 	public AutoLifterCommand(double lift, double time) {
         this.lift = lift;
     }
@@ -22,7 +26,7 @@ public class AutoLifterCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.lifterSystem.lift(lift);
+    	Robot.lifterSystem.lift(lift);
     }
 
     // Make this return true when this Command no longer needs to run execute()

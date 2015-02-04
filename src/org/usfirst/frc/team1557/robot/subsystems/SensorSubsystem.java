@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SensorSubsystem extends Subsystem {
 	L3GD20_Gyro gyro = null;
 	LSM303DLHC_Accel accel = null;
-	
+	double fil = 0.2;
+	double nosePass = 0;
 	double dt;
 	/**
 	 * Accumulated z angle
@@ -59,6 +60,8 @@ public class SensorSubsystem extends Subsystem {
 		gyroAngle += gyro.readRateZ() * dt;
 
 		// Writes the Accelerometer acceleration
+//		nosePass = (1 - fil) * nosePass + fil * vel;
+//		vel = vel - nosePass;
 		vel += accel.readRateY() * dt * 32.1740485564304;
 
 		// Writes the position that was calculated in the Y Axis

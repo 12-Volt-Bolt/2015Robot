@@ -38,4 +38,14 @@ public class RobotMap {
 	public static String lifterKey = "Lifter Scale Speed";
 	public static String speedKey = "Drive Scale Speed";
 	
+	//Autonomous lifter Settings
+	public static String lifterTime = "Auto Lifter Time";
+	public static String lifterSpeed = "Auto Lifter Speed";
+	
+	
+	{
+	SmartDashboard.putNumber(lifterSpeed, 1);
+	SmartDashboard.putNumber(lifterTime, 1);
+	}
+	
 }
