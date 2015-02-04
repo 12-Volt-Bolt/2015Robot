@@ -12,12 +12,12 @@ public class L3GD20_Gyro {
 	private final int regWhoAmI = 0x0f;
 	private final int regCtrl1 = 0x20;
 	private final int regCtrl4 = 0x23;
-	private final int regOutXL = 0x28;
-	private final int regOutXH = 0x29;
-	private final int regOutYL = 0x2a;
-	private final int regOutYH = 0x2b;
-	private final int regOutZL = 0x2c;
-	private final int regOutZH = 0x2d;
+	private final int regCtrl5 = 0x24;
+	private final int regOutX = 0x28;
+	private final int regOutY = 0x2a;
+	private final int regOutZ = 0x2c;
+	private final int regCtrlFIFO = 0x2e;
+	private final int regSrcFIFO = 0x2f;
 	private Scale currScale = Scale.scale250;
 	private I2C gyro;
 	
@@ -32,6 +32,8 @@ public class L3GD20_Gyro {
 			}
 			
 			gyro.write(regCtrl1, 0b1111_1111);
+			gyro.write(regCtrl5, 0b0100_0000);
+			gyro.write(regCtrlFIFO, 0b0100_0000);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			if(gyro != null) {
@@ -59,28 +61,32 @@ public class L3GD20_Gyro {
 	}
 	
 	public double readRateX() {
-		return readRate(regOutXL, regOutXH);
+		return readRate(regOutX);
 	}
 	
 	public double readRateY() {
-		return readRate(regOutYL, regOutYH);
+		return readRate(regOutY);
 	}
 	
 	public double readRateZ() {
-		return readRate(regOutZL, regOutZH);
+		return readRate(regOutZ);
 	}
 	
-	public double readRate(int lowAddr, int highAddr) {
+	public boolean available() {
+		byte[] buf = new byte[1];
+		gyro.read(regSrcFIFO, 1, buf);
+		return (buf[0] & 0b0010_0000) == 0;
+	}
+	
+	public double readRate(int addr) {
 		double scaledVal = 0;
 		if(gyro != null) {
+			byte[] buf = new byte[2];
+			gyro.read(addr & 0b1000_0000, 2, buf);
+			
 			int val;
-			byte[] buf = new byte[1];
-			
-			gyro.read(lowAddr, 1, buf);
 			val = ((int) buf[0]) & 0b0000_0000_1111_1111;
-			
-			gyro.read(highAddr, 1, buf);
-			val |= ((int) buf[0]) << 8;
+			val |= ((int) buf[1]) << 8;
 			
 			switch(currScale) {
 			case scale250:
