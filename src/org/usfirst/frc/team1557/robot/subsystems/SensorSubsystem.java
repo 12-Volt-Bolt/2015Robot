@@ -18,6 +18,7 @@ public class SensorSubsystem extends Subsystem {
 	L3GD20_Gyro gyro = null;
 	LSM303DLHC_Accel accel = null;
 	
+	double dt;
 	/**
 	 * Accumulated z angle
 	 */
@@ -45,14 +46,14 @@ public class SensorSubsystem extends Subsystem {
 		if (gyro == null || accel == null)
 			return;
 
-		double dt;
+		
 		long now = System.currentTimeMillis();
 		if (lastTime == -1) {
 			lastTime = now;
 		}
 
 		// Calculates the change in time since last time
-		dt = (now - lastTime) / 1000;
+		dt = (now - lastTime) / 1000.0;
 
 		// Writes the Gyro Angle
 		gyroAngle += gyro.readRateZ() * dt;
@@ -105,6 +106,7 @@ public class SensorSubsystem extends Subsystem {
 	 * Sets SmartDashboard values based on the state of the subsystem
 	 */
 	private void output() {
+		SmartDashboard.putNumber("DT", dt);
 		SmartDashboard.putNumber("Gyro Angle", gyroAngle);
 		SmartDashboard.putNumber("Accelerometer Y Position", currentPos);
 	}

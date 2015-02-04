@@ -31,7 +31,7 @@ public class L3GD20_Gyro {
 				throw new Exception("Wrong device at L3GD20 Gyroscope address!");
 			}
 			
-			gyro.write(regCtrl1, 0b0000_1111);
+			gyro.write(regCtrl1, 0b1111_1111);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			if(gyro != null) {

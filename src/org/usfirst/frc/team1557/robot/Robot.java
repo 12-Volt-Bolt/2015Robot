@@ -3,6 +3,7 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
+import org.usfirst.frc.team1557.robot.commands.TestSensors;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
@@ -24,20 +25,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	/**
+	/*
 	 * Doesn't completely crash 
 	 *  Y
 	 * 
 	 * Gyro/Accel input test
-	 *  N
+	 *  Y
 	 * 
 	 * Correct values
 	 * 
 	 * Accel Y should be ~= 0
 	 * 
 	 * Gyro should stay ~= 0
+	 * Y
 	 * 
 	 * Gyro Drift Amount
+	 * 
 	 * 
 	 * Mecanum drives correctly
 	 *  Y
@@ -51,6 +54,14 @@ public class Robot extends IterativeRobot {
 	 *  Y
 	 * 
 	 * See if we can change DriveSystems with SmrtDshbrd
+	 * Y
+	 * 
+	 * Canceling gravity
+	 * 
+	 * 
+	 * Tilt code / Testing
+	 * 
+	 * 
 	 */
 		
 	/**
@@ -61,7 +72,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	
-	
+		Command testSensor;
 	// Command lifterCommand;
 
 
@@ -69,6 +80,8 @@ public class Robot extends IterativeRobot {
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem clampSystem;
 	public static SensorSubsystem sensorSystem;
+	
+	
 
 	//Compressor compresser;
 
@@ -89,7 +102,8 @@ public class Robot extends IterativeRobot {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
 			sensorSystem = new SensorSubsystem();
-
+			
+			testSensor = new TestSensors();
 			//sensorSystem.init();
 			
 			//clampSystem = new ClampSubsystem();
@@ -137,6 +151,7 @@ public class Robot extends IterativeRobot {
 			
 			//TODO remove
 			sensorSystem.init();
+			sensorSystem.initDefaultCommand();
 		}
 	}
 
@@ -161,6 +176,7 @@ public class Robot extends IterativeRobot {
 			
 			//TODO remove
 			sensorSystem.init();
+			sensorSystem.initDefaultCommand();
 		}
 	}
 
@@ -178,7 +194,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		//TODO remove
-		sensorSystem.updateSensor();
+		//sensorSystem.updateSensor();
 	}
 
 	/**
