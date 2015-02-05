@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SensorSubsystem extends Subsystem {
 	L3GD20_Gyro gyro = null;
 	LSM303DLHC_Accel accel = null;
-	double fil = 0.2;
+	double fil = 0.5;
 	double nosePass = 0;
 	double dt;
 	/**
@@ -41,37 +41,40 @@ public class SensorSubsystem extends Subsystem {
 	long lastTime = -1;
 
 	/**
-	 * Updates Gyro and Accelerometer. Must be called continuously, i.e. in execute.
+	 * Updates Gyro and Accelerometer. Must be called continuously, i.e. in
+	 * execute.
 	 */
 	public void updateSensor() {
+
 		if (gyro == null || accel == null)
 			return;
 
-		
-		long now = System.currentTimeMillis();
-		if (lastTime == -1) {
-			lastTime = now;
+		while (gyro.available()) {
+			//long now = System.currentTimeMillis();
+			//if (lastTime == -1) {
+			//	lastTime = now;
+			//}
+
+			// Calculates the change in time since last time
+			//dt = (now - lastTime) / 1000.0;
+
+			// Writes the Gyro Angle
+			gyroAngle += gyro.readRateZ() / 190; //dt;
+
+			// Writes the Accelerometer acceleration
+			//nosePass = (1 - fil) * nosePass + fil * vel;
+			//vel = vel - nosePass;
+			//vel += accel.readRateY() * dt * 32.1740485564304;
+
+			// Writes the position that was calculated in the Y Axis
+			//currentPos += vel * dt;
+
+			// Output the values onto the SmrtDshbrd
+			output();
+
+			// Resets the time value for next time
+			//lastTime = now;
 		}
-
-		// Calculates the change in time since last time
-		dt = (now - lastTime) / 1000.0;
-
-		// Writes the Gyro Angle
-		gyroAngle += gyro.readRateZ() * dt;
-
-		// Writes the Accelerometer acceleration
-//		nosePass = (1 - fil) * nosePass + fil * vel;
-//		vel = vel - nosePass;
-		vel += accel.readRateY() * dt * 32.1740485564304;
-
-		// Writes the position that was calculated in the Y Axis
-		currentPos += vel * dt;
-
-		// Output the values onto the SmrtDshbrd
-		output();
-		
-		// Resets the time value for next time
-		lastTime = now;
 	}
 
 	/**
@@ -91,6 +94,7 @@ public class SensorSubsystem extends Subsystem {
 
 	/**
 	 * Gets the accumulated angle of the gyro.
+	 * 
 	 * @return The accumulated angle of the gyro.
 	 */
 	public double getAngleZ() {
@@ -99,6 +103,7 @@ public class SensorSubsystem extends Subsystem {
 
 	/**
 	 * Gets the accumulated y position of the accelerometer
+	 * 
 	 * @return The accumulated forward position of the acceleromter
 	 */
 	public double getCurrentYPos() {
@@ -147,13 +152,16 @@ public class SensorSubsystem extends Subsystem {
 			}
 
 			@Override
-			protected void interrupted() {}
+			protected void interrupted() {
+			}
 
 			@Override
-			protected void initialize() {}
+			protected void initialize() {
+			}
 
 			@Override
-			protected void end() {}
+			protected void end() {
+			}
 		});
 	}
 }

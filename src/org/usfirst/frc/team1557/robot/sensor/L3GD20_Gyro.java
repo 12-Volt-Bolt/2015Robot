@@ -31,7 +31,7 @@ public class L3GD20_Gyro {
 				throw new Exception("Wrong device at L3GD20 Gyroscope address!");
 			}
 			
-			gyro.write(regCtrl1, 0b1111_1111);
+			gyro.write(regCtrl1, 0b0111_1111);
 			gyro.write(regCtrl5, 0b0100_0000);
 			gyro.write(regCtrlFIFO, 0b0100_0000);
 		} catch(Exception ex) {
@@ -61,32 +61,37 @@ public class L3GD20_Gyro {
 	}
 	
 	public double readRateX() {
-		return readRate(regOutX);
+		return readRate(0);
 	}
 	
 	public double readRateY() {
-		return readRate(regOutY);
+		return readRate(1);
 	}
 	
 	public double readRateZ() {
-		return readRate(regOutZ);
+		return readRate(2);
 	}
 	
 	public boolean available() {
 		byte[] buf = new byte[1];
 		gyro.read(regSrcFIFO, 1, buf);
+		System.out.println(Integer.toBinaryString(buf[0] & 0b1111_1111));
 		return (buf[0] & 0b0010_0000) == 0;
 	}
 	
-	public double readRate(int addr) {
+	public double readRate(int axis) {
 		double scaledVal = 0;
 		if(gyro != null) {
-			byte[] buf = new byte[2];
-			gyro.read(addr & 0b1000_0000, 2, buf);
+			byte[] reading = new byte[6];
+			for(int i = 0; i < 6; i++) {
+				byte[] buf = new byte[1];
+				gyro.read(regOutX + i, 1, buf);
+				reading[i] = buf[0];
+			}
 			
 			int val;
-			val = ((int) buf[0]) & 0b0000_0000_1111_1111;
-			val |= ((int) buf[1]) << 8;
+			val = ((int) reading[2 * axis]) & 0b0000_0000_1111_1111;
+			val |= ((int) reading[2 * axis + 1]) << 8;
 			
 			switch(currScale) {
 			case scale250:

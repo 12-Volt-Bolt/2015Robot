@@ -55,6 +55,14 @@ public class Robot extends IterativeRobot {
 	 * 
 	 * 
 	 * Tilt code / Testing
+	 * 
+	 * 
+	 * Autonomous Lifter Amount 
+	 * 
+	 * 
+	 * Autonomous Drive speed amounts / Saturday
+	 * 
+	 * 
 	 */
 
 	/**
@@ -91,7 +99,6 @@ public class Robot extends IterativeRobot {
 			lifterSystem = new LifterSubsystem();
 			sensorSystem = new SensorSubsystem();
 
-			
 			// sensorSystem.init();
 
 			// clampSystem = new ClampSubsystem();
@@ -111,8 +118,8 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putData("Drive Chooser", driveChooser);
 
 			SmartDashboard.putData("Lifter Command", new AutoLifterCommand(
-					SmartDashboard.getNumber(RobotMap.lifterSpeed),
-					SmartDashboard.getNumber(RobotMap.lifterTime)));
+					SmartDashboard.getNumber(RobotMap.lifterSpeed,0.5),
+					SmartDashboard.getNumber(RobotMap.lifterTime,1)));
 
 			autoChooser = new SendableChooser();
 			autoChooser.addDefault("Atrocious Autonomous",
@@ -174,6 +181,8 @@ public class Robot extends IterativeRobot {
 	 * to reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
+		sensorSystem.resetGyro();
+		sensorSystem.resetAccel();
 	}
 
 	/**

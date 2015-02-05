@@ -13,6 +13,12 @@ public class AutonomousGroup extends CommandGroup {
     	
     	//Move Forward
     	addSequential(new AutoMecanumTime(1, 1, 0, 1));
+    	/*
+    	 * Hits the Bump
+    	 * 
+    	 * 
+    	 * 
+    	 */
     	
     	//Drop Can
 //    	addSequential(new AutoToggleClamp());
