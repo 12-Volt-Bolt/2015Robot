@@ -1,8 +1,5 @@
 package org.usfirst.frc.team1557.robot;
 
-import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
-import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

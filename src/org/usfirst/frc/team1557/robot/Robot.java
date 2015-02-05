@@ -2,10 +2,9 @@ package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.autonomous.AutoLifterCommand;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
-import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
-import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 
+import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;

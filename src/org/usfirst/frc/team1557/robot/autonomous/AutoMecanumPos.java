@@ -1,11 +1,8 @@
 package org.usfirst.frc.team1557.robot.autonomous;
 
 import org.usfirst.frc.team1557.robot.Robot;
-import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC_Accel;
 
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer.Range;
 
 /**
  * Automatically drives forward with the given speeds, until the robot has moved

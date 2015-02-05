@@ -3,7 +3,6 @@ package org.usfirst.frc.team1557.robot.autonomous;
 import org.usfirst.frc.team1557.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 /**
  * Automatically drives the robot for the given time.
