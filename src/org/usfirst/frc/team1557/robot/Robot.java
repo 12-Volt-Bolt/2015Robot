@@ -3,7 +3,6 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.autonomous.AutoLifterCommand;
 import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
-
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
@@ -12,6 +11,7 @@ import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -56,12 +56,12 @@ public class Robot extends IterativeRobot {
 	 * Tilt code / Testing
 	 * 
 	 * 
-	 * Autonomous Lifter Amount 
+	 * Autonomous Lifter Amount
 	 * 
 	 * 
 	 * Autonomous Drive speed amounts / Saturday
 	 * 
-	 * 
+	 * 0.5/1 Empty = 1.5 Units
 	 */
 
 	/**
@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
 
 	// Select the mode of Driving used by DriveSubsystem
 	SendableChooser driveChooser;
-	SendableChooser autoChooser;
+	public static SendableChooser autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -94,6 +94,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		if (!HEADLESS) {
+
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
 			sensorSystem = new SensorSubsystem();
@@ -116,14 +117,14 @@ public class Robot extends IterativeRobot {
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
 			SmartDashboard.putData("Drive Chooser", driveChooser);
 
-			SmartDashboard.putData("Lifter Command", new AutoLifterCommand(
-					SmartDashboard.getNumber(RobotMap.lifterSpeed,0.5),
-					SmartDashboard.getNumber(RobotMap.lifterTime,1)));
+			SmartDashboard.putData("Lifter Command",
+					new AutoLifterCommand(1, 1));
 
 			autoChooser = new SendableChooser();
-			autoChooser.addDefault("Atrocious Autonomous",
-					new AutonomousGroup());
-			SmartDashboard.putData("Autonmous Chooser", autoChooser);
+			autoChooser.addDefault("Right(Bump)", AutoPosition.RIGHT);
+			autoChooser.addObject("Center(Bump)", AutoPosition.CENTER);
+			autoChooser.addObject("Left(Bumpless)", AutoPosition.LEFT);
+			SmartDashboard.putData("Starting Position", autoChooser);
 
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
@@ -143,6 +144,8 @@ public class Robot extends IterativeRobot {
 
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
+
+			new AutonomousGroup().start();
 
 			// TODO remove
 			sensorSystem.init();

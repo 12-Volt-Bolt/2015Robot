@@ -43,8 +43,7 @@ public class RobotMap {
 	
 	
 	{
-	SmartDashboard.putNumber(lifterSpeed, 1);
-	SmartDashboard.putNumber(lifterTime, 1);
+	
 	}
 	
 }

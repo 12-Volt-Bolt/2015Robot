@@ -25,6 +25,18 @@ public class SensorSubsystem extends Subsystem {
 	 */
 	double gyroAngle = 0;
 
+	public double readRateX() {
+		return accel.readRateX();
+	}
+
+	public double readRateY() {
+		return accel.readRateY();
+	}
+
+	public double readRateZ() {
+		return accel.readRateZ();
+	}
+
 	/**
 	 * Accumulated velocity
 	 */
@@ -45,7 +57,7 @@ public class SensorSubsystem extends Subsystem {
 	 * execute.
 	 */
 	public void updateSensor() {
-
+		int counter = 0;
 		if (gyro == null || accel == null)
 			return;
 
@@ -74,6 +86,9 @@ public class SensorSubsystem extends Subsystem {
 
 			// Resets the time value for next time
 			//lastTime = now;
+			if(counter >= 30){
+				break;
+			}
 		}
 	}
 
