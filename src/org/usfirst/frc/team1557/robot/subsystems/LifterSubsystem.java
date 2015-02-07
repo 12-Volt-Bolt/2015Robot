@@ -32,11 +32,15 @@ public class LifterSubsystem extends Subsystem {
 		setDefaultCommand(new LifterCommand());
 
 	}
-
+	/**
+	 * Speed at which the lifter will move. Positive is up
+	 * 
+	 * @param speed
+	 */
 	public void lift(double speed) {
 		//Inverse Speed
 		speed *= -1; 
-		
+		speed /= 2;
 		// if (limitDown.get()) {
 		// if (x < 0) {
 		// x = 0;
@@ -56,9 +60,11 @@ public class LifterSubsystem extends Subsystem {
 		} else {
 			lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));
 		}
-//		SmartDashboard.putNumber("Lifter Motor Throttle", getThrottle());
-//		SmartDashboard.putNumber("Lifter Motor Current", getCurrent());
-//		SmartDashboard.putNumber("Lifter Motor Voltage", getVoltage());
+		
+		SmartDashboard.putNumber("Lifter Speed", speed);
+		SmartDashboard.putNumber("Lifter Motor Throttle", getThrottle());
+		SmartDashboard.putNumber("Lifter Motor Current", getCurrent());
+		SmartDashboard.putNumber("Lifter Motor Voltage", getVoltage());
 	}
 
 	/**

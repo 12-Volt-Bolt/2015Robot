@@ -97,6 +97,7 @@ public class DriveSubsystem extends Subsystem {
 	 */
 	private void output() {
 		// SmartDashboard Stuff
+		
 		SmartDashboard.putNumber("frontRightCurrent", frontRight.getOutputCurrent());
 		SmartDashboard.putNumber("frontLeftCurrent", frontLeft.getOutputCurrent());
 		SmartDashboard.putNumber("rearLeftCurrent", rearLeft.getOutputCurrent());

@@ -4,13 +4,13 @@ import org.usfirst.frc.team1557.robot.AutoPosition;
 import org.usfirst.frc.team1557.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class AutonomousGroup extends CommandGroup {
-	public AutonomousGroup() {
+public class UnsensoredAutonomous extends CommandGroup {
+
+	public UnsensoredAutonomous() {
 		addSequential(new AutoSetClamp(true));
 		// Pick up
 		addSequential(new AutoLifterCommand(0.6, 1));
@@ -36,19 +36,17 @@ public class AutonomousGroup extends CommandGroup {
 		// Drive into Autozone
 		// TODO: fancy distance calcs
 
-		if ((AutoPosition) Robot.autoChooser.getSelected() == AutoPosition.RIGHT) {
-
-		} else if ((AutoPosition) Robot.autoChooser.getSelected() == AutoPosition.CENTER) {
-
+		if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.RIGHT) {
+			addSequential(new AutoMecanumTime(0, 0.5, 0, 3.5));
+		} else if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.CENTER) {
+			addSequential(new AutoMecanumTime(0, 0.5, 0, 3.5));
 		} else {
-			addSequential(new AutoMecanumTime(0, 0.5, 0, 5));
+			addSequential(new AutoMecanumTime(0, 0.5, 0, 3));
 		}
 		// Lower stuff(tm)
 		addSequential(new AutoLifterCommand(0.3, 1));
 
 		// Release stuff(tm)
 		addSequential(new AutoSetClamp(false));
-
 	}
-
 }

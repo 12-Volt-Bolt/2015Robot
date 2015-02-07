@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Mecanum drive from input from the main joystick.
  */
 public class MecanumDriveCommand extends Command {
-	boolean speed = false;
+	double speed = 1;
 
 	public MecanumDriveCommand() {
 		requires(Robot.driveSystem);
@@ -26,22 +26,11 @@ public class MecanumDriveCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		// Shifting; Should probably put this somewhere else.
-		if (OI.mainJoy.getRawButton(bButton)) {
-			speed = !speed;
-			if (!speed) {
-				SmartDashboard.putNumber(RobotMap.speedKey, 1);
-			} else {
-				SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
-			}
-		}
-
+		speed = SmartDashboard.getNumber(speedKey, speed);
 		// TODO: create custom speed multiplier key
-		Robot.driveSystem.mecanumCartesian(
-				OI.mainJoy.getRawAxis(leftXAxis)
-						* SmartDashboard.getNumber(RobotMap.lifterKey, 1),
-				OI.mainJoy.getRawAxis(leftYAxis)
-						* SmartDashboard.getNumber(RobotMap.lifterKey, 1),
-				OI.mainJoy.getRawAxis(rightXAxis));
+		Robot.driveSystem.mecanumCartesian(OI.axis(leftXAxis) * speed,
+				OI.axis(leftYAxis) * speed, OI.axis(rightXAxis));
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

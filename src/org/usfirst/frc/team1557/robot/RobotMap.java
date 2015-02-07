@@ -46,4 +46,13 @@ public class RobotMap {
 	
 	}
 	
+	public static double n(String name, double def) {
+		try {
+			SmartDashboard.getNumber(name);
+		} catch (Exception e) {
+			SmartDashboard.putNumber(name, def);
+			return def;
+		}
+		return SmartDashboard.getNumber(name, def);
+	}
 }

@@ -1,7 +1,13 @@
 package org.usfirst.frc.team1557.robot;
 
+import static org.usfirst.frc.team1557.robot.RobotMap.*;
+
+import org.usfirst.frc.team1557.robot.autonomous.AutoBumpClimbDrive;
 import org.usfirst.frc.team1557.robot.autonomous.AutoLifterCommand;
-import org.usfirst.frc.team1557.robot.autonomous.AutonomousGroup;
+import org.usfirst.frc.team1557.robot.autonomous.AutoMecanumTime;
+import org.usfirst.frc.team1557.robot.autonomous.AutoSetClamp;
+import org.usfirst.frc.team1557.robot.autonomous.SensoredAutonomous;
+import org.usfirst.frc.team1557.robot.autonomous.UnsensoredAutonomous;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
@@ -11,7 +17,6 @@ import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,15 +34,21 @@ public class Robot extends IterativeRobot {
 	/*
 	 * Doesn't completely crash Y
 	 * 
+	 * Teleop Drive
+	 * 
+	 * Sensorless Autonomous
+	 * 
+	 * Sensored Autonomous
+	 * 
 	 * Gyro/Accel input test Y
 	 * 
 	 * Correct values
 	 * 
-	 * Accel Y should be ~= 0
+	 * Accel Y should be ~= 0 N
 	 * 
 	 * Gyro should stay ~= 0 Y
 	 * 
-	 * Gyro Drift Amount
+	 * Gyro Drift Amount N
 	 * 
 	 * 
 	 * Mecanum drives correctly Y
@@ -72,6 +83,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	// Command lifterCommand;
+	Command autonomousCommand;
 
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
@@ -82,7 +94,8 @@ public class Robot extends IterativeRobot {
 
 	// Select the mode of Driving used by DriveSubsystem
 	SendableChooser driveChooser;
-	public static SendableChooser autoChooser;
+	public static SendableChooser positionChooser;
+	SendableChooser autoAbelChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -101,7 +114,7 @@ public class Robot extends IterativeRobot {
 
 			// sensorSystem.init();
 
-			// clampSystem = new ClampSubsystem();
+			clampSystem = new ClampSubsystem();
 
 			// instantiate the command used for the autonomous period
 
@@ -115,28 +128,81 @@ public class Robot extends IterativeRobot {
 			driveChooser.addDefault("Magical Mecanum",
 					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
-			SmartDashboard.putData("Drive Chooser", driveChooser);
-
-			SmartDashboard.putData("Lifter Command",
-					new AutoLifterCommand(1, 1));
-
-			autoChooser = new SendableChooser();
-			autoChooser.addDefault("Right(Bump)", AutoPosition.RIGHT);
-			autoChooser.addObject("Center(Bump)", AutoPosition.CENTER);
-			autoChooser.addObject("Left(Bumpless)", AutoPosition.LEFT);
-			SmartDashboard.putData("Starting Position", autoChooser);
-
+			SmartDashboard.putData("Drive Chooser", driveChooser);		
+			positionChooser = new SendableChooser();
+			positionChooser.addDefault("Right(Bump)", AutoPosition.RIGHT);
+			positionChooser.addObject("Center(Bump)", AutoPosition.CENTER);
+			positionChooser.addObject("Left(Bumpless)", AutoPosition.LEFT);
+			SmartDashboard.putData("Starting Position", positionChooser);
+			autoAbelChooser = new SendableChooser();
+			autoAbelChooser.addDefault("Sensorless Autonomous",
+					AutoChoice.SENSORLESS);
+			autoAbelChooser.addObject("Sensored Autonomous",
+					AutoChoice.SENSORABEL);
+			SmartDashboard.putData("Sensor Choosing", autoAbelChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
+			
+			
+			addSequential(new AutoSetClamp(true));
+			// Pick up
+			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed1", 0.6), n("AutoLiftUpTime1", 1)));
 
+			// Move Forward
+			addSequential(new AutoMecanumTime(0, n("AutoDriveSpeed1",0.5), 0, n("AutoDriveTime1",0.8)));
+
+			// Drop Can
+			addSequential(new AutoSetClamp(false));
+
+			// Lower arm
+			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed1",-0.5), n("AutoLiftDownTime1",1)));
+
+			// Grab stuff(tm)
+			addSequential(new AutoSetClamp(true));
+
+			// Lift arm back up
+			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed2",0.5), n("AutoLiftUpSpeed",1)));
+
+			// Rotate
+			addSequential(new AutoMecanumTime(0, 0,n("AutoTurnSpeed",0.5), n("AutoTurnTime",0.5)));
+
+			// Drive into Autozone
+			// TODO: fancy distance calcs
+
+			if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.RIGHT) {
+				addSequential(new AutoBumpClimbDrive());
+			} else if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.CENTER) {
+				addSequential(new AutoBumpClimbDrive());
+			} else {
+				addSequential(new AutoMecanumTime(0, n("AutoRamplessSpeed",0.5), 0, n("AutoRamplessTime",5)));
+			}
+			// Lower stuff(tm)
+			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed2",0.3), n("AutoLiftDownTime2",1)));
+
+			// Release stuff(tm)
+			addSequential(new AutoSetClamp(false));
 		}
 
 		oi.initialize();
 	}
-
+	int count = 1;
+	/**
+	 * Adds the command to the SmrtDshbrd
+	 * @param command 
+	 */
+	private void addSequential(Command command){
+		
+		SmartDashboard.putData("Step "+ count +": "+ command.getName(), command);
+		count++;
+	}
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+	}
+
+	private enum AutoChoice {
+		SENSORLESS, SENSORABEL
+
 	}
 
 	public void autonomousInit() {
@@ -145,7 +211,12 @@ public class Robot extends IterativeRobot {
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
 
-			new AutonomousGroup().start();
+			if (autoAbelChooser.getSelected() == AutoChoice.SENSORLESS) {
+				autonomousCommand = new UnsensoredAutonomous();
+			} else {
+				autonomousCommand = new SensoredAutonomous();
+			}
+			autonomousCommand.start();
 
 			// TODO remove
 			sensorSystem.init();
@@ -164,9 +235,9 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		Command autoCommand = (Command) autoChooser.getSelected();
-		if (autoCommand != null) {
-			autoCommand.cancel();
+
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
 		}
 
 		if (!HEADLESS) {

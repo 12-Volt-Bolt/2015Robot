@@ -71,7 +71,7 @@ public class AutoMecanumStrafe extends Command {
 	protected void initialize() {
 		Robot.sensorSystem.resetGyro();
 
-		startingAngle = Robot.sensorSystem.getAngleZ();
+		startingAngle = Robot.sensorSystem.getAngleX();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -80,7 +80,7 @@ public class AutoMecanumStrafe extends Command {
 		
 		Robot.sensorSystem.updateSensor();
 		Robot.driveSystem.mecanumCartesian(x, y,
-				direction(Robot.sensorSystem.getAngleZ(), startingAngle));
+				direction(Robot.sensorSystem.getAngleX(), startingAngle));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

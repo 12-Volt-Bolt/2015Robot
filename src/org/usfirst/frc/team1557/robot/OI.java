@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1557.robot;
 
+import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -42,7 +44,8 @@ public class OI {
 
 	public void initialize() {
 		// yButton.whenPressed(new StackCommandGroup());
-		// aButton.whenPressed(new ToggleClampCommand());
+		aButton.whenPressed(new ToggleClampCommand());
+		
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

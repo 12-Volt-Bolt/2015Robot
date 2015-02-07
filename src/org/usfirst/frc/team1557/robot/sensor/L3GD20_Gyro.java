@@ -75,7 +75,7 @@ public class L3GD20_Gyro {
 	public boolean available() {
 		byte[] buf = new byte[1];
 		gyro.read(regSrcFIFO, 1, buf);
-		System.out.println(Integer.toBinaryString(buf[0] & 0b1111_1111));
+		//System.out.println(Integer.toBinaryString(buf[0] & 0b1111_1111));
 		return (buf[0] & 0b0010_0000) == 0;
 	}
 	

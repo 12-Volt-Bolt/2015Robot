@@ -71,7 +71,7 @@ public class SensorSubsystem extends Subsystem {
 			//dt = (now - lastTime) / 1000.0;
 
 			// Writes the Gyro Angle
-			gyroAngle += gyro.readRateZ() / 190; //dt;
+			gyroAngle += gyro.readRateX() / 190; //dt;
 
 			// Writes the Accelerometer acceleration
 			//nosePass = (1 - fil) * nosePass + fil * vel;
@@ -87,6 +87,7 @@ public class SensorSubsystem extends Subsystem {
 			// Resets the time value for next time
 			//lastTime = now;
 			if(counter >= 30){
+				counter = 0;
 				break;
 			}
 		}
@@ -112,7 +113,7 @@ public class SensorSubsystem extends Subsystem {
 	 * 
 	 * @return The accumulated angle of the gyro.
 	 */
-	public double getAngleZ() {
+	public double getAngleX() {
 		return gyroAngle;
 	}
 
