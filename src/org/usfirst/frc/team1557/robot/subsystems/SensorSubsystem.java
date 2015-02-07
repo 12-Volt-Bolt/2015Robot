@@ -56,37 +56,55 @@ public class SensorSubsystem extends Subsystem {
 	 * Updates Gyro and Accelerometer. Must be called continuously, i.e. in
 	 * execute.
 	 */
-	public void updateSensor() {
+	Thread sensorThread = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			while (true) {
+				updateSensor();
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					System.err.println("You done messed up");
+					e.printStackTrace();
+					break;
+				}
+			}
+		}
+
+	});
+
+	private void updateSensor() {
 		int counter = 0;
 		if (gyro == null || accel == null)
 			return;
 
 		while (gyro.available()) {
-			//long now = System.currentTimeMillis();
-			//if (lastTime == -1) {
-			//	lastTime = now;
-			//}
+			// long now = System.currentTimeMillis();
+			// if (lastTime == -1) {
+			// lastTime = now;
+			// }
 
 			// Calculates the change in time since last time
-			//dt = (now - lastTime) / 1000.0;
+			// dt = (now - lastTime) / 1000.0;
 
 			// Writes the Gyro Angle
-			gyroAngle += gyro.readRateX() / 190; //dt;
+			gyroAngle += gyro.readRateX() / 190; // dt;
 
 			// Writes the Accelerometer acceleration
-			//nosePass = (1 - fil) * nosePass + fil * vel;
-			//vel = vel - nosePass;
-			//vel += accel.readRateY() * dt * 32.1740485564304;
+			// nosePass = (1 - fil) * nosePass + fil * vel;
+			// vel = vel - nosePass;
+			// vel += accel.readRateY() * dt * 32.1740485564304;
 
 			// Writes the position that was calculated in the Y Axis
-			//currentPos += vel * dt;
+			// currentPos += vel * dt;
 
 			// Output the values onto the SmrtDshbrd
 			output();
 
 			// Resets the time value for next time
-			//lastTime = now;
-			if(counter >= 30){
+			// lastTime = now;
+			if (counter >= 30) {
 				counter = 0;
 				break;
 			}
@@ -148,36 +166,12 @@ public class SensorSubsystem extends Subsystem {
 			isinit = true;
 			gyro = new L3GD20_Gyro();
 			accel = new LSM303DLHC_Accel();
+			sensorThread.start();
+			sensorThread.setName("Sensor Thread");
 		}
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new Command() {
-			{
-				requires(Robot.sensorSystem);
-			}
-
-			@Override
-			protected boolean isFinished() {
-				return false;
-			}
-
-			@Override
-			protected void execute() {
-				updateSensor();
-			}
-
-			@Override
-			protected void interrupted() {
-			}
-
-			@Override
-			protected void initialize() {
-			}
-
-			@Override
-			protected void end() {
-			}
-		});
+		
 	}
 }

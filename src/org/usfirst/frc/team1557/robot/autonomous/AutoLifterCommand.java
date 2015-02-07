@@ -35,7 +35,7 @@ public class AutoLifterCommand extends Command {
     protected boolean isFinished() {
         return timeSinceInitialized() >= time;
     }
-
+    
     // Called once after isFinished returns true
     protected void end() {
     	Robot.lifterSystem.stack(0.1);
@@ -44,5 +44,6 @@ public class AutoLifterCommand extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

@@ -13,31 +13,42 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SensoredAutonomous extends CommandGroup {
 	public SensoredAutonomous() {
+		
+		// Initially grab the recycle bin
 		addSequential(new AutoSetClamp(true));
-		addSequential(new WaitCommand(1));
-		// Pick up
+		addSequential(new WaitCommand(0.25));
+		
+		// Lift the bin up
 		addSequential(new AutoLifterCommand(0.7, 1));
 		addSequential(new WaitCommand(1));
-		// Move Forward
+		
+		// Move Forward to get over the bin
 		addSequential(new AutoMecanumTime(0, -0.5, 0, 0.5));
 		addSequential(new WaitCommand(1));
+		
 		// Lower Arm
 		//addSequential(new AutoLifterCommand(0.6, 0.4));
-		// Drop Can
+		
+		// Drop Can onto the bin
 		addSequential(new AutoSetClamp(false));
 		addSequential(new WaitCommand(1));
-		// Lower arm
-		addSequential(new AutoLifterCommand(-0.3, 0.8));
+		
+		// Lower arm to grab bin
+		addSequential(new AutoLifterCommand(-0.5, 1));
 		addSequential(new WaitCommand(1));
-		// Grab stuff(tm)
+		
+		// Grab bin (tm)
 		addSequential(new AutoSetClamp(true));
 		addSequential(new WaitCommand(1));
-		// Lift arm back up
-		addSequential(new AutoLifterCommand(0.5, 0.7));
+		
+		// Lift arm back up to clear bump
+		addSequential(new AutoLifterCommand(0.5, 0.6));
 		addSequential(new WaitCommand(1));
-		// Rotate
-		addSequential(new AutoMecanumTime(0, 0, -0.75, 0.1));
+		
+		// Rotate 90deg counterclockwise
+		addSequential(new AutoMecanumTime(0, 0, -0.4, 1.1));
 		addSequential(new WaitCommand(1));
+		
 		// Drive into Autozone
 		// TODO: fancy distance calcs
 
@@ -46,12 +57,12 @@ public class SensoredAutonomous extends CommandGroup {
 		} else if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.CENTER) {
 			addSequential(new AutoBumpClimbDrive());
 		} else {
-			addSequential(new AutoMecanumTime(0, 0.5, 0, 5));
+			addSequential(new AutoMecanumTime(0, -0.5, 0, 1));
 		}
 		
 		addSequential(new WaitCommand(1));
 		// Lower stuff(tm)
-		addSequential(new AutoLifterCommand(0.3, 1));
+		addSequential(new AutoLifterCommand(-0.3, 0.2));
 
 		// Release stuff(tm)
 		addSequential(new AutoSetClamp(false));

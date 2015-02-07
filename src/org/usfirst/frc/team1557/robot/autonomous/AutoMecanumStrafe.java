@@ -78,7 +78,7 @@ public class AutoMecanumStrafe extends Command {
 	protected void execute() {
 		
 		
-		Robot.sensorSystem.updateSensor();
+		
 		Robot.driveSystem.mecanumCartesian(x, y,
 				direction(Robot.sensorSystem.getAngleX(), startingAngle));
 	}

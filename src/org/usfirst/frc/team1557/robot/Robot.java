@@ -124,6 +124,7 @@ public class Robot extends IterativeRobot {
 			// lifterCommand = new LifterCommand();
 
 			// Create choosers
+			// TODO: fang options
 			driveChooser = new SendableChooser();
 
 			driveChooser.addDefault("Magical Mecanum",
@@ -141,51 +142,11 @@ public class Robot extends IterativeRobot {
 			autoAbelChooser.addObject("Sensored Autonomous",
 					AutoChoice.SENSORABEL);
 			SmartDashboard.putData("Sensor Choosing", autoAbelChooser);
+			
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
-			addSequential(new AutoSetClamp(true));
-			
-			// Pick up
-			addSequential(new AutoLifterCommand(0.6, 1));
-			
-			// Move Forward
-			addSequential(new AutoMecanumTime(0, -0.5, 0, 0.5));
-			
-			// Lower Arm
-			//addSequential(new AutoLifterCommand(0.6, 0.4));
-			// Drop Can
-			addSequential(new AutoSetClamp(false));
-			
-			// Lower arm
-			addSequential(new AutoLifterCommand(-0.3, 0.8));
-			
-			// Grab stuff(tm)
-			addSequential(new AutoSetClamp(true));
-			
-			// Lift arm back up
-			addSequential(new AutoLifterCommand(0.5, 0.7));
-			
-			// Rotate
-			addSequential(new AutoMecanumTime(0, 0, 0.5, 0.5));
-			
-			// Drive into Autozone
-			// TODO: fancy distance calcs
 
-			if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.RIGHT) {
-				addSequential(new AutoBumpClimbDrive());
-			} else if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.CENTER) {
-				addSequential(new AutoBumpClimbDrive());
-			} else {
-				addSequential(new AutoMecanumTime(0, 0.5, 0, 5));
-			}
-			
-			
-			// Lower stuff(tm)
-			addSequential(new AutoLifterCommand(0.3, 1));
-
-			// Release stuff(tm)
-			addSequential(new AutoSetClamp(false));
 		}
 
 		oi.initialize();
@@ -200,8 +161,7 @@ public class Robot extends IterativeRobot {
 	 */
 	private void addSequential(Command command) {
 
-		SmartDashboard.putData("Step " + count,
-				command);
+		SmartDashboard.putData("Step " + count, command);
 		count++;
 	}
 

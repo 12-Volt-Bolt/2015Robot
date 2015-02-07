@@ -81,7 +81,7 @@ public class DriveSubsystem extends Subsystem {
 			f = Math.abs(v_BackRight);
 
 		// Scale
-		f = f / SmartDashboard.getNumber("speedMultiplier", 0.75);
+		//f = f / SmartDashboard.getNumber("speedMultiplier", 0.75);
 
 		frontLeft.set(v_FrontLeft / f);
 		frontRight.set(v_FrontRight / f);
