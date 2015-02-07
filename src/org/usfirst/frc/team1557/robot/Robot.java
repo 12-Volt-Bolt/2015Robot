@@ -20,6 +20,7 @@ import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -143,34 +144,31 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
-
 			addSequential(new AutoSetClamp(true));
+			
 			// Pick up
-			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed1", 0.6), n(
-					"AutoLiftUpTime1", 1)));
-
+			addSequential(new AutoLifterCommand(0.6, 1));
+			
 			// Move Forward
-			addSequential(new AutoMecanumTime(0, n("AutoDriveSpeed1", 0.5), 0,
-					n("AutoDriveTime1", 0.8)));
-
+			addSequential(new AutoMecanumTime(0, -0.5, 0, 0.5));
+			
+			// Lower Arm
+			//addSequential(new AutoLifterCommand(0.6, 0.4));
 			// Drop Can
 			addSequential(new AutoSetClamp(false));
-
+			
 			// Lower arm
-			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed1", -0.5),
-					n("AutoLiftDownTime1", 1)));
-
+			addSequential(new AutoLifterCommand(-0.3, 0.8));
+			
 			// Grab stuff(tm)
 			addSequential(new AutoSetClamp(true));
-
+			
 			// Lift arm back up
-			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed2", 0.5), n(
-					"AutoLiftUpSpeed", 1)));
-
+			addSequential(new AutoLifterCommand(0.5, 0.7));
+			
 			// Rotate
-			addSequential(new AutoMecanumTime(0, 0, n("AutoTurnSpeed", 0.5), n(
-					"AutoTurnTime", 0.5)));
-
+			addSequential(new AutoMecanumTime(0, 0, 0.5, 0.5));
+			
 			// Drive into Autozone
 			// TODO: fancy distance calcs
 
@@ -179,13 +177,12 @@ public class Robot extends IterativeRobot {
 			} else if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.CENTER) {
 				addSequential(new AutoBumpClimbDrive());
 			} else {
-				addSequential(new AutoMecanumTime(0,
-						n("AutoRamplessSpeed", 0.5), 0,
-						n("AutoRamplessTime", 5)));
+				addSequential(new AutoMecanumTime(0, 0.5, 0, 5));
 			}
+			
+			
 			// Lower stuff(tm)
-			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed2", 0.3),
-					n("AutoLiftDownTime2", 1)));
+			addSequential(new AutoLifterCommand(0.3, 1));
 
 			// Release stuff(tm)
 			addSequential(new AutoSetClamp(false));
@@ -203,7 +200,7 @@ public class Robot extends IterativeRobot {
 	 */
 	private void addSequential(Command command) {
 
-		SmartDashboard.putData("Step " + count + ": " + command.getName(),
+		SmartDashboard.putData("Step " + count,
 				command);
 		count++;
 	}
@@ -225,7 +222,7 @@ public class Robot extends IterativeRobot {
 
 			if (autoAbelChooser.getSelected() == AutoChoice.SENSORABEL) {
 				autonomousCommand = new SensoredAutonomous();
-				
+
 			} else {
 				autonomousCommand = new UnsensoredAutonomous();
 			}
