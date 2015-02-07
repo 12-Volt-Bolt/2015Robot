@@ -9,10 +9,12 @@ import org.usfirst.frc.team1557.robot.autonomous.AutoSetClamp;
 import org.usfirst.frc.team1557.robot.autonomous.SensoredAutonomous;
 import org.usfirst.frc.team1557.robot.autonomous.UnsensoredAutonomous;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
+import org.usfirst.frc.team1557.robot.commands.ShiftSpeedCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
+import org.usfirst.frc.team1557.robot.subsystems.LockSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -84,12 +86,12 @@ public class Robot extends IterativeRobot {
 
 	// Command lifterCommand;
 	Command autonomousCommand;
-
+	Command shiftCommand;
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem clampSystem;
 	public static SensorSubsystem sensorSystem;
-
+	public static LockSubsystem lockSystem;
 	// Compressor compresser;
 
 	// Select the mode of Driving used by DriveSubsystem
@@ -111,14 +113,12 @@ public class Robot extends IterativeRobot {
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
 			sensorSystem = new SensorSubsystem();
-
-			// sensorSystem.init();
-
+			lockSystem = new LockSubsystem();
 			clampSystem = new ClampSubsystem();
-
+			shiftCommand = new ShiftSpeedCommand();
 			// instantiate the command used for the autonomous period
 
-			// clampSystem = new ClampSubsystem();
+			clampSystem = new ClampSubsystem();
 
 			// lifterCommand = new LifterCommand();
 
@@ -128,7 +128,7 @@ public class Robot extends IterativeRobot {
 			driveChooser.addDefault("Magical Mecanum",
 					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
-			SmartDashboard.putData("Drive Chooser", driveChooser);		
+			SmartDashboard.putData("Drive Chooser", driveChooser);
 			positionChooser = new SendableChooser();
 			positionChooser.addDefault("Right(Bump)", AutoPosition.RIGHT);
 			positionChooser.addObject("Center(Bump)", AutoPosition.CENTER);
@@ -143,29 +143,33 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
-			
-			
+
 			addSequential(new AutoSetClamp(true));
 			// Pick up
-			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed1", 0.6), n("AutoLiftUpTime1", 1)));
+			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed1", 0.6), n(
+					"AutoLiftUpTime1", 1)));
 
 			// Move Forward
-			addSequential(new AutoMecanumTime(0, n("AutoDriveSpeed1",0.5), 0, n("AutoDriveTime1",0.8)));
+			addSequential(new AutoMecanumTime(0, n("AutoDriveSpeed1", 0.5), 0,
+					n("AutoDriveTime1", 0.8)));
 
 			// Drop Can
 			addSequential(new AutoSetClamp(false));
 
 			// Lower arm
-			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed1",-0.5), n("AutoLiftDownTime1",1)));
+			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed1", -0.5),
+					n("AutoLiftDownTime1", 1)));
 
 			// Grab stuff(tm)
 			addSequential(new AutoSetClamp(true));
 
 			// Lift arm back up
-			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed2",0.5), n("AutoLiftUpSpeed",1)));
+			addSequential(new AutoLifterCommand(n("AutoLiftUpSpeed2", 0.5), n(
+					"AutoLiftUpSpeed", 1)));
 
 			// Rotate
-			addSequential(new AutoMecanumTime(0, 0,n("AutoTurnSpeed",0.5), n("AutoTurnTime",0.5)));
+			addSequential(new AutoMecanumTime(0, 0, n("AutoTurnSpeed", 0.5), n(
+					"AutoTurnTime", 0.5)));
 
 			// Drive into Autozone
 			// TODO: fancy distance calcs
@@ -175,10 +179,13 @@ public class Robot extends IterativeRobot {
 			} else if ((AutoPosition) Robot.positionChooser.getSelected() == AutoPosition.CENTER) {
 				addSequential(new AutoBumpClimbDrive());
 			} else {
-				addSequential(new AutoMecanumTime(0, n("AutoRamplessSpeed",0.5), 0, n("AutoRamplessTime",5)));
+				addSequential(new AutoMecanumTime(0,
+						n("AutoRamplessSpeed", 0.5), 0,
+						n("AutoRamplessTime", 5)));
 			}
 			// Lower stuff(tm)
-			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed2",0.3), n("AutoLiftDownTime2",1)));
+			addSequential(new AutoLifterCommand(n("AutoLiftDownSpeed2", 0.3),
+					n("AutoLiftDownTime2", 1)));
 
 			// Release stuff(tm)
 			addSequential(new AutoSetClamp(false));
@@ -186,16 +193,21 @@ public class Robot extends IterativeRobot {
 
 		oi.initialize();
 	}
+
 	int count = 1;
+
 	/**
 	 * Adds the command to the SmrtDshbrd
-	 * @param command 
+	 * 
+	 * @param command
 	 */
-	private void addSequential(Command command){
-		
-		SmartDashboard.putData("Step "+ count +": "+ command.getName(), command);
+	private void addSequential(Command command) {
+
+		SmartDashboard.putData("Step " + count + ": " + command.getName(),
+				command);
 		count++;
 	}
+
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -211,10 +223,11 @@ public class Robot extends IterativeRobot {
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
 
-			if (autoAbelChooser.getSelected() == AutoChoice.SENSORLESS) {
-				autonomousCommand = new UnsensoredAutonomous();
-			} else {
+			if (autoAbelChooser.getSelected() == AutoChoice.SENSORABEL) {
 				autonomousCommand = new SensoredAutonomous();
+				
+			} else {
+				autonomousCommand = new UnsensoredAutonomous();
 			}
 			autonomousCommand.start();
 
@@ -242,7 +255,7 @@ public class Robot extends IterativeRobot {
 
 		if (!HEADLESS) {
 			((Command) driveChooser.getSelected()).start();
-
+			shiftCommand.start();
 			// TODO remove
 			sensorSystem.init();
 			sensorSystem.initDefaultCommand();

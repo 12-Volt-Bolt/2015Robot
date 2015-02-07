@@ -23,7 +23,11 @@ public class RobotMap {
 	public static int bButton = 2;
 	public static int leftBumper = 5;
 	public static int rightBumper = 6;
-
+	// Alt Joystick Buttons
+	public static int lockButton = 2;
+	public static int altClampButton = 1;
+	// Alt Joystick Axies (I do what I want)
+	public static int altYAxis = 1;
 	// Mecanum Talon IDs
 	public static int frontLeftTalonID = 0;
 	public static int rearLeftTalonID = 2;
@@ -32,27 +36,32 @@ public class RobotMap {
 
 	// Lifter Talon ID
 	public static int lifterTalonID = 4;
-	
+
+	public static int clampSolenoidForward = 0;
+	public static int clampSolenoidReverse = 1;
+
+	public static int positionLockSolenoid = 2;
+
 	// SmartDashboard Keys
 	public static String lifterKey = "Lifter Scale Speed";
 	public static String speedKey = "Drive Scale Speed";
-	
-	//Autonomous lifter Settings
+
+	// Autonomous lifter Settings
 	public static String lifterTime = "Auto Lifter Time";
 	public static String lifterSpeed = "Auto Lifter Speed";
-	
-	
+
 	{
-	
+
 	}
-	
+
 	public static double n(String name, double def) {
 		try {
-			SmartDashboard.getNumber(name);
+
+			return SmartDashboard.getNumber(name);
 		} catch (Exception e) {
 			SmartDashboard.putNumber(name, def);
 			return def;
 		}
-		return SmartDashboard.getNumber(name, def);
+
 	}
 }

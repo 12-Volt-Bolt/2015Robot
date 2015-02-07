@@ -28,8 +28,8 @@ public class MecanumDriveCommand extends Command {
 		// Shifting; Should probably put this somewhere else.
 		speed = SmartDashboard.getNumber(speedKey, speed);
 		// TODO: create custom speed multiplier key
-		Robot.driveSystem.mecanumCartesian(OI.axis(leftXAxis) * speed,
-				OI.axis(leftYAxis) * speed, OI.axis(rightXAxis));
+		Robot.driveSystem.mecanumCartesian(OI.mainAxis(leftXAxis) * speed,
+				OI.mainAxis(leftYAxis) * speed, OI.mainAxis(rightXAxis));
 
 	}
 

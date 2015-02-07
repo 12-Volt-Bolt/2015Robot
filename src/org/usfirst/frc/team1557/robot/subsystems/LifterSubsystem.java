@@ -40,7 +40,7 @@ public class LifterSubsystem extends Subsystem {
 	public void lift(double speed) {
 		//Inverse Speed
 		speed *= -1; 
-		speed /= 2;
+		
 		// if (limitDown.get()) {
 		// if (x < 0) {
 		// x = 0;

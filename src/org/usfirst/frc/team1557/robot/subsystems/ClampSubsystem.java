@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1557.robot.subsystems;
 
+import org.usfirst.frc.team1557.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -9,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ClampSubsystem extends Subsystem {
 	// Don't push to Robot if the Solenoid is not hooked up. If they aren't
 	// comment anything onvolving them out.
-	DoubleSolenoid piston = new DoubleSolenoid(0, 1);
+	DoubleSolenoid piston = new DoubleSolenoid(RobotMap.clampSolenoidForward, RobotMap.clampSolenoidReverse);
 
 	public void initDefaultCommand() {
 		
@@ -27,7 +29,7 @@ public class ClampSubsystem extends Subsystem {
 		} else {
 			piston.set(DoubleSolenoid.Value.kReverse);
 		}
-
+		System.out.println("Toggled Piston!");
 		this.isClamp = clamp;
 	}
 
@@ -36,6 +38,7 @@ public class ClampSubsystem extends Subsystem {
 	 */
 	public void togglePiston() {
 		setPiston(!isClamp);
+		
 	}
 
 	/**

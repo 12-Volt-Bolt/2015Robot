@@ -22,7 +22,7 @@ public class LifterCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.lifterSystem.lift(-OI.mainJoy.getRawAxis(RobotMap.leftTrigger) + OI.mainJoy.getRawAxis(RobotMap.rightTrigger));
+    	Robot.lifterSystem.lift(OI.altAxis(RobotMap.altYAxis));
     }
     
     // Make this return true when this Command no longer needs to run execute()

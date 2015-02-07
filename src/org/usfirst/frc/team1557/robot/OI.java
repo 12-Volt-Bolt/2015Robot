@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
+import org.usfirst.frc.team1557.robot.commands.ToggleLockCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -15,7 +16,8 @@ public class OI {
 	public static Joystick mainJoy = new Joystick(0);
 	public static Joystick altJoy = new Joystick(1);
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
-	Button aButton = new JoystickButton(mainJoy, RobotMap.aButton);
+	Button clampButton = new JoystickButton(altJoy, RobotMap.altClampButton);
+	Button lockButton = new JoystickButton(altJoy, RobotMap.lockButton);
 
 	// Joystick = Drive
 	// Triggers = Elevator
@@ -26,8 +28,11 @@ public class OI {
 	 * @param  axis The axis to retrieve, i.e. RobotMap.leftXAxis
 	 * @return      The value, from -1 to 1 of the given axis.
 	 */
-	public static double axis(int axis) {
+	public static double mainAxis(int axis) {
 		return mainJoy.getRawAxis(axis);
+	}
+	public static double altAxis(int axis){
+		return altJoy.getRawAxis(axis);
 	}
 
 	public OI() {
@@ -44,7 +49,8 @@ public class OI {
 
 	public void initialize() {
 		// yButton.whenPressed(new StackCommandGroup());
-		aButton.whenPressed(new ToggleClampCommand());
+		lockButton.whenPressed(new ToggleLockCommand());
+		clampButton.whenPressed(new ToggleClampCommand());
 		
 	}
 
