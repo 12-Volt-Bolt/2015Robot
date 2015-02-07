@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1557.robot;
 
+import org.usfirst.frc.team1557.robot.commands.SetClampCommand;
 import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
 import org.usfirst.frc.team1557.robot.commands.ToggleLockCommand;
 
@@ -16,6 +17,8 @@ public class OI {
 	public static Joystick mainJoy = new Joystick(0);
 	public static Joystick altJoy = new Joystick(1);
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
+	Button mainRightClampButton = new JoystickButton(mainJoy, RobotMap.rightBumper);
+	Button mainLeftClampButton = new JoystickButton(mainJoy, RobotMap.leftBumper);
 	Button clampButton = new JoystickButton(altJoy, RobotMap.altClampButton);
 	Button lockButton = new JoystickButton(altJoy, RobotMap.lockButton);
 
@@ -50,7 +53,10 @@ public class OI {
 	public void initialize() {
 		// yButton.whenPressed(new StackCommandGroup());
 		lockButton.whenPressed(new ToggleLockCommand());
+		mainRightClampButton.whenPressed(new SetClampCommand(true));
+		mainLeftClampButton.whenPressed(new SetClampCommand(false));
 		clampButton.whenPressed(new ToggleClampCommand());
+		
 		
 	}
 

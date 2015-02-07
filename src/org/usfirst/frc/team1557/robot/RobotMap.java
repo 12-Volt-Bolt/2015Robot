@@ -28,6 +28,7 @@ public class RobotMap {
 	public static int altClampButton = 1;
 	// Alt Joystick Axies (I do what I want)
 	public static int altYAxis = 1;
+	public static int altZAxis = 2;
 	// Mecanum Talon IDs
 	public static int frontLeftTalonID = 0;
 	public static int rearLeftTalonID = 2;

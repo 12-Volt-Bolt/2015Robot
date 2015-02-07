@@ -3,6 +3,8 @@ package org.usfirst.frc.team1557.robot.subsystems;
 import static org.usfirst.frc.team1557.robot.RobotMap.lifterKey;
 import static org.usfirst.frc.team1557.robot.RobotMap.lifterTalonID;
 
+import org.usfirst.frc.team1557.robot.OI;
+import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -53,7 +55,7 @@ public class LifterSubsystem extends Subsystem {
 
 		// && !limitUp.get() && !limitDown.get()
 		// && Robot.clampSystem.isClamp()
-
+		SmartDashboard.putNumber(lifterKey, OI.altAxis(RobotMap.altZAxis));
 		if (speed >= -0.1 && speed <= 0.1) {
 
 			lifter.set(-0.1);
