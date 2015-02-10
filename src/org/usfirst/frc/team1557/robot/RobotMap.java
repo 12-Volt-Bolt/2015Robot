@@ -16,7 +16,6 @@ public class RobotMap {
 	public static int rightTrigger = 3;
 	public static int rightXAxis = 4;
 	public static int rightYAxis = 5;
-
 	// Joystick Buttons
 	public static int yButton = 4;
 	public static int aButton = 1;
@@ -26,7 +25,9 @@ public class RobotMap {
 	// Alt Joystick Buttons
 	public static int lockButton = 2;
 	public static int altClampButton = 1;
-	// Alt Joystick Axies (I do what I want)
+	public static int overrideButton = 10;
+	public static int stackButton = 3;
+	// Alt Joystick Axes
 	public static int altYAxis = 1;
 	public static int altZAxis = 2;
 	// Mecanum Talon IDs
@@ -34,13 +35,11 @@ public class RobotMap {
 	public static int rearLeftTalonID = 2;
 	public static int frontRightTalonID = 1;
 	public static int rearRightTalonID = 3;
-
 	// Lifter Talon ID
 	public static int lifterTalonID = 4;
-
+	// Solenoid IDs
 	public static int clampSolenoidForward = 0;
 	public static int clampSolenoidReverse = 1;
-
 	public static int positionLockSolenoid = 2;
 
 	// SmartDashboard Keys
@@ -51,18 +50,16 @@ public class RobotMap {
 	public static String lifterTime = "Auto Lifter Time";
 	public static String lifterSpeed = "Auto Lifter Speed";
 
-	{
-
-	}
-
-	public static double n(String name, double def) {
-		try {
-
-			return SmartDashboard.getNumber(name);
-		} catch (Exception e) {
-			SmartDashboard.putNumber(name, def);
-			return def;
-		}
-
-	}
+	// Misc global values
+	public static boolean override = true;
+	// public static double n(String name, double def) {
+	// try {
+	//
+	// return SmartDashboard.getNumber(name);
+	// } catch (Exception e) {
+	// SmartDashboard.putNumber(name, def);
+	// return def;
+	// }
+	//
+	// }
 }

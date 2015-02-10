@@ -8,6 +8,7 @@ import org.usfirst.frc.team1557.robot.RobotMap;
 import org.usfirst.frc.team1557.robot.commands.LifterCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 //import edu.wpi.first.wpilibj.hal.CanTalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,35 +35,31 @@ public class LifterSubsystem extends Subsystem {
 		setDefaultCommand(new LifterCommand());
 
 	}
+
 	/**
-	 * Speed at which the lifter will move. Positive is up
+	 * Speed at which the lifter will move. Positive is up? Who knows anymore
 	 * 
 	 * @param speed
 	 */
 	public void lift(double speed) {
-		//Inverse Speed
-		speed *= -1; 
-		
+		// Inverse Speed
+		// speed *= -1;
 		// if (limitDown.get()) {
-		// if (x < 0) {
-		// x = 0;
+		// if (speed > 0) {
+		// speed = 0;
 		// }
-		// } else if (limitUp.get()) {
-		// if (x > 0) {
-		// x = 0;
+		// } // else if (limitUp.get()) {
+		// if (speed < 0) {
+		// speed = 0;
 		// }
 		// }
 
-		// && !limitUp.get() && !limitDown.get()
-		// && Robot.clampSystem.isClamp()
-		SmartDashboard.putNumber(lifterKey, OI.altAxis(RobotMap.altZAxis));
 		if (speed >= -0.1 && speed <= 0.1) {
-
-			lifter.set(-0.1);
+			lifter.set(-0.10);
 		} else {
-			lifter.set(speed * SmartDashboard.getNumber(lifterKey, 1));
+			lifter.set(speed);
 		}
-		
+
 		SmartDashboard.putNumber("Lifter Speed", speed);
 		SmartDashboard.putNumber("Lifter Motor Throttle", getThrottle());
 		SmartDashboard.putNumber("Lifter Motor Current", getCurrent());
@@ -71,32 +68,38 @@ public class LifterSubsystem extends Subsystem {
 
 	/**
 	 *
-	 * Will negate whatever speed you input. Positive is upwards and negative is downwards
+	 * Will negate whatever speed you input. Positive is upwards and negative is
+	 * downwards
 	 * 
 	 * @param speed
 	 * 
 	 */
 	public void stack(double speed) {
-		
 		lifter.set(-speed);
-		
 	}
+
+	// public boolean getLimitSwitch() {
+	// return limitDown.get();// || limitUp.get();
+	// }
+
 	/**
-	*Gets the Current of the Lifter Talon
-	*/
-	public double getCurrent(){
+	 * Gets the Current of the Lifter Talon
+	 */
+	public double getCurrent() {
 		return lifter.getOutputCurrent();
 	}
+
 	/**
-	*Gets the Voltage of the Lifter Talon
-	*/
-	public double getVoltage(){
+	 * Gets the Voltage of the Lifter Talon
+	 */
+	public double getVoltage() {
 		return lifter.getOutputVoltage();
 	}
+
 	/**
-	*Gets the Throttle of the Lifter Talon
-	*/
-	public double getThrottle(){
+	 * Gets the Throttle of the Lifter Talon
+	 */
+	public double getThrottle() {
 		return lifter.get();
 	}
 }

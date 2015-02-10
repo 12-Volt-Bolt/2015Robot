@@ -1,7 +1,4 @@
 package org.usfirst.frc.team1557.robot.commands;
-
-import static org.usfirst.frc.team1557.robot.RobotMap.bButton;
-
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.RobotMap;
 
@@ -12,41 +9,41 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class ShiftSpeedCommand extends Command {
-	
-    public ShiftSpeedCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+	public ShiftSpeedCommand() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	
-			
-			if ((OI.mainJoy.getPOV() == 180) && !(SmartDashboard.getNumber(RobotMap.speedKey) == 0)) {
-				SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
-			} else if((OI.mainJoy.getPOV() == 0) &&!(SmartDashboard.getNumber(RobotMap.speedKey) == 0)){
-				SmartDashboard.putNumber(RobotMap.speedKey, 1);
-			}
-			
-			
-	
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+		if ((OI.mainJoy.getPOV() == 0)) {
+			SmartDashboard.putNumber(RobotMap.speedKey, 1);
+		} else if ((OI.mainJoy.getPOV() == 90)) {
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.8);
+		} else if ((OI.mainJoy.getPOV() == 180)) {
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
+		} else if ((OI.mainJoy.getPOV() == 270)) {
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.4);
+		}
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
+
+	// Called once after isFinished returns true
+	protected void end() {
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }

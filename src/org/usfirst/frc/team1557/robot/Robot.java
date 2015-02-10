@@ -2,13 +2,10 @@ package org.usfirst.frc.team1557.robot;
 
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
-import org.usfirst.frc.team1557.robot.autonomous.AutoBumpClimbDrive;
-import org.usfirst.frc.team1557.robot.autonomous.AutoLifterCommand;
-import org.usfirst.frc.team1557.robot.autonomous.AutoMecanumTime;
-import org.usfirst.frc.team1557.robot.autonomous.AutoSetClamp;
-import org.usfirst.frc.team1557.robot.autonomous.SensoredAutonomous;
-import org.usfirst.frc.team1557.robot.autonomous.UnsensoredAutonomous;
+import org.usfirst.frc.team1557.robot.autonomous.BasicAutonomous;
+
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
+import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
 import org.usfirst.frc.team1557.robot.commands.ShiftSpeedCommand;
 import org.usfirst.frc.team1557.robot.commands.TankDriveCommand;
 import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
@@ -20,7 +17,7 @@ import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.WaitCommand;
+
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -98,7 +95,6 @@ public class Robot extends IterativeRobot {
 	// Select the mode of Driving used by DriveSubsystem
 	SendableChooser driveChooser;
 	public static SendableChooser positionChooser;
-	SendableChooser autoAbelChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -136,13 +132,7 @@ public class Robot extends IterativeRobot {
 			positionChooser.addObject("Center(Bump)", AutoPosition.CENTER);
 			positionChooser.addObject("Left(Bumpless)", AutoPosition.LEFT);
 			SmartDashboard.putData("Starting Position", positionChooser);
-			autoAbelChooser = new SendableChooser();
-			autoAbelChooser.addDefault("Sensorless Autonomous",
-					AutoChoice.SENSORLESS);
-			autoAbelChooser.addObject("Sensored Autonomous",
-					AutoChoice.SENSORABEL);
-			SmartDashboard.putData("Sensor Choosing", autoAbelChooser);
-			
+
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
@@ -159,19 +149,8 @@ public class Robot extends IterativeRobot {
 	 * 
 	 * @param command
 	 */
-	private void addSequential(Command command) {
-
-		SmartDashboard.putData("Step " + count, command);
-		count++;
-	}
-
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-	}
-
-	private enum AutoChoice {
-		SENSORLESS, SENSORABEL
-
 	}
 
 	public void autonomousInit() {
@@ -180,12 +159,8 @@ public class Robot extends IterativeRobot {
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
 
-			if (autoAbelChooser.getSelected() == AutoChoice.SENSORABEL) {
-				autonomousCommand = new SensoredAutonomous();
+			autonomousCommand = new BasicAutonomous();
 
-			} else {
-				autonomousCommand = new UnsensoredAutonomous();
-			}
 			autonomousCommand.start();
 
 			// TODO remove
@@ -228,14 +203,25 @@ public class Robot extends IterativeRobot {
 		sensorSystem.resetAccel();
 	}
 
+	boolean orState = false;
+
 	/**
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 
-		// TODO remove
-		// sensorSystem.updateSensor();
+		if (OI.altJoy.getRawButton(overrideButton) && !orState) {
+			orState = true;
+			override = !override;
+		} else if (!OI.altJoy.getRawButton(overrideButton)) {
+			orState = false;
+		}
+
+		if (OI.altAxis(RobotMap.altYAxis) > .1
+				|| OI.mainAxis(RobotMap.rightTrigger) > 0.13) {
+			new SetLockCommand(false).start();
+		}
 	}
 
 	/**

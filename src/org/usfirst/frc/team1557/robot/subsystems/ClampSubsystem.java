@@ -29,7 +29,6 @@ public class ClampSubsystem extends Subsystem {
 		} else {
 			piston.set(DoubleSolenoid.Value.kReverse);
 		}
-		System.out.println("Toggled Piston!");
 		this.isClamp = clamp;
 	}
 
