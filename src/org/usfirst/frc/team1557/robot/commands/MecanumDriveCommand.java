@@ -26,9 +26,11 @@ public class MecanumDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		ySpeed = (Math.abs(OI.mainAxis(leftYAxis)) > Math.abs(OI.mainAxis(rightYAxis))) ? OI
-				.mainAxis(leftYAxis) : OI.mainAxis(rightYAxis);
+		ySpeed = (Math.abs(OI.mainAxis(leftYAxis)) > Math.abs(OI
+				.mainAxis(rightYAxis))) ? OI.mainAxis(leftYAxis) : OI
+				.mainAxis(rightYAxis);
 		speed = SmartDashboard.getNumber(speedKey, speed);
+		ySpeed = (Math.abs(ySpeed) > 0.09) ? ySpeed : 0;
 		// TODO: create custom speed multiplier key
 		Robot.driveSystem.mecanumCartesian(OI.mainAxis(leftXAxis) * speed,
 				ySpeed * speed, OI.mainAxis(rightXAxis));

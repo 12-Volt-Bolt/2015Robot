@@ -1,4 +1,5 @@
 package org.usfirst.frc.team1557.robot.commands;
+
 import org.usfirst.frc.team1557.robot.OI;
 import org.usfirst.frc.team1557.robot.RobotMap;
 
@@ -25,11 +26,11 @@ public class ShiftSpeedCommand extends Command {
 		if ((OI.mainJoy.getPOV() == 0)) {
 			SmartDashboard.putNumber(RobotMap.speedKey, 1);
 		} else if ((OI.mainJoy.getPOV() == 90)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.8);
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.75);
 		} else if ((OI.mainJoy.getPOV() == 180)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.5);
 		} else if ((OI.mainJoy.getPOV() == 270)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.4);
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.25);
 		}
 	}
 

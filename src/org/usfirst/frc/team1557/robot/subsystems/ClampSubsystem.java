@@ -37,6 +37,7 @@ public class ClampSubsystem extends Subsystem {
 	 */
 	public void togglePiston() {
 		setPiston(!isClamp);
+		isClamp = !isClamp;
 		
 	}
 

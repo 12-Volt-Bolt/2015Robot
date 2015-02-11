@@ -21,11 +21,11 @@ public class LifterSubsystem extends Subsystem {
 	CANTalon lifter;
 
 	// DigitalInput limitUp;
-	// DigitalInput limitDown;
+	DigitalInput limitDown;
 
 	public LifterSubsystem() {
 		// limitUp = new DigitalInput(1);
-		// limitDown = new DigitalInput(0);
+		limitDown = new DigitalInput(0);
 		lifter = new CANTalon(lifterTalonID);
 		lifter.enableBrakeMode(true);
 	}
@@ -44,15 +44,15 @@ public class LifterSubsystem extends Subsystem {
 	public void lift(double speed) {
 		// Inverse Speed
 		// speed *= -1;
-		// if (limitDown.get()) {
-		// if (speed > 0) {
-		// speed = 0;
-		// }
-		// } // else if (limitUp.get()) {
-		// if (speed < 0) {
-		// speed = 0;
-		// }
-		// }
+		if (!limitDown.get()) {
+			if (speed > 0) {
+				speed = 0;
+			}
+		} // else if (limitUp.get()) {
+			// if (speed < 0) {
+			// speed = 0;
+			// }
+			// }
 
 		if (speed >= -0.1 && speed <= 0.1) {
 			lifter.set(-0.10);

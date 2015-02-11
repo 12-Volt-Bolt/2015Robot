@@ -31,50 +31,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	/*
-	 * Doesn't completely crash Y
-	 * 
-	 * Teleop Drive
-	 * 
-	 * Sensorless Autonomous
-	 * 
-	 * Sensored Autonomous
-	 * 
-	 * Gyro/Accel input test Y
-	 * 
-	 * Correct values
-	 * 
-	 * Accel Y should be ~= 0 N
-	 * 
-	 * Gyro should stay ~= 0 Y
-	 * 
-	 * Gyro Drift Amount N
-	 * 
-	 * 
-	 * Mecanum drives correctly Y
-	 * 
-	 * Lifter lifts Y
-	 * 
-	 * Limit switch status
-	 * 
-	 * Lifter doesn't fall down? Y
-	 * 
-	 * See if we can change DriveSystems with SmrtDshbrd Y
-	 * 
-	 * Canceling gravity
-	 * 
-	 * 
-	 * Tilt code / Testing
-	 * 
-	 * 
-	 * Autonomous Lifter Amount
-	 * 
-	 * 
-	 * Autonomous Drive speed amounts / Saturday
-	 * 
-	 * 0.5/1 Empty = 1.5 Units
-	 */
-
 	/**
 	 * If true, subsystems should not access motors.
 	 */
@@ -93,8 +49,8 @@ public class Robot extends IterativeRobot {
 	// Compressor compresser;
 
 	// Select the mode of Driving used by DriveSubsystem
-	SendableChooser driveChooser;
-	public static SendableChooser positionChooser;
+	public static SendableChooser driveChooser;
+	public static SendableChooser autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -115,8 +71,6 @@ public class Robot extends IterativeRobot {
 			shiftCommand = new ShiftSpeedCommand();
 			// instantiate the command used for the autonomous period
 
-			clampSystem = new ClampSubsystem();
-
 			// lifterCommand = new LifterCommand();
 
 			// Create choosers
@@ -126,12 +80,13 @@ public class Robot extends IterativeRobot {
 			driveChooser.addDefault("Magical Mecanum",
 					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
+			autoChooser = new SendableChooser();
+
+			// TODO: Make Descriptions for all of the Autonomi.
+			autoChooser.addDefault("", AutonomousPlans.RIGHT_BOTH);
+			autoChooser.addObject("", AutonomousPlans.NO_OP);
+
 			SmartDashboard.putData("Drive Chooser", driveChooser);
-			positionChooser = new SendableChooser();
-			positionChooser.addDefault("Right(Bump)", AutoPosition.RIGHT);
-			positionChooser.addObject("Center(Bump)", AutoPosition.CENTER);
-			positionChooser.addObject("Left(Bumpless)", AutoPosition.LEFT);
-			SmartDashboard.putData("Starting Position", positionChooser);
 
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
@@ -218,7 +173,7 @@ public class Robot extends IterativeRobot {
 			orState = false;
 		}
 
-		if (OI.altAxis(RobotMap.altYAxis) > .1
+		if (OI.altAxis(RobotMap.altYAxis) > .13
 				|| OI.mainAxis(RobotMap.rightTrigger) > 0.13) {
 			new SetLockCommand(false).start();
 		}
