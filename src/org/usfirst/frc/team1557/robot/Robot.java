@@ -3,7 +3,7 @@ package org.usfirst.frc.team1557.robot;
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
 import org.usfirst.frc.team1557.robot.autonomous.BoringAutonomous;
-
+import org.usfirst.frc.team1557.robot.autonomous.FancyAutoGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
 import org.usfirst.frc.team1557.robot.commands.ShiftSpeedCommand;
@@ -17,7 +17,6 @@ import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -81,17 +80,12 @@ public class Robot extends IterativeRobot {
 					new MecanumDriveCommand());
 			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
 			autoChooser = new SendableChooser();
+			SmartDashboard.putData("DriveChooser", driveChooser);
 
 			// TODO: Make Descriptions for all of the Autonomi.
-			autoChooser.addDefault("Test Get", AutonomousPlans.CENTER_BOTH);
-			autoChooser.addObject("Test Release",
-					AutonomousPlans.CENTER_LEFT_TOTE);
-			autoChooser.addObject("Test Strafe Up",
-					AutonomousPlans.CENTER_RIGHT_TOTE);
-			autoChooser.addObject("Test ToToTo", AutonomousPlans.LEFT_BIN_ONLY);
-			autoChooser.addObject("Test Drive", AutonomousPlans.LEFT_BOTH);
-			SmartDashboard.putData("Drive Chooser", driveChooser);
-
+			autoChooser.addDefault("Righ-Both ", AutonomousPlans.RIGHT_BOTH);
+			autoChooser.addObject("Left-Both", AutonomousPlans.LEFT_BOTH);
+			SmartDashboard.putData("Auto Chooser", autoChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
@@ -103,11 +97,6 @@ public class Robot extends IterativeRobot {
 
 	int count = 1;
 
-	/**
-	 * Adds the command to the SmrtDshbrd
-	 * 
-	 * @param command
-	 */
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -118,8 +107,7 @@ public class Robot extends IterativeRobot {
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
 
-			autonomousCommand = new BoringAutonomous();// (Command)
-														// autoChooser.getSelected();
+			autonomousCommand = new FancyAutoGroup();
 
 			autonomousCommand.start();
 
@@ -146,7 +134,10 @@ public class Robot extends IterativeRobot {
 		}
 
 		if (!HEADLESS) {
-			((Command) driveChooser.getSelected()).start();
+			if (driveChooser.getSelected() != null) {
+				((Command) driveChooser.getSelected()).start();
+			}
+
 			shiftCommand.start();
 			// TODO remove
 			sensorSystem.init();
@@ -159,6 +150,10 @@ public class Robot extends IterativeRobot {
 	 * to reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
+		}
+
 		sensorSystem.resetGyro();
 		sensorSystem.resetAccel();
 	}
