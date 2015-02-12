@@ -11,17 +11,20 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ClampSubsystem extends Subsystem {
 	// Don't push to Robot if the Solenoid is not hooked up. If they aren't
 	// comment anything onvolving them out.
-	DoubleSolenoid piston = new DoubleSolenoid(RobotMap.clampSolenoidForward, RobotMap.clampSolenoidReverse);
+	DoubleSolenoid piston = new DoubleSolenoid(RobotMap.clampSolenoidForward,
+			RobotMap.clampSolenoidReverse);
 
 	public void initDefaultCommand() {
-		
+
 	}
 
 	private boolean isClamp = false;
 
 	/**
 	 * Sets the state of the clamp.
-	 * @param clamp True if the clamp is closed, false if the clamp is open.
+	 * 
+	 * @param clamp
+	 *            True if the clamp is closed, false if the clamp is open.
 	 */
 	public void setPiston(boolean clamp) {
 		if (clamp) {
@@ -36,13 +39,19 @@ public class ClampSubsystem extends Subsystem {
 	 * Toggles the state of the clamp.
 	 */
 	public void togglePiston() {
-		setPiston(!isClamp);
-		isClamp = !isClamp;
-		
+		if (piston.get() == DoubleSolenoid.Value.kForward) {
+			piston.set(DoubleSolenoid.Value.kReverse);
+		} else if (piston.get() == DoubleSolenoid.Value.kReverse) {
+			piston.set(DoubleSolenoid.Value.kForward);
+		} else {
+			piston.set(DoubleSolenoid.Value.kReverse);
+		}
+
 	}
 
 	/**
 	 * Gets whether the clamp is currently clamped.
+	 * 
 	 * @return Whether the clamp is closed.
 	 */
 	public boolean isClamp() {

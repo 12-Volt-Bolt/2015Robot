@@ -5,22 +5,14 @@ import org.usfirst.frc.team1557.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Automatically toggles the clamp
+ *
  */
-public class AutoSetClamp extends Command {
+public class AutoLiftLimitUp extends Command {
+	boolean finish = false;
 
-	private boolean state;
-
-	/**
-	 * Sets the clamp to the specified state
-	 * 
-	 * @param state
-	 *            True is closed and false is opened
-	 */
-	public AutoSetClamp(boolean state) {
+	public AutoLiftLimitUp() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.clampSystem);
-		this.state = state;
+		requires(Robot.lifterSystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -29,12 +21,17 @@ public class AutoSetClamp extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.clampSystem.setPiston(state);
+		Robot.lifterSystem.stack(0.8);
+		if (Robot.lifterSystem.getUpLimit()) {
+			Robot.lifterSystem.stack(0);
+			finish = true;
+		}
+		;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return true;
+		return finish;
 	}
 
 	// Called once after isFinished returns true

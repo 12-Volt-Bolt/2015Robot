@@ -3,6 +3,7 @@ package org.usfirst.frc.team1557.robot.subsystems;
 import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.sensor.L3GD20_Gyro;
 import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC_Accel;
+import org.usfirst.frc.team1557.robot.sensor.LSM303DLHC_Magneto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,8 +16,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * SensorSubsystem.updateSensor in their execute method
  */
 public class SensorSubsystem extends Subsystem {
+
+	enum Orientation {
+
+	}
+
 	L3GD20_Gyro gyro = null;
 	LSM303DLHC_Accel accel = null;
+	LSM303DLHC_Magneto magneto = null;
 	double fil = 0.5;
 	double nosePass = 0;
 	double dt;
@@ -24,6 +31,7 @@ public class SensorSubsystem extends Subsystem {
 	 * Accumulated z angle
 	 */
 	double gyroAngle = 0;
+	double magAngle = 0;
 
 	public double readRateX() {
 		return accel.readRateX();
@@ -89,6 +97,7 @@ public class SensorSubsystem extends Subsystem {
 			// dt = (now - lastTime) / 1000.0;
 
 			// Writes the Gyro Angle
+
 			gyroAngle += gyro.readRateX() / 190; // dt;
 
 			// Writes the Accelerometer acceleration
@@ -151,6 +160,9 @@ public class SensorSubsystem extends Subsystem {
 		SmartDashboard.putNumber("DT", dt);
 		SmartDashboard.putNumber("Gyro Angle", gyroAngle);
 		SmartDashboard.putNumber("Accelerometer Y Position", currentPos);
+		SmartDashboard.putNumber("Magneto X", magneto.readRateX());
+		SmartDashboard.putNumber("Magneto Y", magneto.readRateY());
+		SmartDashboard.putNumber("Magneto Z", magneto.readRateZ());
 	}
 
 	/**
@@ -166,12 +178,13 @@ public class SensorSubsystem extends Subsystem {
 			isinit = true;
 			gyro = new L3GD20_Gyro();
 			accel = new LSM303DLHC_Accel();
+			magneto = new LSM303DLHC_Magneto();
 			sensorThread.start();
 			sensorThread.setName("Sensor Thread");
 		}
 	}
 
 	public void initDefaultCommand() {
-		
+
 	}
 }

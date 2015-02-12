@@ -25,19 +25,20 @@ public class FancyAutoGroup extends CommandGroup {
 
 			break;
 		case CENTER_BOTH:
-
+			// Start of tests
+			get();
 			break;
 		case CENTER_LEFT_TOTE:
-
+			release();
 			break;
 		case CENTER_RIGHT_TOTE:
-
+			strafe(true);
 			break;
 		case LEFT_BIN_ONLY:
-
+			ToToTo(true);
 			break;
 		case LEFT_BOTH:
-
+			drive();
 			break;
 		case LEFT_CENTER_TOTE:
 
@@ -65,27 +66,57 @@ public class FancyAutoGroup extends CommandGroup {
 	}
 
 	/**
-	 * Grabs a tote, raises the arm, and strafes down all at once. After, it
-	 * will drive to the next position
-	 * 
-	 * @param liftTime
-	 *            Length of time the lift should run. This will depends on how
-	 *            high you want to stack
-	 * @param direction
-	 *            The direction you want to move after the strafe
+	 * Clamps the arms while also lifting to slightly above single tote height.
 	 */
-	private void grabStrafe(double liftTime, double direction) {
-		addParallel(new ToggleClampCommand());
-		addParallel(new AutoLifterCommand(0.5, liftTime));
-		addSequential(new AutoMecanumTime(-0.4, 0, 0, 0.4));
-		addSequential(new AutoMecanumTime(0, direction, 0, .7));
+	private void get() {
+		addParallel(new AutoSetClamp(true));
+		addSequential(new AutoLifterCommand(0.7, 1));
 	}
 
 	/**
-	 * Strafes upwards.
+	 * Releases the clamp while also lowering the arm into load position.
 	 */
-	private void strafeUp() {
-		addSequential(new AutoMecanumTime(0.4, 0, 0, 0.7));
+	private void release() {
+		addParallel(new AutoSetClamp(false));
+		//addSequential(new AutoLifterDown(0.3));
 	}
 
+	/**
+	 * Strafes in the given direction. If Up equals true the robot will strafe
+	 * upwards; otherwise, the robot will strafe downwards.
+	 * 
+	 * @param up
+	 *            Directional control
+	 */
+	private void strafe(boolean up) {
+		// Values should be aprox the same but inverted.
+		double speed = (up) ? 0.4 : -0.4;
+		addSequential(new AutoMecanumTime(speed, 0, 0, 0.7));
+	}
+
+	/**
+	 * Move into from one tote position to another. Should be called after a
+	 * strafe command.
+	 * 
+	 * @param dir
+	 *            The direction to move to. True is forwards. False is
+	 *            backwards.
+	 */
+	private void ToToTo(boolean dir) {
+		double speed = (dir) ? 0.6 : -0.6;
+		addSequential(new AutoMecanumTime(0, speed, 0, 1));
+	}
+
+	/**
+	 * 
+	 * @param clockwise
+	 *            Whether to turn clockwise or counter-clockwise.
+	 */
+	private void turn(boolean clockwise) {
+
+	}
+
+	private void drive() {
+		addSequential(new AutoMecanumTime(0, 0.6, 0, 0.7));
+	}
 }

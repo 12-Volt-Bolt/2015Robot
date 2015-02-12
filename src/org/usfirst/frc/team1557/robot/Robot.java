@@ -2,7 +2,7 @@ package org.usfirst.frc.team1557.robot;
 
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
-import org.usfirst.frc.team1557.robot.autonomous.BasicAutonomous;
+import org.usfirst.frc.team1557.robot.autonomous.BoringAutonomous;
 
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
@@ -83,9 +83,13 @@ public class Robot extends IterativeRobot {
 			autoChooser = new SendableChooser();
 
 			// TODO: Make Descriptions for all of the Autonomi.
-			autoChooser.addDefault("", AutonomousPlans.RIGHT_BOTH);
-			autoChooser.addObject("", AutonomousPlans.NO_OP);
-
+			autoChooser.addDefault("Test Get", AutonomousPlans.CENTER_BOTH);
+			autoChooser.addObject("Test Release",
+					AutonomousPlans.CENTER_LEFT_TOTE);
+			autoChooser.addObject("Test Strafe Up",
+					AutonomousPlans.CENTER_RIGHT_TOTE);
+			autoChooser.addObject("Test ToToTo", AutonomousPlans.LEFT_BIN_ONLY);
+			autoChooser.addObject("Test Drive", AutonomousPlans.LEFT_BOTH);
 			SmartDashboard.putData("Drive Chooser", driveChooser);
 
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
@@ -114,7 +118,8 @@ public class Robot extends IterativeRobot {
 		if (!HEADLESS) {
 			// ((Command) (autoChooser.getSelected())).start();
 
-			autonomousCommand = new BasicAutonomous();
+			autonomousCommand = new BoringAutonomous();// (Command)
+														// autoChooser.getSelected();
 
 			autonomousCommand.start();
 

@@ -20,11 +20,11 @@ public class LifterSubsystem extends Subsystem {
 
 	CANTalon lifter;
 
-	// DigitalInput limitUp;
+	DigitalInput limitUp;
 	DigitalInput limitDown;
 
 	public LifterSubsystem() {
-		// limitUp = new DigitalInput(1);
+		limitUp = new DigitalInput(1);
 		limitDown = new DigitalInput(0);
 		lifter = new CANTalon(lifterTalonID);
 		lifter.enableBrakeMode(true);
@@ -44,15 +44,15 @@ public class LifterSubsystem extends Subsystem {
 	public void lift(double speed) {
 		// Inverse Speed
 		// speed *= -1;
-		if (!limitDown.get()) {
+		if (getDownLimit()) {
 			if (speed > 0) {
 				speed = 0;
 			}
-		} // else if (limitUp.get()) {
-			// if (speed < 0) {
-			// speed = 0;
-			// }
-			// }
+		} else if (getUpLimit()) {
+			if (speed < 0) {
+				speed = 0;
+			}
+		}
 
 		if (speed >= -0.1 && speed <= 0.1) {
 			lifter.set(-0.10);
@@ -78,9 +78,26 @@ public class LifterSubsystem extends Subsystem {
 		lifter.set(-speed);
 	}
 
-	// public boolean getLimitSwitch() {
-	// return limitDown.get();// || limitUp.get();
-	// }
+	/**
+	 * Gets the inverted downwards limit switch.
+	 * 
+	 * @return Whether or not the limit switch is pressed. True being pressing
+	 *         and false being unpressed.
+	 */
+	public boolean getDownLimit() {
+		return !limitDown.get(); // || limitUp.get();
+	}
+
+	/**
+	 * Gets the inverted upwards limit switch.
+	 * 
+	 * @return Whether or not the limit switch is pressed. True being pressing
+	 *         and false being unpressed.
+	 */
+	public boolean getUpLimit() {
+		// TODO: Hook this up to the correct limit switch;
+		return !limitUp.get(); // || limitUp.get();
+	}
 
 	/**
 	 * Gets the Current of the Lifter Talon

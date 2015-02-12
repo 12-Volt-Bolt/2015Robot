@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MecanumDriveCommand extends Command {
 	double speed = 1;
 	double ySpeed = 0;
+	double turn = 0;
 
 	public MecanumDriveCommand() {
 		requires(Robot.driveSystem);
@@ -32,8 +33,9 @@ public class MecanumDriveCommand extends Command {
 		speed = SmartDashboard.getNumber(speedKey, speed);
 		ySpeed = (Math.abs(ySpeed) > 0.09) ? ySpeed : 0;
 		// TODO: create custom speed multiplier key
+
 		Robot.driveSystem.mecanumCartesian(OI.mainAxis(leftXAxis) * speed,
-				ySpeed * speed, OI.mainAxis(rightXAxis));
+				ySpeed * speed, OI.mainAxis(rightXAxis) * speed);
 
 	}
 

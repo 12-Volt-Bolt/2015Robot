@@ -33,7 +33,7 @@ public class LSM303DLHC_Magneto {
 		try {
 			magneto = new I2C(I2C.Port.kOnboard, devAddress);
 
-			byte[] buf = new byte[3];
+			byte[] buf = new byte[1];
 			byte[] key = new byte[3];
 			magneto.read(regIRA_REG_M, 1, buf);
 			System.arraycopy(buf, 0, key, 0, buf.length);
@@ -41,7 +41,7 @@ public class LSM303DLHC_Magneto {
 			System.arraycopy(buf, 0, key, 1, buf.length);
 			magneto.read(regIRC_REG_M, 1, buf);
 			System.arraycopy(buf, 0, key, 2, buf.length);
-			if ((buf[0] != 0b0100_1000) && (buf[1] != 0b0101_0111) && (buf[2] != 0b0011_0011)) {
+			if ((key[0] != 0b0100_1000) && (key[1] != 0b0101_0111) && (key[2] != 0b0011_0011)) {
 				throw new Exception(
 						"Wrong device at LSM303DLHC Magnetometer address!");
 			}

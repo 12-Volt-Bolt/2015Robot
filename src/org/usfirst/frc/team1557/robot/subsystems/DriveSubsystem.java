@@ -43,8 +43,11 @@ public class DriveSubsystem extends Subsystem {
 
 	/**
 	 * Tank drive
-	 * @param left Speed for the left side, from -1 to 1.
-	 * @param right Speed for the right side, from -1 to 1.
+	 * 
+	 * @param left
+	 *            Speed for the left side, from -1 to 1.
+	 * @param right
+	 *            Speed for the right side, from -1 to 1.
 	 */
 	public void tankDrive(double left, double right) {
 		if (drive == null) {
@@ -55,15 +58,18 @@ public class DriveSubsystem extends Subsystem {
 
 	/**
 	 * Mecanum drive
-	 * @param x Lateral translation, strafing left to right.
-	 * @param y Forward translation, moving forward and backward.
-	 * @param r Speed of rotation
+	 * 
+	 * @param x
+	 *            Lateral translation, strafing left to right.
+	 * @param y
+	 *            Forward translation, moving forward and backward.
+	 * @param r
+	 *            Speed of rotation
 	 */
 	public void mecanumCartesian(double x, double y, double r) {
-		double v_FrontLeft = r - y + x,
-			v_FrontRight = r + y + x,
-			v_BackLeft = r - y - x,
-			v_BackRight = r + y - x;
+		// r = r * 0.5;
+		double v_FrontLeft = r - y + x, v_FrontRight = r + y + x, v_BackLeft = r
+				- y - x, v_BackRight = r + y - x;
 
 		// This segment below gets the largest value or 1 so we can divide by
 		// it,
@@ -81,13 +87,13 @@ public class DriveSubsystem extends Subsystem {
 			f = Math.abs(v_BackRight);
 
 		// Scale
-		//f = f / SmartDashboard.getNumber("speedMultiplier", 0.75);
+		// f = f / SmartDashboard.getNumber("speedMultiplier", 0.75);
 
 		frontLeft.set(v_FrontLeft / f);
 		frontRight.set(v_FrontRight / f);
 		rearLeft.set(v_BackLeft / f);
 		rearRight.set(v_BackRight / f);
-		
+
 		output();
 
 	}
@@ -97,27 +103,37 @@ public class DriveSubsystem extends Subsystem {
 	 */
 	private void output() {
 		// SmartDashboard Stuff
-		
-		SmartDashboard.putNumber("frontRightCurrent", frontRight.getOutputCurrent());
-		SmartDashboard.putNumber("frontLeftCurrent", frontLeft.getOutputCurrent());
-		SmartDashboard.putNumber("rearLeftCurrent", rearLeft.getOutputCurrent());
-		SmartDashboard.putNumber("rearRightCurrent", rearRight.getOutputCurrent());
+
+		SmartDashboard.putNumber("frontRightCurrent",
+				frontRight.getOutputCurrent());
+		SmartDashboard.putNumber("frontLeftCurrent",
+				frontLeft.getOutputCurrent());
+		SmartDashboard
+				.putNumber("rearLeftCurrent", rearLeft.getOutputCurrent());
+		SmartDashboard.putNumber("rearRightCurrent",
+				rearRight.getOutputCurrent());
 
 		SmartDashboard.putNumber("frontRightThrottle", frontRight.get());
 		SmartDashboard.putNumber("frontLeftThrottle", frontLeft.get());
 		SmartDashboard.putNumber("rearLeftThrottle", rearLeft.get());
 		SmartDashboard.putNumber("rearRightThrottle", rearRight.get());
 
-		SmartDashboard.putNumber("Left Joystick X", OI.mainJoy.getRawAxis(leftXAxis));
-		SmartDashboard.putNumber("Left Joystick Y", OI.mainJoy.getRawAxis(leftYAxis));
+		SmartDashboard.putNumber("Left Joystick X",
+				OI.mainJoy.getRawAxis(leftXAxis));
+		SmartDashboard.putNumber("Left Joystick Y",
+				OI.mainJoy.getRawAxis(leftYAxis));
 
-		SmartDashboard.putNumber("Right Joystick X", OI.mainJoy.getRawAxis(rightXAxis));
-		SmartDashboard.putNumber("Right Joystick Y", OI.mainJoy.getRawAxis(rightYAxis));
+		SmartDashboard.putNumber("Right Joystick X",
+				OI.mainJoy.getRawAxis(rightXAxis));
+		SmartDashboard.putNumber("Right Joystick Y",
+				OI.mainJoy.getRawAxis(rightYAxis));
 	}
 
 	/**
 	 * Changes the control mode for all motors.
-	 * @param mode The CANTalon ControlMode to set all motors to.
+	 * 
+	 * @param mode
+	 *            The CANTalon ControlMode to set all motors to.
 	 */
 	private void changeMode(CANTalon.ControlMode mode) {
 		frontLeft.changeControlMode(mode);
