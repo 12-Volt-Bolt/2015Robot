@@ -2,7 +2,6 @@ package org.usfirst.frc.team1557.robot;
 
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
-import org.usfirst.frc.team1557.robot.autonomous.BoringAutonomous;
 import org.usfirst.frc.team1557.robot.autonomous.FancyAutoGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
@@ -86,6 +85,8 @@ public class Robot extends IterativeRobot {
 			autoChooser.addDefault("Right-Both ", AutonomousPlans.RIGHT_BOTH);
 			autoChooser.addObject("Left-Both", AutonomousPlans.LEFT_BOTH);
 			autoChooser.addObject("Center-Both", AutonomousPlans.CENTER_BOTH);
+			autoChooser.addObject("Center-Left Totes",
+					AutonomousPlans.CENTER_LEFT_TOTE);
 			SmartDashboard.putData("Auto Chooser", autoChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());

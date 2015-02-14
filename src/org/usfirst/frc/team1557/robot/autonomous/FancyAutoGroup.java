@@ -39,7 +39,6 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.2);
 			addSequential(new AutoLockCommand(true));
 			shmancyWait(0.25);
-			turn(false);
 			shmancyWait(0.25);
 			addSequential(new AutoMecanumTime(-0.5, -0.5, 0, 0.5));
 			addSequential(new AutoMecanumTime(-0.4, 0, 0, 2));
@@ -50,7 +49,22 @@ public class FancyAutoGroup extends CommandGroup {
 			addSequential(new AutoLockCommand(false));
 			break;
 		case CENTER_LEFT_TOTE:
-
+			addSequential(new AutoLockCommand(false));
+			getBin(0.25);
+			shmancyWait(0.25);
+			strafeToBin(true);
+			shmancyWait(0.25);
+			ToToTo(true);
+			shmancyWait(0.25);
+			strafeToBin(false);
+			shmancyWait(0.25);
+			releaseAndLower(0.25);
+			shmancyWait(0.25);
+			getBin(0.25);
+			shmancyWait(0.25);
+			strafeToZone();
+			shmancyWait(0.25);
+			addSequential(new AutoSetClamp(false));
 			break;
 		case CENTER_RIGHT_TOTE:
 
@@ -92,6 +106,7 @@ public class FancyAutoGroup extends CommandGroup {
 			break;
 
 		case RIGHT_BOTH:
+			// DO NOT CHANGE
 			addSequential(new AutoLockCommand(false));
 			getBin(0.25);
 			shmancyWait(0.25);
@@ -155,7 +170,7 @@ public class FancyAutoGroup extends CommandGroup {
 	private void strafeToBin(boolean up) {
 		// Values should be aprox the same but inverted.
 		double speed = (up) ? 0.4 : -0.4;
-		addSequential(new AutoMecanumTime(speed, 0, 0, 0.7));
+		addSequential(new AutoMecanumTime(speed, 0, 0, 0.5));
 	}
 
 	/**
@@ -167,7 +182,7 @@ public class FancyAutoGroup extends CommandGroup {
 	 *            backwards.
 	 */
 	private void ToToTo(boolean dir) {
-		double speed = (dir) ? 0.6 : -0.6;
+		double speed = (!dir) ? 0.6 : -0.6;
 		addSequential(new AutoMecanumTime(0, speed, 0, 1));
 	}
 
@@ -200,4 +215,5 @@ public class FancyAutoGroup extends CommandGroup {
 	private void strafeToZone() {
 		addSequential(new AutoMecanumTime(-0.41, 0, 0, 2.5));
 	}
+
 }
