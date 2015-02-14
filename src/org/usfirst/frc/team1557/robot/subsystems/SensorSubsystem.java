@@ -27,6 +27,10 @@ public class SensorSubsystem extends Subsystem {
 	double fil = 0.5;
 	double nosePass = 0;
 	double dt;
+	
+	double gyroSensitivity = 1;	
+	double accelSensitivity = 1;
+	
 	/**
 	 * Accumulated z angle
 	 */
@@ -64,6 +68,19 @@ public class SensorSubsystem extends Subsystem {
 	 * Updates Gyro and Accelerometer. Must be called continuously, i.e. in
 	 * execute.
 	 */
+	
+	/**
+	 * Turns any angle in degrees to a positive angle in the interval [0, 360)
+	 * @param  angle Angle in degrees
+	 * @return       The angle, normalized
+	 */
+	private double wrap(double angle) {
+		angle %= 360;
+		if (angle < 0)
+			angle += 360;
+		return angle;
+	}
+	
 	Thread sensorThread = new Thread(new Runnable() {
 
 		@Override
@@ -99,6 +116,10 @@ public class SensorSubsystem extends Subsystem {
 			// Writes the Gyro Angle
 
 			gyroAngle += gyro.readRateX() / 190; // dt;
+			
+			if( Math.abs(gyroAngle) > 360 ) {
+				wrap(gyroAngle);
+			}
 
 			// Writes the Accelerometer acceleration
 			// nosePass = (1 - fil) * nosePass + fil * vel;
@@ -120,6 +141,34 @@ public class SensorSubsystem extends Subsystem {
 		}
 	}
 
+	/**
+	 * Applies the Complementary Filter to the Gyroscope & Accelerometer Data
+	 * 
+	 * Gyroscope X Axis requires
+	 *  Y Axis Accelerometer Data for accelRAW1 
+	 *  Z Axis Accelerometer Data for accelRAW2
+	 * 
+	 * Gyroscope Y Axis requires
+	 *  X Axis Accelerometer Data for accelRAW1 
+	 *  Z Axis Accelerometer Data for accelRAW2
+	 * 
+	 * Gyroscope Z Axis requires
+	 *  X Axis Accelerometer Data for accelRAW1 
+	 *  Y Axis Accelerometer Data for accelRAW2
+	 * 
+	 * @param currAngle - The Current Angle for the Intended Axis
+	 * @param gyroRAW - Gyroscope Input
+	 * @param accelRAW1 - Accelerometer Data from Axis 1
+	 * @param accelRAW2 - Accelerometer Data from Axis 2
+	 */
+	public double complementaryFilter(double currAngle, double gyroRAW, double accelRAW1, double accelRAW2) {
+		double gyroData = gyroRAW / gyroSensitivity;
+		double accelData = Math.atan2( accelRAW1, accelRAW2 ) * 180 / Math.PI;
+		
+		currAngle = 0.98 * ( currAngle + gyroData * dt ) + 0.02 * accelData;
+		return currAngle;
+	}
+	
 	/**
 	 * Resets the accumulated position of the accelerometer
 	 */

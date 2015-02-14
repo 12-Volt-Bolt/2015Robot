@@ -36,17 +36,7 @@ public class AutoMecanumStrafe extends Command {
 		this.time = time;
 	}
 
-	/**
-	 * Turns any angle in degrees to a positive angle in the interval [0, 360)
-	 * @param  angle Angle in degrees
-	 * @return       The angle, normalized
-	 */
-	private double wrap(double angle) {
-		angle %= 360;
-		if (angle < 0)
-			angle += 360;
-		return angle;
-	}
+
 
 	/**
 	 * Determines the direction and speed to rotate the robot to the desired angle
