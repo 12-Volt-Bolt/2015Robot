@@ -67,7 +67,7 @@ public class OI {
 		clampButton.whenPressed(new ToggleClampCommand());
 		lockButton.whenPressed(new ToggleLockCommand());
 		yButton.whenPressed(new OverrideToggleLockCommand());
-		stackButton.whenPressed(new StackCommandGroup());
+		//stackButton.whenPressed(new StackCommandGroup());
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

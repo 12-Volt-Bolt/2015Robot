@@ -11,7 +11,7 @@ import org.usfirst.frc.team1557.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LockSubsystem;
-import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
+//import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -42,7 +42,7 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem clampSystem;
-	public static SensorSubsystem sensorSystem;
+	//public static SensorSubsystem sensorSystem;
 	public static LockSubsystem lockSystem;
 	// Compressor compresser;
 
@@ -63,7 +63,7 @@ public class Robot extends IterativeRobot {
 
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
-			sensorSystem = new SensorSubsystem();
+			//sensorSystem = new SensorSubsystem();
 			lockSystem = new LockSubsystem();
 			clampSystem = new ClampSubsystem();
 			shiftCommand = new ShiftSpeedCommand();
@@ -115,8 +115,8 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 
 			// TODO remove
-			sensorSystem.init();
-			sensorSystem.initDefaultCommand();
+		//	sensorSystem.init();
+			//sensorSystem.initDefaultCommand();
 		}
 	}
 

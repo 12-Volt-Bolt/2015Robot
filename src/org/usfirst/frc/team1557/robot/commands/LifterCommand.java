@@ -24,8 +24,8 @@ public class LifterCommand extends Command {
 		if (Math.abs(OI.altAxis(RobotMap.altYAxis)) > 0.05) {
 			Robot.lifterSystem.lift(-OI.altAxis(RobotMap.altYAxis));
 		} else if (!RobotMap.override) {
-			Robot.lifterSystem.lift(OI.mainAxis(RobotMap.leftTrigger)
-					- OI.mainAxis(RobotMap.rightTrigger));
+			Robot.lifterSystem.lift(-OI.mainAxis(RobotMap.leftTrigger)
+					+ OI.mainAxis(RobotMap.rightTrigger));
 		} else {
 			Robot.lifterSystem.lift(0);
 		}

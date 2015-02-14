@@ -39,8 +39,8 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.2);
 			addSequential(new AutoLockCommand(true));
 			shmancyWait(0.25);
-			shmancyWait(0.25);
 			addSequential(new AutoMecanumTime(-0.5, -0.5, 0, 0.5));
+			shmancyWait(0.25);
 			addSequential(new AutoMecanumTime(-0.4, 0, 0, 2));
 			shmancyWait(0.5);
 			addSequential(new AutoLiftLimitDown());
@@ -52,11 +52,11 @@ public class FancyAutoGroup extends CommandGroup {
 			addSequential(new AutoLockCommand(false));
 			getBin(0.25);
 			shmancyWait(0.25);
-			strafeToBin(true);
+			strafeAway(true);
 			shmancyWait(0.25);
 			ToToTo(true);
 			shmancyWait(0.25);
-			strafeToBin(false);
+			strafeAway(false);
 			shmancyWait(0.25);
 			releaseAndLower(0.25);
 			shmancyWait(0.25);
@@ -86,9 +86,7 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.2);
 			addSequential(new AutoLockCommand(true));
 			shmancyWait(0.25);
-			turn(false);
-			shmancyWait(0.25);
-			driveOverBump();
+			strafeToZone();
 			shmancyWait(0.5);
 			addSequential(new AutoLiftLimitDown());
 			shmancyWait(0.5);
@@ -167,7 +165,7 @@ public class FancyAutoGroup extends CommandGroup {
 	 * @param up
 	 *            Directional control
 	 */
-	private void strafeToBin(boolean up) {
+	private void strafeAway(boolean up) {
 		// Values should be aprox the same but inverted.
 		double speed = (up) ? 0.4 : -0.4;
 		addSequential(new AutoMecanumTime(speed, 0, 0, 0.5));
@@ -193,9 +191,9 @@ public class FancyAutoGroup extends CommandGroup {
 	 */
 	private void turn(boolean clockwise) {
 		if (clockwise) {
-			addSequential(new AutoMecanumTime(0, 0, 0.40, 1.28));
+			addSequential(new AutoMecanumTime(0, 0, 0.40, 1.25));
 		} else {
-			addSequential(new AutoMecanumTime(0, 0, -0.40, 1.28));
+			addSequential(new AutoMecanumTime(0, 0, -0.40, 1.25));
 		}
 	}
 
@@ -204,7 +202,7 @@ public class FancyAutoGroup extends CommandGroup {
 	}
 
 	private void driveOverBump() {
-		addSequential(new AutoMecanumTime(0, -0.41, 0, 2.6));
+		addSequential(new AutoMecanumTime(0, -0.41, 0, 2.35));
 	}
 
 	private void shmancyWait(double time) {
@@ -213,7 +211,7 @@ public class FancyAutoGroup extends CommandGroup {
 	}
 
 	private void strafeToZone() {
-		addSequential(new AutoMecanumTime(-0.41, 0, 0, 2.5));
+		addSequential(new AutoMecanumTime(-0.6, 0, -0.02, 2.5));
 	}
 
 }
