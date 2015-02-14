@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1557.robot;
 
 import org.usfirst.frc.team1557.robot.commands.OverrideSetClampCommand;
+import org.usfirst.frc.team1557.robot.commands.OverrideToggleLockCommand;
 import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
 import org.usfirst.frc.team1557.robot.commands.StackCommandGroup;
 import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
@@ -59,15 +60,14 @@ public class OI {
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	public void initialize() {
-		// yButton.whenPressed(new StackCommandGroup());
 
-		
-			mainRightClampButton.whenPressed(new OverrideSetClampCommand(true));
-			mainLeftClampButton.whenPressed(new OverrideSetClampCommand(false));
+		mainRightClampButton.whenPressed(new OverrideSetClampCommand(true));
+		mainLeftClampButton.whenPressed(new OverrideSetClampCommand(false));
 
 		clampButton.whenPressed(new ToggleClampCommand());
 		lockButton.whenPressed(new ToggleLockCommand());
-		//stackButton.whenPressed(new StackCommandGroup());
+		yButton.whenPressed(new OverrideToggleLockCommand());
+		stackButton.whenPressed(new StackCommandGroup());
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

@@ -14,6 +14,8 @@ import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.CANTalon.ControlMode;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -85,7 +87,6 @@ public class DriveSubsystem extends Subsystem {
 			f = Math.abs(v_BackLeft);
 		if (Math.abs(v_BackRight) > f)
 			f = Math.abs(v_BackRight);
-
 		// Scale
 		// f = f / SmartDashboard.getNumber("speedMultiplier", 0.75);
 
@@ -103,30 +104,6 @@ public class DriveSubsystem extends Subsystem {
 	 */
 	private void output() {
 		// SmartDashboard Stuff
-
-		SmartDashboard.putNumber("frontRightCurrent",
-				frontRight.getOutputCurrent());
-		SmartDashboard.putNumber("frontLeftCurrent",
-				frontLeft.getOutputCurrent());
-		SmartDashboard
-				.putNumber("rearLeftCurrent", rearLeft.getOutputCurrent());
-		SmartDashboard.putNumber("rearRightCurrent",
-				rearRight.getOutputCurrent());
-
-		SmartDashboard.putNumber("frontRightThrottle", frontRight.get());
-		SmartDashboard.putNumber("frontLeftThrottle", frontLeft.get());
-		SmartDashboard.putNumber("rearLeftThrottle", rearLeft.get());
-		SmartDashboard.putNumber("rearRightThrottle", rearRight.get());
-
-		SmartDashboard.putNumber("Left Joystick X",
-				OI.mainJoy.getRawAxis(leftXAxis));
-		SmartDashboard.putNumber("Left Joystick Y",
-				OI.mainJoy.getRawAxis(leftYAxis));
-
-		SmartDashboard.putNumber("Right Joystick X",
-				OI.mainJoy.getRawAxis(rightXAxis));
-		SmartDashboard.putNumber("Right Joystick Y",
-				OI.mainJoy.getRawAxis(rightYAxis));
 	}
 
 	/**

@@ -17,16 +17,37 @@ public class FancyAutoGroup extends CommandGroup {
 		switch ((AutonomousPlans) Robot.autoChooser.getSelected()) {
 		case BUMPLESS_DRIVE_ONLY:
 			// Probably Done!
-			addSequential(new AutoMecanumTime(0, 0.5, 0, 0.3));
+			addSequential(new AutoMecanumTime(0, 0.5, 0, 0.4));
 			break;
 		case BUMP_DRIVE_ONLY:
-
+			addSequential(new AutoMecanumTime(0, 0.5, 0, 0.74));
 			break;
 		case CENTER_BIN_ONLY:
 
 			break;
 		case CENTER_BOTH:
-
+			addSequential(new AutoLockCommand(false));
+			getBin(0.25);
+			shmancyWait(0.25);
+			driveBinToTote();
+			shmancyWait(0.25);
+			releaseAndLower(0.2);
+			shmancyWait(0.25);
+			addSequential(new AutoSetClamp(true));
+			shmancyWait(0.5);
+			addSequential(new AutoLifterCommand(1, 1));
+			shmancyWait(0.2);
+			addSequential(new AutoLockCommand(true));
+			shmancyWait(0.25);
+			turn(false);
+			shmancyWait(0.25);
+			addSequential(new AutoMecanumTime(-0.5, -0.5, 0, 0.5));
+			addSequential(new AutoMecanumTime(-0.4, 0, 0, 2));
+			shmancyWait(0.5);
+			addSequential(new AutoLiftLimitDown());
+			shmancyWait(0.5);
+			addSequential(new AutoSetClamp(false));
+			addSequential(new AutoLockCommand(false));
 			break;
 		case CENTER_LEFT_TOTE:
 
@@ -39,49 +60,25 @@ public class FancyAutoGroup extends CommandGroup {
 			break;
 		case LEFT_BOTH:
 			addSequential(new AutoLockCommand(false));
+			getBin(0.25);
+			shmancyWait(0.25);
+			driveBinToTote();
+			shmancyWait(0.25);
+			releaseAndLower(0.2);
+			shmancyWait(0.25);
 			addSequential(new AutoSetClamp(true));
-			addSequential(new WaitCommand(0.25));
-			// Lift the bin up
-			addSequential(new AutoLifterCommand(0.71, 1));
-			addSequential(new WaitCommand(0.25));
-
-			// Move Forward to get over to the bin
-			addSequential(new AutoMecanumTime(0, -0.43, 0, 0.51));
-			addSequential(new WaitCommand(0.25));
-
-			// Drop Can onto the bin
-			addSequential(new AutoSetClamp(false));
-			addSequential(new WaitCommand(0.2));
-			// Lower arm to grab bin
-			addSequential(new AutoLiftLimitDown());
-			addSequential(new WaitCommand(0.25));
-			// Drive forward to adjust the pick up position.
-			addSequential(new AutoMecanumTime(0, -0.37, 0, 0.3));
-			addSequential(new WaitCommand(0.25));
-			// Grab bin (tm)
-			addSequential(new AutoSetClamp(true));
-			addSequential(new WaitCommand(0.5));
-
-			// Lift arm back up to clear bump
+			shmancyWait(0.5);
 			addSequential(new AutoLifterCommand(1, 1));
-			addSequential(new WaitCommand(0.2));
+			shmancyWait(0.2);
 			addSequential(new AutoLockCommand(true));
-			addSequential(new WaitCommand(0.3));
-
-			// Rotate 90deg counterclockwise
-			addSequential(new AutoMecanumTime(0, 0, -0.42, 1.28));
-			addSequential(new WaitCommand(0.25));
-			// Drive into Autozone
-			addSequential(new AutoMecanumTime(0, -0.6, 0, 2.5));
-
-			addSequential(new WaitCommand(0.5));
-
-			// Lower stuff(tm)
+			shmancyWait(0.25);
+			turn(false);
+			shmancyWait(0.25);
+			driveOverBump();
+			shmancyWait(0.5);
 			addSequential(new AutoLiftLimitDown());
-			addSequential(new WaitCommand(1));
-			// Release stuff(tm)
+			shmancyWait(0.5);
 			addSequential(new AutoSetClamp(false));
-			// addSequential(new AutoMecanumTime(-0.2, 0, 0, 0.1));
 			addSequential(new AutoLockCommand(false));
 			break;
 		case LEFT_CENTER_TOTE:
@@ -95,58 +92,33 @@ public class FancyAutoGroup extends CommandGroup {
 			break;
 
 		case RIGHT_BOTH:
-			// BUMP
 			addSequential(new AutoLockCommand(false));
+			getBin(0.25);
+			shmancyWait(0.25);
+			driveBinToTote();
+			shmancyWait(0.25);
+			releaseAndLower(0.2);
+			shmancyWait(0.25);
 			addSequential(new AutoSetClamp(true));
-			addSequential(new WaitCommand(0.25));
-			// Lift the bin up
-			addSequential(new AutoLifterCommand(0.71, 1));
-			addSequential(new WaitCommand(0.25));
-
-			// Move Forward to get over to the bin
-			addSequential(new AutoMecanumTime(0, -0.43, 0, 0.51));
-			addSequential(new WaitCommand(0.25));
-
-			// Drop Can onto the bin
-			addSequential(new AutoSetClamp(false));
-			addSequential(new WaitCommand(0.2));
-			// Lower arm to grab bin
-			addSequential(new AutoLiftLimitDown());
-			addSequential(new WaitCommand(0.25));
-			// Drive forward to adjust the pick up position.
-			addSequential(new AutoMecanumTime(0, -0.37, 0, 0.3));
-			addSequential(new WaitCommand(0.25));
-			// Grab bin (tm)
-			addSequential(new AutoSetClamp(true));
-			addSequential(new WaitCommand(0.5));
-
-			// Lift arm back up to clear bump
+			shmancyWait(0.5);
 			addSequential(new AutoLifterCommand(1, 1));
-			addSequential(new WaitCommand(0.2));
+			shmancyWait(0.2);
 			addSequential(new AutoLockCommand(true));
-			addSequential(new WaitCommand(0.3));
-
-			// Rotate 90deg counterclockwise
-			addSequential(new AutoMecanumTime(0, 0, -0.42, 1.28));
-			addSequential(new WaitCommand(0.25));
-			// Drive into Autozone
-			addSequential(new AutoMecanumTime(0, -0.6, 0, 2.5));
-
-			addSequential(new WaitCommand(0.5));
-
-			// Lower stuff(tm)
+			shmancyWait(0.25);
+			turn(false);
+			shmancyWait(0.25);
+			driveOverBump();
+			shmancyWait(0.5);
 			addSequential(new AutoLiftLimitDown());
-			addSequential(new WaitCommand(1));
-			// Release stuff(tm)
+			shmancyWait(0.5);
 			addSequential(new AutoSetClamp(false));
-			// addSequential(new AutoMecanumTime(-0.2, 0, 0, 0.1));
 			addSequential(new AutoLockCommand(false));
 			break;
 		case RIGHT_CENTER_TOTE:
 
 			break;
 		case RIGHT_TRIFORCE:
-
+			// RIP
 			break;
 		default:
 			break;
@@ -158,17 +130,19 @@ public class FancyAutoGroup extends CommandGroup {
 	/**
 	 * Clamps the arms while also lifting to slightly above single tote height.
 	 */
-	private void get() {
-		addParallel(new AutoSetClamp(true));
-		addSequential(new AutoLifterCommand(0.7, 1));
+	private void getBin(double time) {
+		addSequential((new AutoSetClamp(true)));
+		addSequential(new WaitCommand(time));
+		addSequential(new AutoLifterCommand(0.7, 0.8));
 	}
 
 	/**
 	 * Releases the clamp while also lowering the arm into load position.
 	 */
-	private void release() {
-		addParallel(new AutoSetClamp(false));
-		// addSequential(new AutoLifterDown(0.3));
+	private void releaseAndLower(double time) {
+		addSequential(new AutoSetClamp(false));
+		addSequential(new WaitCommand(time));
+		addSequential(new AutoLiftLimitDown());
 	}
 
 	/**
@@ -178,7 +152,7 @@ public class FancyAutoGroup extends CommandGroup {
 	 * @param up
 	 *            Directional control
 	 */
-	private void strafe(boolean up) {
+	private void strafeToBin(boolean up) {
 		// Values should be aprox the same but inverted.
 		double speed = (up) ? 0.4 : -0.4;
 		addSequential(new AutoMecanumTime(speed, 0, 0, 0.7));
@@ -203,10 +177,27 @@ public class FancyAutoGroup extends CommandGroup {
 	 *            Whether to turn clockwise or counter-clockwise.
 	 */
 	private void turn(boolean clockwise) {
+		if (clockwise) {
+			addSequential(new AutoMecanumTime(0, 0, 0.40, 1.28));
+		} else {
+			addSequential(new AutoMecanumTime(0, 0, -0.40, 1.28));
+		}
+	}
+
+	private void driveBinToTote() {
+		addSequential(new AutoMecanumTime(0, -0.45, 0, 0.5));
+	}
+
+	private void driveOverBump() {
+		addSequential(new AutoMecanumTime(0, -0.41, 0, 2.6));
+	}
+
+	private void shmancyWait(double time) {
+		addSequential(new WaitCommand(time));
 
 	}
 
-	private void drive() {
-		addSequential(new AutoMecanumTime(0, 0.6, 0, 0.7));
+	private void strafeToZone() {
+		addSequential(new AutoMecanumTime(-0.41, 0, 0, 2.5));
 	}
 }

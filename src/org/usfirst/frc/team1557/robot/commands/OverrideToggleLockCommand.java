@@ -1,18 +1,18 @@
 package org.usfirst.frc.team1557.robot.commands;
 
 import org.usfirst.frc.team1557.robot.Robot;
+import org.usfirst.frc.team1557.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class StackCommand extends Command {
-	private boolean finish = false;
+public class OverrideToggleLockCommand extends Command {
 
-	public StackCommand() {
+	public OverrideToggleLockCommand() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.lifterSystem);
+		requires(Robot.lockSystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -21,15 +21,14 @@ public class StackCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.lifterSystem.stack(-0.4);
-		if (Robot.lifterSystem.getDownLimit()) {
-			finish = true;
+		if (!RobotMap.override) {
+			Robot.lockSystem.toggleLock();
 		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return finish;
+		return true;
 	}
 
 	// Called once after isFinished returns true

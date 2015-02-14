@@ -83,8 +83,9 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putData("DriveChooser", driveChooser);
 
 			// TODO: Make Descriptions for all of the Autonomi.
-			autoChooser.addDefault("Righ-Both ", AutonomousPlans.RIGHT_BOTH);
+			autoChooser.addDefault("Right-Both ", AutonomousPlans.RIGHT_BOTH);
 			autoChooser.addObject("Left-Both", AutonomousPlans.LEFT_BOTH);
+			autoChooser.addObject("Center-Both", AutonomousPlans.CENTER_BOTH);
 			SmartDashboard.putData("Auto Chooser", autoChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
@@ -105,6 +106,7 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 
 		if (!HEADLESS) {
+
 			// ((Command) (autoChooser.getSelected())).start();
 
 			autonomousCommand = new FancyAutoGroup();
@@ -134,14 +136,15 @@ public class Robot extends IterativeRobot {
 		}
 
 		if (!HEADLESS) {
+
 			if (driveChooser.getSelected() != null) {
 				((Command) driveChooser.getSelected()).start();
 			}
 
 			shiftCommand.start();
 			// TODO remove
-			sensorSystem.init();
-			sensorSystem.initDefaultCommand();
+			// sensorSystem.init();
+			// sensorSystem.initDefaultCommand();
 		}
 	}
 
@@ -154,8 +157,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 
-		sensorSystem.resetGyro();
-		sensorSystem.resetAccel();
 	}
 
 	boolean orState = false;
