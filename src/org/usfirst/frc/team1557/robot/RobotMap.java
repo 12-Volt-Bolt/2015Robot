@@ -40,7 +40,8 @@ public class RobotMap {
 	// Solenoid IDs
 	public static int clampSolenoidForward = 0;
 	public static int clampSolenoidReverse = 1;
-	public static int positionLockSolenoid = 2;
+	public static int lockSolenoidForward = 2;
+	public static int lockSolenoidReverse = 3;
 
 	// SmartDashboard Keys
 	public static String lifterKey = "Lifter Scale Speed";

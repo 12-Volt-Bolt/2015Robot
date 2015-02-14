@@ -59,5 +59,9 @@ public enum AutonomousPlans {
 	 * Triforce^3 Confirmed
 	 */
 	RIGHT_TRIFORCE,
+	/**
+	 * Not for competition. 
+	 */
+	DANCE_MODE
 
 }

@@ -2,6 +2,8 @@ package org.usfirst.frc.team1557.robot;
 
 import static org.usfirst.frc.team1557.robot.RobotMap.*;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team1557.robot.autonomous.FancyAutoGroup;
 import org.usfirst.frc.team1557.robot.commands.MecanumDriveCommand;
 import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
@@ -12,6 +14,8 @@ import org.usfirst.frc.team1557.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LockSubsystem;
 //import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
+
+
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -55,6 +59,13 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
+		
+		try {
+			Runtime.getRuntime().exec("touch filefromjava.txt");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		// compresser = new Compressor();
 		// compresser.start();
 		oi = new OI();
