@@ -16,14 +16,14 @@ public class MecanumDriveCommand extends Command {
 	double speed = 1;
 	double ySpeed = 0;
 	double turn = 0;
-	double R = 0;
-	double preR = 0;
-	double limit = 0.1;
+	//double R = 0;
+	//double preR = 0;
+	//double limit = 0.1;
 
 	public MecanumDriveCommand() {
 		requires(Robot.driveSystem);
 	}
-
+	//GHOST COMPUTER!!!!
 	// Called just before this Command runs the first time
 	protected void initialize() {
 	}
@@ -36,21 +36,21 @@ public class MecanumDriveCommand extends Command {
 		speed = SmartDashboard.getNumber(speedKey, speed);
 		ySpeed = (Math.abs(ySpeed) > 0.09) ? ySpeed : 0;
 		// TODO: create custom speed multiplier key
-		R = OI.mainAxis(rightXAxis) * speed;
-		R += 1;
-		if (R > preR) {
-			if (R - preR > limit) {
-				R += limit;
-			}
-		} else {
-			if (preR - R > limit) {
-				R -= limit;
-			}
-		}
-		R -= 1;
+//		R = OI.mainAxis(rightXAxis) * speed;
+//		R += 1;
+//		if (R > preR) {
+//			if (R - preR > limit) {
+//				R += limit;
+//			}
+//		} else {
+//			if (preR - R > limit) {
+//				R -= limit;
+//			}
+//		}
+//		R -= 1;
 		Robot.driveSystem.mecanumCartesian(OI.mainAxis(leftXAxis) * speed,
-				ySpeed * speed, R);
-		preR = R;
+				ySpeed * speed, OI.mainAxis(rightXAxis));
+		//preR = R;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

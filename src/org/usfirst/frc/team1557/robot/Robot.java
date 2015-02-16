@@ -93,7 +93,9 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putData("DriveChooser", driveChooser);
 
 			// TODO: Make Descriptions for all of the Autonomi.
+			
 			autoChooser.addDefault("Right-Both ", AutonomousPlans.RIGHT_BOTH);
+			autoChooser.addObject("Right-Both-No-Drop", AutonomousPlans.RIGHT_BOTH_NO_DROP);
 			autoChooser.addObject("Left-Both", AutonomousPlans.LEFT_BOTH);
 			autoChooser.addObject("Center-Both", AutonomousPlans.CENTER_BOTH);
 			autoChooser.addObject("Center-Left Totes",

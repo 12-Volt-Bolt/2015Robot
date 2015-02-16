@@ -29,6 +29,10 @@ public enum AutonomousPlans {
 	 * Picks up both Left objects
 	 */
 	LEFT_BOTH,
+	/**
+	 *  icks up both Left objects does not drop
+	 */
+	LEFT_BOTH_NO_DROP,
 	/*
 	 * Picks up both Center objects
 	 */
@@ -37,6 +41,10 @@ public enum AutonomousPlans {
 	 * Picks up both Right objects
 	 */
 	RIGHT_BOTH,
+	/**
+	 * Picks up both Right objects does not drop
+	 */
+	RIGHT_BOTH_NO_DROP,
 	/**
 	 * Picks up the left then center tote
 	 */

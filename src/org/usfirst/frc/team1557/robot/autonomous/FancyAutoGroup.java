@@ -92,6 +92,23 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.5);
 			addSequential(new AutoSetClamp(false));
 			addSequential(new AutoLockCommand(false));
+			break; 
+	
+		case LEFT_BOTH_NO_DROP:
+			addSequential(new AutoLockCommand(false));
+			getBin(0.25);
+			shmancyWait(0.25);
+			driveBinToTote();
+			shmancyWait(0.25);
+			releaseAndLower(0.2);
+			shmancyWait(0.25);
+			addSequential(new AutoSetClamp(true));
+			shmancyWait(0.5);
+			addSequential(new AutoLifterCommand(1, 1));
+			shmancyWait(0.2);
+			addSequential(new AutoLockCommand(true));
+			shmancyWait(0.25);
+			strafeToZone();
 			break;
 		case LEFT_CENTER_TOTE:
 
@@ -126,6 +143,26 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.5);
 			addSequential(new AutoSetClamp(false));
 			addSequential(new AutoLockCommand(false));
+			break;
+			
+		case RIGHT_BOTH_NO_DROP:
+			// DO NOT CHANGE
+			addSequential(new AutoLockCommand(false));
+			getBin(0.25);
+			shmancyWait(0.25);
+			driveBinToTote();
+			shmancyWait(0.25);
+			releaseAndLower(0.2);
+			shmancyWait(0.25);
+			addSequential(new AutoSetClamp(true));
+			shmancyWait(0.5);
+			addSequential(new AutoLifterCommand(1, 1));
+			shmancyWait(0.2);
+			addSequential(new AutoLockCommand(true));
+			shmancyWait(0.25);
+			turn(false);
+			shmancyWait(0.25);
+			driveOverBump();
 			break;
 		case RIGHT_CENTER_TOTE:
 
@@ -191,9 +228,9 @@ public class FancyAutoGroup extends CommandGroup {
 	 */
 	private void turn(boolean clockwise) {
 		if (clockwise) {
-			addSequential(new AutoMecanumTime(0, 0, 0.40, 1.25));
+			addSequential(new AutoMecanumTime(0, 0, 0.40, 1.15));
 		} else {
-			addSequential(new AutoMecanumTime(0, 0, -0.40, 1.25));
+			addSequential(new AutoMecanumTime(0, 0, -0.40, 1.15));
 		}
 	}
 
