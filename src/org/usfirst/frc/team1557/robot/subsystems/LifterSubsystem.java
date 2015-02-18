@@ -95,7 +95,6 @@ public class LifterSubsystem extends Subsystem {
 	 *         and false being unpressed.
 	 */
 	public boolean getUpLimit() {
-		// TODO: Hook this up to the correct limit switch;
 		return !limitUp.get(); // || limitUp.get();
 	}
 

@@ -26,7 +26,6 @@
 //
 //	// Called repeatedly when this Command is scheduled to run
 //	protected void execute() {
-//		// TODO: finish values
 //		double thresh = 0.2;
 //		double speed = 0.5;
 //		

@@ -46,7 +46,6 @@ public class Robot extends IterativeRobot {
 	public static DriveSubsystem driveSystem;
 	public static LifterSubsystem lifterSystem;
 	public static ClampSubsystem clampSystem;
-	//public static SensorSubsystem sensorSystem;
 	public static LockSubsystem lockSystem;
 	// Compressor compresser;
 
@@ -74,7 +73,6 @@ public class Robot extends IterativeRobot {
 
 			driveSystem = new DriveSubsystem();
 			lifterSystem = new LifterSubsystem();
-			//sensorSystem = new SensorSubsystem();
 			lockSystem = new LockSubsystem();
 			clampSystem = new ClampSubsystem();
 			shiftCommand = new ShiftSpeedCommand();
@@ -126,10 +124,6 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new FancyAutoGroup();
 
 			autonomousCommand.start();
-
-			// TODO remove
-		//	sensorSystem.init();
-			//sensorSystem.initDefaultCommand();
 		}
 	}
 
@@ -156,9 +150,6 @@ public class Robot extends IterativeRobot {
 			}
 
 			shiftCommand.start();
-			// TODO remove
-			// sensorSystem.init();
-			// sensorSystem.initDefaultCommand();
 		}
 	}
 
