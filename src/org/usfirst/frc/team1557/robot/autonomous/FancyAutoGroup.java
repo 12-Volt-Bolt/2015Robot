@@ -123,6 +123,7 @@ public class FancyAutoGroup extends CommandGroup {
 		case RIGHT_BOTH:
 			// DO NOT CHANGE
 			addSequential(new AutoLockCommand(false));
+			
 			getBin(0.25);
 			shmancyWait(0.25);
 			driveBinToTote();

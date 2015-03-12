@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Mecanum drive from input from the main joystick.
  */
 public class MecanumDriveCommand extends Command {
-	double speed = 1;
+	double speed = 0.8;
 	double ySpeed = 0;
 	double turn = 0;
 	//double R = 0;

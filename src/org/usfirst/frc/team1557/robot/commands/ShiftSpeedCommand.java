@@ -24,13 +24,13 @@ public class ShiftSpeedCommand extends Command {
 	protected void execute() {
 
 		if ((OI.mainJoy.getPOV() == 0)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 1);
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.8);
 		} else if ((OI.mainJoy.getPOV() == 90)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.25);
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.2);
 		} else if ((OI.mainJoy.getPOV() == 180)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.5);
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.4);
 		} else if ((OI.mainJoy.getPOV() == 270)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.75);
+			SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
 		}
 	}
 

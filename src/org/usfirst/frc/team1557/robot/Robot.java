@@ -96,8 +96,9 @@ public class Robot extends IterativeRobot {
 			autoChooser.addObject("Right-Both-No-Drop", AutonomousPlans.RIGHT_BOTH_NO_DROP);
 			autoChooser.addObject("Left-Both", AutonomousPlans.LEFT_BOTH);
 			autoChooser.addObject("Center-Both", AutonomousPlans.CENTER_BOTH);
-			autoChooser.addObject("Center-Left Totes",
-					AutonomousPlans.CENTER_LEFT_TOTE);
+			autoChooser.addObject("Just Drive", AutonomousPlans.BUMPLESS_DRIVE_ONLY);
+//			autoChooser.addObject("Center-Left Totes",
+//					AutonomousPlans.CENTER_LEFT_TOTE);
 			SmartDashboard.putData("Auto Chooser", autoChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
