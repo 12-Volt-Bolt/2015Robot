@@ -52,7 +52,7 @@ public class RobotMap {
 	public static String lifterSpeed = "Auto Lifter Speed";
 
 	// Misc global values
-	public static boolean override = true;
+	public static boolean override = false;
 	// public static double n(String name, double def) {
 	// try {
 	//

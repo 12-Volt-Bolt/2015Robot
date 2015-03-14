@@ -23,15 +23,15 @@ public class ShiftSpeedCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if ((OI.mainJoy.getPOV() == 0)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.8);
-		} else if ((OI.mainJoy.getPOV() == 90)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.2);
-		} else if ((OI.mainJoy.getPOV() == 180)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.4);
-		} else if ((OI.mainJoy.getPOV() == 270)) {
-			SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
-		}
+//		if ((OI.mainJoy.getPOV() == 0)) {
+//			SmartDashboard.putNumber(RobotMap.speedKey, 0.60);		
+//			} //else if ((OI.mainJoy.getPOV() == 90)) {
+//			SmartDashboard.putNumber(RobotMap.speedKey, 0.2);
+//		} else if ((OI.mainJoy.getPOV() == 180)) {
+//			SmartDashboard.putNumber(RobotMap.speedKey, 0.5);
+//		}// else if ((OI.mainJoy.getPOV() == 270)) {
+//			SmartDashboard.putNumber(RobotMap.speedKey, 0.6);
+//		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

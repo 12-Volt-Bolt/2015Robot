@@ -15,8 +15,6 @@ import org.usfirst.frc.team1557.robot.subsystems.LifterSubsystem;
 import org.usfirst.frc.team1557.robot.subsystems.LockSubsystem;
 //import org.usfirst.frc.team1557.robot.subsystems.SensorSubsystem;
 
-
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -58,13 +56,13 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		
+
 		try {
 			Runtime.getRuntime().exec("touch filefromjava.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		// compresser = new Compressor();
 		// compresser.start();
 		oi = new OI();
@@ -75,7 +73,7 @@ public class Robot extends IterativeRobot {
 			lifterSystem = new LifterSubsystem();
 			lockSystem = new LockSubsystem();
 			clampSystem = new ClampSubsystem();
-			shiftCommand = new ShiftSpeedCommand();
+			// shiftCommand = new ShiftSpeedCommand();
 			// instantiate the command used for the autonomous period
 
 			// lifterCommand = new LifterCommand();
@@ -91,14 +89,16 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putData("DriveChooser", driveChooser);
 
 			// TODO: Make Descriptions for all of the Autonomi.
-			
+
 			autoChooser.addDefault("Right-Both ", AutonomousPlans.RIGHT_BOTH);
-			autoChooser.addObject("Right-Both-No-Drop", AutonomousPlans.RIGHT_BOTH_NO_DROP);
+			autoChooser.addObject("Right-Both-No-Drop",
+					AutonomousPlans.RIGHT_BOTH_NO_DROP);
 			autoChooser.addObject("Left-Both", AutonomousPlans.LEFT_BOTH);
 			autoChooser.addObject("Center-Both", AutonomousPlans.CENTER_BOTH);
-			autoChooser.addObject("Just Drive", AutonomousPlans.BUMPLESS_DRIVE_ONLY);
-//			autoChooser.addObject("Center-Left Totes",
-//					AutonomousPlans.CENTER_LEFT_TOTE);
+			autoChooser.addObject("Just Drive",
+					AutonomousPlans.BUMPLESS_DRIVE_ONLY);
+			// autoChooser.addObject("Center-Left Totes",
+			// AutonomousPlans.CENTER_LEFT_TOTE);
 			SmartDashboard.putData("Auto Chooser", autoChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
@@ -150,7 +150,7 @@ public class Robot extends IterativeRobot {
 				((Command) driveChooser.getSelected()).start();
 			}
 
-			shiftCommand.start();
+			// shiftCommand.start();
 		}
 	}
 
@@ -172,7 +172,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-
+		//REMOVED THE OVERRIDE: THE ALTJOY ALWAYS HAS CONTROL
 		if (OI.altJoy.getRawButton(overrideButton) && !orState) {
 			orState = true;
 			override = !override;

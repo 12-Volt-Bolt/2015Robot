@@ -170,6 +170,28 @@ public class FancyAutoGroup extends CommandGroup {
 			break;
 		case RIGHT_TRIFORCE:
 			// RIP
+			// 
+			addSequential(new AutoLockCommand(false));
+			getToteStrafe();
+			//First Tote Acquired
+			ToToTo(true);
+			strafeAway(false);
+			addSequential(new AutoSetClamp(false));
+			addSequential(new AutoLiftLimitDown());
+			getToteStrafe();
+			
+			//Second Tote Acquired
+			
+			ToToTo(true);
+			strafeAway(false);
+			addSequential(new AutoSetClamp(false));
+			addSequential(new AutoLiftLimitDown());
+			getToteStrafe();
+			addSequential(new AutoLockCommand(true));
+			//Third Tote Acquired
+			addSequential(new AutoMecanumTime(1, 0, 0, 0.5));
+			addSequential(new AutoSetClamp(false));
+			
 			break;
 		default:
 			break;
@@ -186,14 +208,22 @@ public class FancyAutoGroup extends CommandGroup {
 		addSequential(new WaitCommand(time));
 		addSequential(new AutoLifterCommand(0.7, 0.8));
 	}
-
+	private void getToteStrafe(){
+		addSequential(new AutoSetClamp(true));
+		addSequential(new WaitCommand(0.1));
+		addParallel(new AutoLifterCommand(0.7, 0.8));
+		strafeAway(true);
+		
+	}
 	/**
 	 * Releases the clamp while also lowering the arm into load position.
 	 */
 	private void releaseAndLower(double time) {
 		addSequential(new AutoSetClamp(false));
-		addSequential(new WaitCommand(time));
+		addSequential(new WaitCommand(time + 0.3));
+		addSequential(new AutoMecanumTime(0, 0.45, 0, 0.125));
 		addSequential(new AutoLiftLimitDown());
+		addSequential(new AutoMecanumTime(0, -0.45, 0, 0.125));
 	}
 
 	/**
@@ -205,8 +235,8 @@ public class FancyAutoGroup extends CommandGroup {
 	 */
 	private void strafeAway(boolean up) {
 		// Values should be aprox the same but inverted.
-		double speed = (up) ? 0.4 : -0.4;
-		addSequential(new AutoMecanumTime(speed, 0, 0, 0.5));
+		double speed = (up) ? 0.6 : -0.6;
+		addSequential(new AutoMecanumTime(speed, 0, 0, 0.6));
 	}
 
 	/**

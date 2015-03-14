@@ -13,9 +13,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Mecanum drive from input from the main joystick.
  */
 public class MecanumDriveCommand extends Command {
-	double speed = 0.8;
+	double speed = 0.75;
+	double xRamp = 0.1;
 	double ySpeed = 0;
 	double turn = 0;
+	double currentR = 0;
+	double currentY = 0;
 	//double R = 0;
 	//double preR = 0;
 	//double limit = 0.1;
@@ -35,6 +38,7 @@ public class MecanumDriveCommand extends Command {
 				.mainAxis(rightYAxis);
 		speed = SmartDashboard.getNumber(speedKey, speed);
 		ySpeed = (Math.abs(ySpeed) > 0.09) ? ySpeed : 0;
+		
 		// TODO: create custom speed multiplier key
 //		R = OI.mainAxis(rightXAxis) * speed;
 //		R += 1;
@@ -48,8 +52,24 @@ public class MecanumDriveCommand extends Command {
 //			}
 //		}
 //		R -= 1;
-		Robot.driveSystem.mecanumCartesian(OI.mainAxis(leftXAxis) * speed,
-				ySpeed * speed, OI.mainAxis(rightXAxis));
+		
+		//Rotate ramp
+		double requestedR = OI.mainAxis(rightXAxis);
+		if(Math.abs(requestedR) > 0.1) {
+			currentR = currentR * 0.825 + requestedR * 0.175;
+		} else {
+			currentR = 0;
+		}
+		
+		double requestedY = OI.mainAxis(leftYAxis);
+		if(Math.abs(requestedY) > 0.1) {
+			currentY = currentY * 0.825 + requestedY * 0.175;
+		} else {
+			currentY = 0;
+		}
+		
+		Robot.driveSystem.mecanumCartesian(OI.mainAxis(leftXAxis) * (speed + xRamp),
+				currentY * speed, currentR);//OI.mainAxis(rightXAxis));
 		//preR = R;
 	}
 

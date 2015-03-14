@@ -3,6 +3,8 @@ package org.usfirst.frc.team1557.robot;
 import org.usfirst.frc.team1557.robot.commands.OverrideSetClampCommand;
 import org.usfirst.frc.team1557.robot.commands.OverrideToggleLockCommand;
 import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
+import org.usfirst.frc.team1557.robot.commands.ShiftDownCommand;
+import org.usfirst.frc.team1557.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team1557.robot.commands.StackCommandGroup;
 import org.usfirst.frc.team1557.robot.commands.ToggleClampCommand;
 import org.usfirst.frc.team1557.robot.commands.ToggleLockCommand;
@@ -20,9 +22,9 @@ public class OI {
 	public static Joystick mainJoy = new Joystick(0);
 	public static Joystick altJoy = new Joystick(1);
 	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
-	Button mainRightClampButton = new JoystickButton(mainJoy,
+	Button mainRightSpeedButton = new JoystickButton(mainJoy,
 			RobotMap.rightBumper);
-	Button mainLeftClampButton = new JoystickButton(mainJoy,
+	Button mainLeftSpeedButton = new JoystickButton(mainJoy,
 			RobotMap.leftBumper);
 	Button clampButton = new JoystickButton(altJoy, RobotMap.altClampButton);
 	Button lockButton = new JoystickButton(altJoy, RobotMap.lockButton);
@@ -60,15 +62,17 @@ public class OI {
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	public void initialize() {
-
-		mainRightClampButton.whenPressed(new OverrideSetClampCommand(true));
-		mainLeftClampButton.whenPressed(new OverrideSetClampCommand(false));
+		mainRightSpeedButton.whenPressed(new ShiftUpCommand());
+		mainLeftSpeedButton.whenPressed(new ShiftDownCommand());
+		//mainRightSpeedButton.whenPressed(new OverrideSetClampCommand(true));
+		//mainLeftSpeedButton.whenPressed(new OverrideSetClampCommand(false));
 
 		clampButton.whenPressed(new ToggleClampCommand());
 		lockButton.whenPressed(new ToggleLockCommand());
 		yButton.whenPressed(new OverrideToggleLockCommand());
 		//stackButton.whenPressed(new StackCommandGroup());
 	}
+	//Jacob(s) + NaCl(s) --> 
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
