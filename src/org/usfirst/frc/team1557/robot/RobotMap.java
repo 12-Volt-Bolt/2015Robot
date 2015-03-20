@@ -25,6 +25,7 @@ public class RobotMap {
 	// Alt Joystick Buttons
 	public static int lockButton = 2;
 	public static int altClampButton = 1;
+	public static int altDislodgeButton = 7;
 	public static int overrideButton = 10;
 	public static int stackButton = 3;
 	// Alt Joystick Axes
@@ -53,6 +54,7 @@ public class RobotMap {
 
 	// Misc global values
 	public static boolean override = false;
+	public static boolean dislodge = false;
 	// public static double n(String name, double def) {
 	// try {
 	//

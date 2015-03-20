@@ -1,18 +1,20 @@
 package org.usfirst.frc.team1557.robot.commands;
 
 import org.usfirst.frc.team1557.robot.OI;
-import org.usfirst.frc.team1557.robot.Robot;
 import org.usfirst.frc.team1557.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Moves the lifter using input from the triggers
+ *
  */
-public class LifterCommand extends Command {
+public class EngageDislodgeCommand extends Command {
+	private Boolean arg;
 
-	public LifterCommand() {
-		requires(Robot.lifterSystem);
+	public EngageDislodgeCommand(Boolean arg) {
+		this.arg = arg;
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
@@ -21,20 +23,12 @@ public class LifterCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Math.abs(OI.altAxis(RobotMap.altYAxis)) > 0.05) {
-			Robot.lifterSystem.lift(-OI.altAxis(RobotMap.altYAxis));
-		} else if (!RobotMap.override) {
-			Robot.lifterSystem.lift(-OI.mainAxis(RobotMap.leftTrigger)
-					+ OI.mainAxis(RobotMap.rightTrigger));
-		} else {
-			Robot.lifterSystem.lift(0);
-		}
-
+		RobotMap.dislodge = arg;
 	}
- 
+
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	// Called once after isFinished returns true

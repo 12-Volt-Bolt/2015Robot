@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1557.robot;
 
+import org.usfirst.frc.team1557.robot.commands.EngageDislodgeCommand;
 import org.usfirst.frc.team1557.robot.commands.OverrideSetClampCommand;
 import org.usfirst.frc.team1557.robot.commands.OverrideToggleLockCommand;
 import org.usfirst.frc.team1557.robot.commands.SetLockCommand;
@@ -29,6 +30,7 @@ public class OI {
 	Button clampButton = new JoystickButton(altJoy, RobotMap.altClampButton);
 	Button lockButton = new JoystickButton(altJoy, RobotMap.lockButton);
 	Button stackButton = new JoystickButton(altJoy, RobotMap.stackButton);
+	Button dislodgeButton = new JoystickButton(altJoy,RobotMap.altDislodgeButton);
 
 	// Joystick = Drive
 	// Triggers = Elevator
@@ -66,10 +68,12 @@ public class OI {
 		mainLeftSpeedButton.whenPressed(new ShiftDownCommand());
 		//mainRightSpeedButton.whenPressed(new OverrideSetClampCommand(true));
 		//mainLeftSpeedButton.whenPressed(new OverrideSetClampCommand(false));
-
+		dislodgeButton.whenPressed(new EngageDislodgeCommand(true));
+		dislodgeButton.whenReleased(new EngageDislodgeCommand(false));
 		clampButton.whenPressed(new ToggleClampCommand());
 		lockButton.whenPressed(new ToggleLockCommand());
 		yButton.whenPressed(new OverrideToggleLockCommand());
+		
 		//stackButton.whenPressed(new StackCommandGroup());
 	}
 	//Jacob(s) + NaCl(s) --> 
