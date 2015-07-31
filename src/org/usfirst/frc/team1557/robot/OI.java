@@ -22,11 +22,11 @@ public class OI {
 
 	public static Joystick mainJoy = new Joystick(0);
 	public static Joystick altJoy = new Joystick(1);
-	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
-	Button mainRightSpeedButton = new JoystickButton(mainJoy,
-			RobotMap.rightBumper);
-	Button mainLeftSpeedButton = new JoystickButton(mainJoy,
-			RobotMap.leftBumper);
+//	Button yButton = new JoystickButton(mainJoy, RobotMap.yButton);
+//	Button mainRightSpeedButton = new JoystickButton(mainJoy,
+//			RobotMap.rightBumper);
+//	Button mainLeftSpeedButton = new JoystickButton(mainJoy,
+//			RobotMap.leftBumper);
 	Button clampButton = new JoystickButton(altJoy, RobotMap.altClampButton);
 	Button lockButton = new JoystickButton(altJoy, RobotMap.lockButton);
 	Button stackButton = new JoystickButton(altJoy, RobotMap.stackButton);
@@ -64,15 +64,15 @@ public class OI {
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	public void initialize() {
-		mainRightSpeedButton.whenPressed(new ShiftUpCommand());
-		mainLeftSpeedButton.whenPressed(new ShiftDownCommand());
+//		mainRightSpeedButton.whenPressed(new ShiftUpCommand());
+//		mainLeftSpeedButton.whenPressed(new ShiftDownCommand());
 		//mainRightSpeedButton.whenPressed(new OverrideSetClampCommand(true));
 		//mainLeftSpeedButton.whenPressed(new OverrideSetClampCommand(false));
 		dislodgeButton.whenPressed(new EngageDislodgeCommand(true));
 		dislodgeButton.whenReleased(new EngageDislodgeCommand(false));
 		clampButton.whenPressed(new ToggleClampCommand());
 		lockButton.whenPressed(new ToggleLockCommand());
-		yButton.whenPressed(new OverrideToggleLockCommand());
+//		yButton.whenPressed(new OverrideToggleLockCommand());
 		
 		//stackButton.whenPressed(new StackCommandGroup());
 	}

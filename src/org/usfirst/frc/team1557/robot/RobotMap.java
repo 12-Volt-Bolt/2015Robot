@@ -12,16 +12,17 @@ public class RobotMap {
 	// Joystick Axis IDs
 	public static int leftXAxis = 0;
 	public static int leftYAxis = 1;
+	public static int leftZAxis = 3;
 	public static int leftTrigger = 2;
 	public static int rightTrigger = 3;
 	public static int rightXAxis = 4;
 	public static int rightYAxis = 5;
 	// Joystick Buttons
-	public static int yButton = 4;
-	public static int aButton = 1;
-	public static int bButton = 2;
-	public static int leftBumper = 5;
-	public static int rightBumper = 6;
+//	public static int yButton = 4;
+//	public static int aButton = 1;
+//	public static int bButton = 2;
+//	public static int leftBumper = 5;
+//	public static int rightBumper = 6;
 	// Alt Joystick Buttons
 	public static int lockButton = 2;
 	public static int altClampButton = 1;
