@@ -92,8 +92,8 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.5);
 			addSequential(new AutoSetClamp(false));
 			addSequential(new AutoLockCommand(false));
-			break; 
-	
+			break;
+
 		case LEFT_BOTH_NO_DROP:
 			addSequential(new AutoLockCommand(false));
 			getBin(0.25);
@@ -123,7 +123,8 @@ public class FancyAutoGroup extends CommandGroup {
 		case RIGHT_BOTH:
 			// DO NOT CHANGE
 			addSequential(new AutoLockCommand(false));
-			
+			addSequential(new AutoLifterCommand(0.5, 0.42));
+			shmancyWait(0.1);
 			getBin(0.25);
 			shmancyWait(0.25);
 			driveBinToTote();
@@ -134,7 +135,6 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.5);
 			addSequential(new AutoLifterCommand(1, 1));
 			shmancyWait(0.2);
-			addSequential(new AutoLockCommand(true));
 			shmancyWait(0.25);
 			turn(false);
 			shmancyWait(0.25);
@@ -145,7 +145,7 @@ public class FancyAutoGroup extends CommandGroup {
 			addSequential(new AutoSetClamp(false));
 			addSequential(new AutoLockCommand(false));
 			break;
-			
+
 		case RIGHT_BOTH_NO_DROP:
 			// DO NOT CHANGE
 			addSequential(new AutoLockCommand(false));
@@ -170,29 +170,54 @@ public class FancyAutoGroup extends CommandGroup {
 			break;
 		case RIGHT_TRIFORCE:
 			// RIP
-			// 
+			//
 			addSequential(new AutoLockCommand(false));
 			getToteStrafe();
-			//First Tote Acquired
+			// First Tote Acquired
 			ToToTo(true);
 			strafeAway(false);
 			addSequential(new AutoSetClamp(false));
 			addSequential(new AutoLiftLimitDown());
 			getToteStrafe();
-			
-			//Second Tote Acquired
-			
+
+			// Second Tote Acquired
+
 			ToToTo(true);
 			strafeAway(false);
 			addSequential(new AutoSetClamp(false));
 			addSequential(new AutoLiftLimitDown());
 			getToteStrafe();
 			addSequential(new AutoLockCommand(true));
-			//Third Tote Acquired
+			// Third Tote Acquired
 			addSequential(new AutoMecanumTime(1, 0, 0, 0.5));
 			addSequential(new AutoSetClamp(false));
-			
+
 			break;
+		case RIGHT_BOTH_UNSTACK:
+			addSequential(new AutoLockCommand(false));
+			addSequential(new AutoLifterCommand(0.5, 0.42));
+			shmancyWait(0.1);
+			getBin(0.25);
+			shmancyWait(0.25);
+			driveBinToTote();
+			shmancyWait(0.25);
+			releaseAndLower(0.2);
+			shmancyWait(0.25);
+			addSequential(new AutoSetClamp(true));
+			shmancyWait(0.5);
+			addSequential(new AutoLifterCommand(1, 1));
+			shmancyWait(0.2);
+			addSequential(new AutoLockCommand(true));
+			shmancyWait(0.25);
+			turn(false);
+			shmancyWait(0.25);
+			driveOverBump();
+			shmancyWait(0.5);
+			addSequential(new AutoLiftLimitDown());
+			shmancyWait(0.5);
+			addSequential(new AutoSetClamp(false));
+			addSequential(new AutoLockCommand(false));
+
 		default:
 			break;
 
@@ -208,15 +233,23 @@ public class FancyAutoGroup extends CommandGroup {
 		addSequential(new WaitCommand(time));
 		addSequential(new AutoLifterCommand(0.7, 0.8));
 	}
-	private void getToteStrafe(){
+
+	private void getToteStrafe() {
 		addSequential(new AutoSetClamp(true));
 		addSequential(new WaitCommand(0.1));
 		addParallel(new AutoLifterCommand(0.7, 0.8));
 		strafeAway(true);
-		
+
 	}
 	/**
-	 * Releases the clamp while also lowering the arm into load position.
+	 *  Moves up then 
+	 * @param time
+	 */
+	private void reverseGetBin(double time) {
+	}
+
+	/**
+	 * } Releases the clamp while also lowering the arm into load position.
 	 */
 	private void releaseAndLower(double time) {
 		addSequential(new AutoSetClamp(false));

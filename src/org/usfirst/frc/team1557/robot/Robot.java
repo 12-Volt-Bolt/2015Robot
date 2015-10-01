@@ -91,15 +91,12 @@ public class Robot extends IterativeRobot {
 			// TODO: Make Descriptions for all of the Autonomi.
 
 			autoChooser.addDefault("Right-Both ", AutonomousPlans.RIGHT_BOTH);
-			autoChooser.addObject("Right-Both-No-Drop",
-					AutonomousPlans.RIGHT_BOTH_NO_DROP);
-			autoChooser.addObject("Left-Both", AutonomousPlans.LEFT_BOTH);
-			autoChooser.addObject("Center-Both", AutonomousPlans.CENTER_BOTH);
-			autoChooser.addObject("Just Drive",
-					AutonomousPlans.BUMPLESS_DRIVE_ONLY);
+		
+			autoChooser.addObject("Do Nothing", AutonomousPlans.NO_OP);
 			// autoChooser.addObject("Center-Left Totes",
 			// AutonomousPlans.CENTER_LEFT_TOTE);
-			SmartDashboard.putData("Auto Chooser", autoChooser);
+			SmartDashboard.putData("Auto Chooser", 
+					autoChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
@@ -172,7 +169,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//REMOVED THE OVERRIDE: THE ALTJOY ALWAYS HAS CONTROL
+		// REMOVED THE OVERRIDE: THE ALTJOY ALWAYS HAS CONTROL
 		if (OI.altJoy.getRawButton(overrideButton) && !orState) {
 			orState = true;
 			override = !override;
@@ -180,8 +177,7 @@ public class Robot extends IterativeRobot {
 			orState = false;
 		}
 
-		if (OI.altAxis(RobotMap.altYAxis) > .13
-				|| OI.mainAxis(RobotMap.rightTrigger) > 0.13) {
+		if (OI.altAxis(RobotMap.altYAxis) > .5) {
 			new SetLockCommand(false).start();
 		}
 	}

@@ -55,7 +55,7 @@ public class LifterSubsystem extends Subsystem {
 		}
 
 		if (speed >= -0.1 && speed <= 0.1) {
-			lifter.set(-0.10);
+			lifter.set(-0.15);
 		} else {
 			lifter.set(speed);
 		}
