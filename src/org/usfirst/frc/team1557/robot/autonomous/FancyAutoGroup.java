@@ -133,7 +133,7 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.25);
 			addSequential(new AutoSetClamp(true));
 			shmancyWait(0.5);
-			addSequential(new AutoLifterCommand(1, 1));
+			addSequential(new AutoLifterCommand(1, 1.15));
 			shmancyWait(0.2);
 			shmancyWait(0.25);
 			turn(false);
