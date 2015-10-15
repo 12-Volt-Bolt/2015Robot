@@ -217,7 +217,20 @@ public class FancyAutoGroup extends CommandGroup {
 			shmancyWait(0.5);
 			addSequential(new AutoSetClamp(false));
 			addSequential(new AutoLockCommand(false));
-
+			/**
+			 * Stacks and doesn't move
+			 */
+		case STACK_NO_MOVE:
+			addSequential(new AutoLockCommand(false));
+			addSequential(new AutoLifterCommand(0.5, 0.42));
+			shmancyWait(0.1);
+			getBin(0.25);
+			shmancyWait(0.25);
+			driveBinToTote();
+			shmancyWait(0.25);
+			releaseAndLower(0.2);			
+			addSequential(new AutoSetClamp(false));
+			addSequential(new AutoLockCommand(false));
 		default:
 			break;
 
@@ -233,7 +246,7 @@ public class FancyAutoGroup extends CommandGroup {
 		addSequential(new WaitCommand(time));
 		addSequential(new AutoLifterCommand(0.7, 0.8));
 	}
-
+	//BEN WAS HERE
 	private void getToteStrafe() {
 		addSequential(new AutoSetClamp(true));
 		addSequential(new WaitCommand(0.1));
@@ -301,9 +314,9 @@ public class FancyAutoGroup extends CommandGroup {
 	private void driveBinToTote() {
 		addSequential(new AutoMecanumTime(0, -0.45, 0, 0.5));
 	}
-
+	//Changed Time 2.35 -> 2.75
 	private void driveOverBump() {
-		addSequential(new AutoMecanumTime(0, -0.41, 0, 2.35));
+		addSequential(new AutoMecanumTime(0, -0.41, 0, 2.75));
 	}
 
 	private void shmancyWait(double time) {

@@ -61,9 +61,7 @@ public class LifterSubsystem extends Subsystem {
 		}
 
 		SmartDashboard.putNumber("Lifter Speed", speed);
-		SmartDashboard.putNumber("Lifter Motor Throttle", getThrottle());
-		SmartDashboard.putNumber("Lifter Motor Current", getCurrent());
-		SmartDashboard.putNumber("Lifter Motor Voltage", getVoltage());
+	
 	}
 
 	/**

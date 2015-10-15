@@ -93,6 +93,7 @@ public class Robot extends IterativeRobot {
 			autoChooser.addDefault("Right-Both ", AutonomousPlans.RIGHT_BOTH);
 		
 			autoChooser.addObject("Do Nothing", AutonomousPlans.NO_OP);
+			autoChooser.addObject("Stack-No Move", AutonomousPlans.STACK_NO_MOVE);
 			// autoChooser.addObject("Center-Left Totes",
 			// AutonomousPlans.CENTER_LEFT_TOTE);
 			SmartDashboard.putData("Auto Chooser", 

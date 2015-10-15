@@ -30,7 +30,7 @@ public enum AutonomousPlans {
 	 */
 	LEFT_BOTH,
 	/**
-	 *  icks up both Left objects does not drop
+	 * icks up both Left objects does not drop
 	 */
 	LEFT_BOTH_NO_DROP,
 	/*
@@ -68,11 +68,11 @@ public enum AutonomousPlans {
 	 */
 	RIGHT_TRIFORCE,
 	/**
-	 * Not for competition. 
+	 * Not for competition.
 	 */
 	DANCE_MODE,
-	
-	
-	RIGHT_BOTH_UNSTACK
+
+	RIGHT_BOTH_UNSTACK, 
+	STACK_NO_MOVE
 
 }
