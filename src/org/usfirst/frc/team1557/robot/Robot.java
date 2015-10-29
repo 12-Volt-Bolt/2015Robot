@@ -82,22 +82,22 @@ public class Robot extends IterativeRobot {
 			// TODO: fang options
 			driveChooser = new SendableChooser();
 
-			driveChooser.addDefault("Magical Mecanum",
-					new MecanumDriveCommand());
-			driveChooser.addObject("Tedious Tank", new TankDriveCommand());
+			driveChooser
+					.addObject("Magical Mecanum", new MecanumDriveCommand());
+			driveChooser.addDefault("Tedious Tank", new TankDriveCommand());
 			autoChooser = new SendableChooser();
 			SmartDashboard.putData("DriveChooser", driveChooser);
-
+			
 			// TODO: Make Descriptions for all of the Autonomi.
 
 			autoChooser.addDefault("Right-Both ", AutonomousPlans.RIGHT_BOTH);
-		
+
 			autoChooser.addObject("Do Nothing", AutonomousPlans.NO_OP);
-			autoChooser.addObject("Stack-No Move", AutonomousPlans.STACK_NO_MOVE);
+			autoChooser.addObject("Stack-No Move",
+					AutonomousPlans.STACK_NO_MOVE);
 			// autoChooser.addObject("Center-Left Totes",
 			// AutonomousPlans.CENTER_LEFT_TOTE);
-			SmartDashboard.putData("Auto Chooser", 
-					autoChooser);
+			SmartDashboard.putData("Auto Chooser", autoChooser);
 			SmartDashboard.putNumber(RobotMap.lifterKey, 1);
 			SmartDashboard.putData(Scheduler.getInstance());
 			SmartDashboard.putData(driveSystem);
